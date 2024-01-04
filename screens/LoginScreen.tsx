@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Button from '../components/Button';
 import ImageLogo from '../components/ImageLogo';
+import InputField from '../components/InputField';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useFonts, PTSans_400Regular, PTSans_700Bold } from '@expo-google-fonts/pt-sans';
 import AppLoading from 'expo-app-loading';
@@ -38,21 +39,19 @@ const LoginScreen = () => {
         <Text style={styles.scanner}>scanner!</Text>
       </Text>
       <Text style={styles.subtitle}>Please use your club username provided by the SLO.</Text>
-      <TextInput
+      <InputField
         placeholder='Username'
         placeholderTextColor='#AAAAAA'
-        className="border-b-[1px] border-gray w-full mt-5"
         value={username}
-        onChangeText={text => setUsername(text)}
+        onChangeText={setUsername}
         style={styles.input}
       />
-      <TextInput
+      <InputField
         placeholder='Password'
         placeholderTextColor='#AAAAAA'
         value={password}
-        onChangeText={text => setPassword(text)}
+        onChangeText={setPassword}
         secureTextEntry
-        className="border-b-[1px] border-gray w-full mt-5"
         style={styles.input}
       />
       <Button onPress={handlePress} title="→" style={styles.button} textStyle={styles.buttonText} />
