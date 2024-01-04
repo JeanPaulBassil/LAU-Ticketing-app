@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from '../components/Button';
+import ImageLogo from '../components/ImageLogo';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useFonts, PTSans_400Regular, PTSans_700Bold } from '@expo-google-fonts/pt-sans';
 import AppLoading from 'expo-app-loading';
@@ -31,10 +32,7 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Image 
-        source={require('../assets/lauLogo.png')}
-        style={styles.logo}
-      />
+      <ImageLogo/>
       <Text style={styles.title}>
         Welcome to LAU {'\n'}Barcode{' '}
         <Text style={styles.scanner}>scanner!</Text>
@@ -74,11 +72,6 @@ const styles = StyleSheet.create({
     paddingTop: '20%', 
     fontFamily: 'PTSans_400Regular',
   },
-  logo: {
-    resizeMode: 'contain',
-    width: '75%',
-    marginTop: 20,
-  },
   title: {
     marginTop: 16,
     fontSize: 26,
@@ -98,20 +91,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     paddingBottom: 15,
   },
-  button: {
-    marginTop: 40,
-    backgroundColor: 'green',
-    height: 60,
-    width: 60,
-    borderRadius: 60,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 21,
-  }
 });
 
 export default LoginScreen;
