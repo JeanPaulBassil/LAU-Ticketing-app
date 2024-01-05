@@ -26,4 +26,7 @@ export default StyleSheet.create({
     marginBottom: 40,
     paddingBottom: 15,
   },
+  buttonDisabled: {
+    opacity: 0.3,
+  }
 });

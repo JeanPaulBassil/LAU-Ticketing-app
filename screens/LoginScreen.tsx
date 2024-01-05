@@ -1,3 +1,4 @@
+import { ActivityIndicator } from 'react-native-paper';
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { View, Text } from 'react-native';
@@ -12,6 +13,7 @@ import loginSchema from '../validation/LoginValidation';
 import apiService from '../services/apiServices';
 
 const LoginScreen = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +26,7 @@ const LoginScreen = () => {
 
   const handlePress = async () => {
     try {
+      setLoading(true);
       await loginSchema.validate({ username, password });
       await apiService.login({ name: username, password});
       setError(null);
@@ -37,6 +40,8 @@ const LoginScreen = () => {
         setError('An unexpected error occurred');
         console.error(error);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,7 +71,14 @@ const LoginScreen = () => {
       />
       {error && <HelperText type="error" visible={!!error}>{error}</HelperText>}
       
-      <Button onPress={handlePress} title="→"/>
+      <Button 
+        onPress={handlePress} 
+        title={loading ? '' : "→"}
+        disabled={loading}
+        style={loading ? styles.buttonDisabled : null}
+      >
+        {loading && <ActivityIndicator size='small' color='#FFF' />}
+      </Button>
     </View>
   );
 };

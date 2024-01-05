@@ -6,12 +6,18 @@ type ButtonProps = {
     title: string;
     style?: object;
     textStyle?:object;
+    disabled?: boolean;
+    children?: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ onPress, title, style, textStyle }) => {
+const Button: React.FC<ButtonProps> = ({ onPress, title, style, textStyle, disabled, children }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
-            <Text style={[styles.text, textStyle]}>{title}</Text>
+        <TouchableOpacity 
+            onPress={onPress} 
+            style={[styles.button, style, disabled && styles.buttonDisabled]}
+            disabled={disabled}
+        >
+            {children ? children : <Text style={[styles.text, textStyle]}>{title}</Text>}
         </TouchableOpacity>
     )
 }
@@ -29,7 +35,8 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontSize: 21,
-    }
+    },
+    
 })
 
 export default Button;
