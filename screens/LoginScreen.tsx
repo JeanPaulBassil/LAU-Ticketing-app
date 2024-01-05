@@ -27,6 +27,7 @@ const LoginScreen = () => {
       await loginSchema.validate({ username, password });
       const response = await apiService.login({ username, password});
       console.log(`Login successful: ${response.message}`);
+      console.log("nfekho")
       setError(null);
     } catch (error) {
       if (error instanceof yup.ValidationError) {
