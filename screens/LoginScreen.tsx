@@ -25,9 +25,7 @@ const LoginScreen = () => {
   const handlePress = async () => {
     try {
       await loginSchema.validate({ username, password });
-      const response = await apiService.login({ username, password});
-      console.log(`Login successful: ${response.message}`);
-      console.log("nfekho")
+      await apiService.login({ name: username, password});
       setError(null);
     } catch (error) {
       if (error instanceof yup.ValidationError) {
