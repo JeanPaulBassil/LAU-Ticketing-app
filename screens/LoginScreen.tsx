@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import * as yup from 'yup';
 import { View, Text } from 'react-native';
+import { HelperText } from 'react-native-paper';
 import Button from '../components/Button';
 import ImageLogo from '../components/ImageLogo';
 import InputField from '../components/InputField';
 import useFontLoader from '../hooks/useFontLoader';
 import AppLoading from 'expo-app-loading';
 import styles from '../components/styles/LoginScreenStyles';
+import loginSchema from '../validation/LoginValidation';
+import apiService from '../services/apiServices';
 
 const LoginScreen = () => {
-  const [username, setUsername] = React.useState<string>('');
-  const [password, setPassword] = React.useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
   const fontsLoaded = useFontLoader();
 
@@ -17,8 +22,23 @@ const LoginScreen = () => {
     return <AppLoading />;
   }
 
-  const handlePress = () => {
-    console.log('Button pressed with username:', username, 'and password:', password);
+  const handlePress = async () => {
+    try {
+      await loginSchema.validate({ username, password });
+      const response = await apiService.login({ username, password});
+      console.log(`Login successful: ${response.message}`);
+      setError(null);
+    } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        setError(error.message);
+      } else if(error instanceof Error){
+        setError(error.message);
+      }
+      else {
+        setError('An unexpected error occurred');
+        console.error(error);
+      }
+    }
   };
 
   return (
@@ -29,6 +49,7 @@ const LoginScreen = () => {
         <Text style={styles.scanner}>scanner!</Text>
       </Text>
       <Text style={styles.subtitle}>Please use your club username provided by the SLO.</Text>
+      
       <InputField
         placeholder='Username'
         placeholderTextColor='#AAAAAA'
@@ -44,6 +65,8 @@ const LoginScreen = () => {
         secureTextEntry
         style={styles.input}
       />
+      {error && <HelperText type="error" visible={!!error}>{error}</HelperText>}
+      
       <Button onPress={handlePress} title="→"/>
     </View>
   );
