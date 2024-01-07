@@ -1,5 +1,6 @@
 import { ActivityIndicator } from 'react-native-paper';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import * as yup from 'yup';
 import { View, Text } from 'react-native';
 import { HelperText } from 'react-native-paper';
@@ -12,7 +13,7 @@ import styles from '../components/styles/LoginScreenStyles';
 import loginSchema from '../validation/LoginValidation';
 import apiService from '../services/apiServices';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -30,6 +31,7 @@ const LoginScreen = () => {
       await loginSchema.validate({ username, password });
       await apiService.login({ name: username, password});
       setError(null);
+      navigation.navigate('Home');
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         setError(error.message);
@@ -75,7 +77,7 @@ const LoginScreen = () => {
         onPress={handlePress} 
         title={loading ? '' : "→"}
         disabled={loading}
-        style={loading ? styles.buttonDisabled : null}
+        style={loading ? styles.buttonDisabled : undefined}
       >
         {loading && <ActivityIndicator size='small' color='#FFF' />}
       </Button>

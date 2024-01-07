@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({ onPress, title, style, textStyle, disab
     return (
         <TouchableOpacity 
             onPress={onPress} 
-            style={[styles.button, style, disabled && styles.buttonDisabled]}
+            style={[styles.button, style]}
             disabled={disabled}
         >
             {children ? children : <Text style={[styles.text, textStyle]}>{title}</Text>}
