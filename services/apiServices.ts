@@ -1,5 +1,5 @@
 import axios from '../utils/axios';
-import AXIOS, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { LoginData, LoginResponse, EventsResponse } from '../interfaces/index.interface';
 
 
