@@ -32,9 +32,7 @@ interface Event {
 const apiService = {
     login: async (data: LoginData) => {
         try {
-            const response: AxiosResponse<LoginResponse | any> = await axios.post<LoginResponse>('/auth/login', data, {
-                withCredentials: true
-            });
+            const response: AxiosResponse<LoginResponse | any> = await axios.post<LoginResponse>('/auth/login', data);
             
             return response.data;
         } catch (error) {
@@ -43,9 +41,7 @@ const apiService = {
     },
     getEvents: async () => {
         try {
-            const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events', {
-                withCredentials: true
-            });
+            const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events');
             return response.data;
         } catch (error) {
             checkError(error);
