@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({ onPress, title, style, textStyle, disab
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: 'green',
+        backgroundColor: '#005C4A',
         height: 60,
         width: 60,
         borderRadius: 30,

@@ -6071,10 +6071,10 @@ react-native-gesture-handler@^2.14.0, "react-native-gesture-handler@>= 1.0.0":
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-react-native-paper@^5.11.4:
-  version "5.11.4"
-  resolved "https://registry.npmjs.org/react-native-paper/-/react-native-paper-5.11.4.tgz"
-  integrity sha512-pi48Qp1KLsU1dtnup3NsbZmpp9RrPGZIMeTK0o6KukK1YdBcmBQyMb1/sYHt1dE4pccXLQXbSVZjzNZfmxUGyQ==
+react-native-paper@^5.11.6:
+  version "5.11.6"
+  resolved "https://registry.npmjs.org/react-native-paper/-/react-native-paper-5.11.6.tgz"
+  integrity sha512-+WpBC1aYQ3SMolnOZAdJGoMFWgKoiBym+s8251QyT+ZbBIWd/NYJPoA4wmjGPeUc1vcnJKV7+Uy42T2zp2ts6Q==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.9"
     color "^3.1.2"

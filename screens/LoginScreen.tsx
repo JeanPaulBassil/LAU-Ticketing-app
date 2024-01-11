@@ -7,8 +7,7 @@ import { HelperText } from 'react-native-paper';
 import Button from '../components/Button';
 import ImageLogo from '../components/ImageLogo';
 import InputField from '../components/InputField';
-import useFontLoader from '../hooks/useFontLoader';
-import AppLoading from 'expo-app-loading';
+
 import styles from '../components/styles/LoginScreenStyles';
 import loginSchema from '../validation/LoginValidation';
 import apiService from '../services/apiServices';
@@ -19,11 +18,8 @@ const LoginScreen = ({ navigation }: any) => {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  const fontsLoaded = useFontLoader();
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+  
 
   const handlePress = async () => {
     try {
