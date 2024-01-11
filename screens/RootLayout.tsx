@@ -1,18 +1,43 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
-import useFontLoader from "../hooks/useFontLoader";
-import AppLoading from "expo-app-loading";
+import getFonts from "../utils/getFonts";
+import * as SplashScreen from "expo-splash-screen";
+
+
+SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
 
 const RootLayout = () => {
-  const fontsLoaded = useFontLoader();
+  const [ready, setReady] = useState<boolean>(false);
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+  useEffect(() => {
+    const prepareResources = async () => {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        // Load fonts, make API calls and do other things
+        await getFonts();
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setReady(true);
+      }
+    };
+    prepareResources();
+  });
+
+  useEffect(() => {
+    const hideSplash = async () => {
+      await SplashScreen.hideAsync();
+    }
+    if (ready) {
+      hideSplash();
+    }
+  },[ready]);
+
+
   return (
     <Stack.Navigator
       screenOptions={{
