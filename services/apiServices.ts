@@ -1,5 +1,6 @@
-import config from '../config';
-import axios, { AxiosResponse } from 'axios';
+import axios from '../utils/axios';
+import AXIOS, { AxiosResponse } from 'axios';
+
 
 interface LoginData {
     name: string;
@@ -27,13 +28,11 @@ interface Event {
     __v: number;
   }
 
-const loginBaseURL: string = `${config.backendUrl}/auth/login`;
-const eventsBaseURL: string = `${config.backendUrl}/events`;
 
 const apiService = {
     login: async (data: LoginData) => {
         try {
-            const response: AxiosResponse<LoginResponse | any> = await axios.post<LoginResponse>(loginBaseURL, data, {
+            const response: AxiosResponse<LoginResponse | any> = await axios.post<LoginResponse>('/auth/login', data, {
                 withCredentials: true
             });
             
@@ -44,7 +43,7 @@ const apiService = {
     },
     getEvents: async () => {
         try {
-            const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>(eventsBaseURL, {
+            const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events', {
                 withCredentials: true
             });
             return response.data;
@@ -55,7 +54,7 @@ const apiService = {
 }
 
 const checkError = (error: any) => {
-    if(axios.isAxiosError(error)) {
+    if(AXIOS.isAxiosError(error)) {
         console.log(error.message)
         if(error.response) 
             throw new Error(error.response.data.message) || 'An error occurred';
