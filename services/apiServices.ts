@@ -1,32 +1,6 @@
 import axios from '../utils/axios';
 import AXIOS, { AxiosResponse } from 'axios';
-
-
-interface LoginData {
-    name: string;
-    password: string;
-}
-
-interface LoginResponse {
-    message: string;
-    statusCode: number;
-}
-
-interface EventsResponse {
-    events: Event[];
-}
-
-interface Event {
-    attendees: any[];
-    _id: string;
-    name: string;
-    description: string;
-    scan_type: string;
-    start_date: string;
-    end_date: string;
-    clubs: string[];
-    __v: number;
-  }
+import { LoginData, LoginResponse, Event, EventsResponse } from '../interfaces/index.interface';
 
 
 const apiService = {
