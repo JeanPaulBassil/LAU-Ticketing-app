@@ -20,7 +20,7 @@ interface Event {
     end_date: string;
     clubs: string[];
     __v: number;
-  }
+}
 
 const HomeScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -52,7 +52,7 @@ const HomeScreen = () => {
             <View style={styles.header}>
                 <Text style={styles.headerText}>Events</Text>
                 <Button
-                  onPress={() => console.log('Add Event')}
+                  onPress={() => apiService.getEvents()}
                   title="Add Event"
                   style={styles.addButton}
                   textStyle={styles.addButtonText}

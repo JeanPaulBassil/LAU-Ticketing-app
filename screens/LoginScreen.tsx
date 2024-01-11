@@ -1,5 +1,5 @@
 import { ActivityIndicator } from 'react-native-paper';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import * as yup from 'yup';
 import { View, Text } from 'react-native';
@@ -17,9 +17,6 @@ const LoginScreen = ({ navigation }: any) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-
-
-  
 
   const handlePress = async () => {
     try {
@@ -42,7 +39,9 @@ const LoginScreen = ({ navigation }: any) => {
       setLoading(false);
     }
   };
-
+  useEffect(() => {
+    
+  },[]) 
   return (
     <View style={styles.container}>
       <ImageLogo />

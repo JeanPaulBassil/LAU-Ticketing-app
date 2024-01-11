@@ -13,6 +13,7 @@ export const saveCookie = async (cookie: string): Promise<void> => {
 export const loadCookie = async (): Promise<string | null> => {
     try {
         const cookie: string | null = await AsyncStorage.getItem(COOKIE_KEY);
+        console.log(`loaded cookie : ${cookie}`);
         return cookie;
     } catch (error) {
         console.error("Error loading cookie.", error);

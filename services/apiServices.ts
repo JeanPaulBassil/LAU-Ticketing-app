@@ -1,6 +1,5 @@
 import config from '../config';
 import axios, { AxiosResponse } from 'axios';
-import { saveCookie, loadCookie } from './storageService';
 
 interface LoginData {
     name: string;
@@ -37,12 +36,6 @@ const apiService = {
             const response: AxiosResponse<LoginResponse | any> = await axios.post<LoginResponse>(loginBaseURL, data, {
                 withCredentials: true
             });
-
-            const cookieHeader: string[] | undefined = response.headers['set-cookie'];
-            if(cookieHeader) {
-                const cookieValue: string = cookieHeader[0].split(';')[0].split('=')[1];
-                await saveCookie(cookieValue);
-            }
             
             return response.data;
         } catch (error) {
@@ -51,16 +44,9 @@ const apiService = {
     },
     getEvents: async () => {
         try {
-            const cookie: string | null = await loadCookie();
-            const headers = cookie ? { Cookie: `connect.sid=${cookie}`} : {};
-            console.log(headers);
             const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>(eventsBaseURL, {
-                withCredentials: true,
-                headers: headers
+                withCredentials: true
             });
-            console.log("Here");
-
-
             return response.data;
         } catch (error) {
             checkError(error);

@@ -1,5 +1,7 @@
+import { BACKEND_URL } from "@env";
+
 const config = {
-    backendUrl: 'http://localhost:3000'
+    backendUrl: BACKEND_URL   
 }
 
 export default config;
