@@ -50,7 +50,7 @@ const LoginScreen = ({ navigation }: any) => {
   useEffect(() => {}, []);
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : null}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
       keyboardVerticalOffset={Platform.OS === "android" ? 75 : 0}
     >
