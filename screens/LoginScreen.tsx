@@ -1,33 +1,33 @@
+import { ActivityIndicator } from 'react-native-paper';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import * as yup from 'yup';
 import { View, Text } from 'react-native';
 import { HelperText } from 'react-native-paper';
 import Button from '../components/Button';
 import ImageLogo from '../components/ImageLogo';
 import InputField from '../components/InputField';
-import useFontLoader from '../hooks/useFontLoader';
-import AppLoading from 'expo-app-loading';
+
 import styles from '../components/styles/LoginScreenStyles';
 import loginSchema from '../validation/LoginValidation';
 import apiService from '../services/apiServices';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }: any) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  const fontsLoaded = useFontLoader();
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+  
 
   const handlePress = async () => {
     try {
+      setLoading(true);
       await loginSchema.validate({ username, password });
-      const response = await apiService.login({ username, password});
-      console.log(`Login successful: ${response.message}`);
+      await apiService.login({ name: username, password});
       setError(null);
+      navigation.navigate('Home');
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         setError(error.message);
@@ -38,6 +38,8 @@ const LoginScreen = () => {
         setError('An unexpected error occurred');
         console.error(error);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,7 +69,14 @@ const LoginScreen = () => {
       />
       {error && <HelperText type="error" visible={!!error}>{error}</HelperText>}
       
-      <Button onPress={handlePress} title="→"/>
+      <Button 
+        onPress={handlePress} 
+        title={loading ? '' : "→"}
+        disabled={loading}
+        style={loading ? styles.buttonDisabled : undefined}
+      >
+        {loading && <ActivityIndicator size='small' color='#FFF' />}
+      </Button>
     </View>
   );
 };
