@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "./LoginScreen";
-import HomeScreen from "./HomeScreen";
+import LoginScreen from "./Login";
+import HomeScreen from "./Home";
 import getFonts from "../utils/getFonts";
 import * as SplashScreen from "expo-splash-screen";
 
