@@ -20,20 +20,24 @@ import InputField from "../../components/InputField";
 import styles from "../../components/styles/LoginScreenStyles";
 import loginSchema from "../../validation/LoginValidation";
 import api from "../../services/api";
+import useAuth from "../../contexts/auth";
 
 const LoginScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const { login } = useAuth();
 
   const handlePress = async () => {
     try {
       setLoading(true);
       await loginSchema.validate({ name, password });
-      await api.login({ name, password });
+      const response = await api.login({ name, password });
+      const club = response.data;
+      login(club);
       setError(null);
-      navigation.navigate("Home");
+      // navigation.navigate("Home");
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         setError(error.message);

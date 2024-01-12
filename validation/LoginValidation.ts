@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const loginSchema = yup.object({
-  username: yup
+  name: yup
     .string()
     .required('Username is required')
     .min(3, 'Username must be at least 3 characters long'),

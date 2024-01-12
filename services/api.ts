@@ -5,13 +5,14 @@ import { LoginData, LoginResponse, EventsResponse, IClub } from '../interfaces/i
 
 const api = {
     login: async (data: LoginData) => {
-        const response: AxiosResponse<LoginResponse> = await axios.post<LoginResponse>('/auth/login', data);
+        const response: AxiosResponse<IClub> = await axios.post<IClub>('/auth/login', data);
+        console.log('login response', response);
+        console.log('login response data', response.data);
         return response;
     },
     getMe: async () => {
-        const response: AxiosResponse<IClub> = await axios.get<IClub>('/auth/me');
-        console.log('response: ', response);
-        return response.data;
+        const response: AxiosResponse<{club: IClub}> = await axios.get<{club: IClub}>('/auth/me');
+        return response.data.club;
     },
     getEvents: async () => {
         const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events');

@@ -4,7 +4,7 @@ import LoginScreen from "./authentication/Login";
 import HomeScreen from "./Home";
 import getFonts from "../utils/getFonts";
 import * as SplashScreen from "expo-splash-screen";
-import useAuth, { AuthProvider, AuthState } from "../contexts/auth";
+import useAuth from "../contexts/auth";
 
 SplashScreen.preventAutoHideAsync();
 
