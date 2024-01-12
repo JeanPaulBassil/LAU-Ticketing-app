@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, SafeAreaView, Text, View } from "react-native";
+import { Pressable, SafeAreaView, Text, View, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { CommonActions } from "@react-navigation/native";
@@ -9,18 +9,16 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
-import { StackNavigationProp, StackScreenProps } from "@react-navigation/stack";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import styles from "../../styles/authentication/code";
 
 const CELL_COUNT = 6;
+
 type RootStackParamList = {
-  Home: undefined; // No parameters expected
-  Details: { itemId: number; otherParam: string }; // Parameters expected
+  Home: undefined; 
 };
-
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
-
 type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
 };
@@ -43,6 +41,10 @@ const Code = ({ navigation }: HomeScreenProps) => {
           color="black"
           onPress={() => navigation.dispatch(CommonActions.goBack())}
         />
+        
+      </View>
+      <View style={styles.top_logo}>
+        <Image source={require('../../assets/lauLogo.png')} />
       </View>
       <View style={styles.top_container}>
         <Text style={styles.title}>Please Verify Your Account</Text>

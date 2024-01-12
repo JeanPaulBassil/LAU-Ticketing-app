@@ -5,6 +5,14 @@ export default StyleSheet.create({
     padding: 20, 
     minHeight: 300
   },
+  top_logo: {
+    maxWidth: '80%',
+    textAlign: 'center',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    marginBottom: 30,
+    marginTop: -15
+  },
   back_container : {
     display: 'flex',
     flexDirection: "row",
@@ -20,6 +28,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginRight: 'auto',
     marginLeft: 'auto',
+    marginBottom: 30
   },
   title: {
     fontSize: 25,
