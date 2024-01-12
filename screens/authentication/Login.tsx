@@ -19,7 +19,7 @@ import InputField from "../../components/InputField";
 
 import styles from "../../components/styles/LoginScreenStyles";
 import loginSchema from "../../validation/LoginValidation";
-import apiService from "../../services/apiServices";
+import api from "../../services/api";
 
 const LoginScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,7 +31,7 @@ const LoginScreen = ({ navigation }: any) => {
     try {
       setLoading(true);
       await loginSchema.validate({ name, password });
-      await apiService.login({ name, password });
+      await api.login({ name, password });
       setError(null);
       navigation.navigate("Home");
     } catch (error) {

@@ -1,17 +1,22 @@
 import axios from '../utils/axios';
 import { AxiosResponse } from 'axios';
-import { LoginData, LoginResponse, EventsResponse } from '../interfaces/index.interface';
+import { LoginData, LoginResponse, EventsResponse, IClub } from '../interfaces/index.interface';
 
 
-const apiService = {
+const api = {
     login: async (data: LoginData) => {
-        const response: AxiosResponse<LoginResponse | any> = await axios.post<LoginResponse>('/auth/login', data);
+        const response: AxiosResponse<LoginResponse> = await axios.post<LoginResponse>('/auth/login', data);
         return response;
+    },
+    getMe: async () => {
+        const response: AxiosResponse<IClub> = await axios.get<IClub>('/auth/me');
+        console.log('response: ', response);
+        return response.data;
     },
     getEvents: async () => {
         const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events');
         return response;
-    }
+    },
 }
 
 // const checkError = (error: any) => {
@@ -27,5 +32,5 @@ const apiService = {
 //     }
 // }
 
-export default apiService;
+export default api;
 

@@ -2,7 +2,7 @@ import Button from '../components/Button';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, FlatList, View, Text, TouchableOpacity, Modal, TextInput } from 'react-native';
 import styles from '../components/styles/HomeScreenStyles';
-import apiService from '../services/apiServices';
+import api from '../services/api';
 
 const eventsData = [
     { id: '1', name: 'Software Engineering' },
@@ -32,7 +32,7 @@ const HomeScreen = () => {
         const fetchEvents = async () => {
             setLoading(true);
             try {
-                const eventsResponse = await apiService.getEvents();
+                const eventsResponse = await api.getEvents();
                 if (eventsResponse && eventsResponse.events) {
                     setEvents(eventsResponse.events);
                 }
@@ -52,7 +52,7 @@ const HomeScreen = () => {
             <View style={styles.header}>
                 <Text style={styles.headerText}>Events</Text>
                 <Button
-                  onPress={() => apiService.getEvents()}
+                  onPress={() => api.getEvents()}
                   title="Add Event"
                   style={styles.addButton}
                   textStyle={styles.addButtonText}

@@ -1,5 +1,14 @@
-import React, { createContext, useContext, ReactNode, useState, useEffect, useMemo, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import { IClub } from "../interfaces/index.interface";
+import api from "../services/api";
 
 // Define the authentication state shape
 interface AuthState {
@@ -34,12 +43,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setClub(club);
   }, []);
 
+  const getCurrentClub = useCallback(async () => {
+    setLoading(true);
+    try {
+      const club: IClub = await api.getMe();
+      console.log("received me: ", club);
+      setClub(club);
+    } catch (err) {
+      console.log(err);
+      setClub(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getCurrentClub();
+  }, []);
 
   const memoizedValue = useMemo(
     () => ({
-      state: { 
+      state: {
         club,
-        loading 
+        loading,
       },
       login,
       logout,
