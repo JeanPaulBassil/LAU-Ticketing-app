@@ -7,7 +7,19 @@ export default StyleSheet.create({
     backgroundColor: '#EAF2EF',
     flex: 1
   },
-
+  submit_button_container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    padding: 20,
+    marginTop: 25,
+    maxWidth: '80%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  submit_button: {
+    width: '100%'
+  },
   top_logo: {
     maxWidth: '80%',
     textAlign: 'center',
@@ -31,7 +43,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginBottom: 30
+    marginBottom: 50
   },
   title: {
     fontSize: 25,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Pressable, SafeAreaView, Text, View, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import CustomButton from "../../components/Button";
 
 import { CommonActions } from "@react-navigation/native";
 import {
@@ -75,6 +76,11 @@ const Code = ({ navigation }: HomeScreenProps) => {
           </View>
         )}
       />
+      <View style={styles.submit_button_container}>
+        <CustomButton title='Continue' style={styles.submit_button}>
+        
+        </CustomButton>
+      </View>
     </SafeAreaView>
   );
 };
