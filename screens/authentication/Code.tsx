@@ -77,9 +77,7 @@ const Code = ({ navigation }: HomeScreenProps) => {
         )}
       />
       <View style={styles.submit_button_container}>
-        <CustomButton title='Continue' style={styles.submit_button}>
-        
-        </CustomButton>
+        <CustomButton onPress={() => {}} title='Continue' style={styles.submit_button} />
       </View>
     </SafeAreaView>
   );

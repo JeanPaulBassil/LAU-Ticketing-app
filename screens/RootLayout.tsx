@@ -6,6 +6,7 @@ import getFonts from "../utils/getFonts";
 import * as SplashScreen from "expo-splash-screen";
 import useAuth from "../contexts/auth";
 import CodeScreen from "./authentication/Code";
+import SetPasswordScreen from "./authentication/SetPassword";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -54,6 +55,7 @@ const RootLayout = () => {
           <Stack.Screen name="Home" component={HomeScreen} />
         </>
       )} */}
+      <Stack.Screen name="SetPassword" component={SetPasswordScreen} />
       <Stack.Screen name="Code" component={CodeScreen} />
     </Stack.Navigator>
   );
