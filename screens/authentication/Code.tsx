@@ -34,13 +34,15 @@ const Code = ({ navigation }: HomeScreenProps) => {
   return (
     <SafeAreaView style={styles.root}>
       <View style={styles.back_container}>
-        <Ionicons
+        <Ionicons.Button
           style={styles.back_button}
           name="arrow-back"
           size={33}
           color="black"
+          backgroundColor={'#EAF2EF'}
           onPress={() => navigation.dispatch(CommonActions.goBack())}
-        />
+          borderRadius={50}
+        ></Ionicons.Button>
         
       </View>
       <View style={styles.top_logo}>

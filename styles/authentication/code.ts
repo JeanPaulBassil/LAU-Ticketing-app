@@ -3,8 +3,11 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   root: {
     padding: 20, 
-    minHeight: 300
+    minHeight: 300,
+    backgroundColor: '#EAF2EF',
+    flex: 1
   },
+
   top_logo: {
     maxWidth: '80%',
     textAlign: 'center',
@@ -20,8 +23,8 @@ export default StyleSheet.create({
     padding: 20 
   },
   back_button : {
-    borderRadius: 100,
-
+    width: 50,
+    height: 50,
   },
   top_container: {
     maxWidth: '80%',
