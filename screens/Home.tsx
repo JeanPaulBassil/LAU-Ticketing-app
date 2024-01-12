@@ -3,38 +3,26 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, FlatList, View, Text, TouchableOpacity, Modal, TextInput } from 'react-native';
 import styles from '../components/styles/HomeScreenStyles';
 import api from '../services/api';
-
+import { IEvent } from '../interfaces/events.interface';
 const eventsData = [
     { id: '1', name: 'Software Engineering' },
     { id: '2', name: 'Computer Science' },
 ];
 
 
-interface Event {
-    attendees: any[];
-    _id: string;
-    name: string;
-    description: string;
-    scan_type: string;
-    start_date: string;
-    end_date: string;
-    clubs: string[];
-    __v: number;
-}
-
 const HomeScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [eventName, setEventName] = useState('');
-    const [events, setEvents] = useState<Event[]>([]);
+    const [events, setEvents] = useState<IEvent[]>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchEvents = async () => {
             setLoading(true);
             try {
-                const eventsResponse = await api.getEvents();
-                if (eventsResponse && eventsResponse.events) {
-                    setEvents(eventsResponse.events);
+                const response = await api.getEvents();
+                if (response.data.events) {
+                    setEvents(response.data.events);
                 }
             } catch (error) {
                 console.error(error);
@@ -52,7 +40,7 @@ const HomeScreen = () => {
             <View style={styles.header}>
                 <Text style={styles.headerText}>Events</Text>
                 <Button
-                  onPress={() => api.getEvents()}
+                  onPress={() => setModalVisible(true)}
                   title="Add Event"
                   style={styles.addButton}
                   textStyle={styles.addButtonText}

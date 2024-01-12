@@ -47,7 +47,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
       const club: IClub = await api.getMe();
-      console.log("received me: ", club);
       setClub(club);
     } catch (err) {
       console.log(err);

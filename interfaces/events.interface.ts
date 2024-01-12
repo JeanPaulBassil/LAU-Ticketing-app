@@ -1,5 +1,7 @@
+import { IClub } from "./clubs.interface";
+
 interface EventsResponse {
-    events: Event[];
+    events: IEvent[];
 }
 
 interface IEvent {

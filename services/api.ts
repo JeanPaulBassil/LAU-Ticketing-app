@@ -6,8 +6,6 @@ import { LoginData, LoginResponse, EventsResponse, IClub } from '../interfaces/i
 const api = {
     login: async (data: LoginData) => {
         const response: AxiosResponse<IClub> = await axios.post<IClub>('/auth/login', data);
-        console.log('login response', response);
-        console.log('login response data', response.data);
         return response;
     },
     getMe: async () => {
