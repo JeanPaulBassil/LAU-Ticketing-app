@@ -13,13 +13,13 @@ import {
   SafeAreaView
 } from "react-native";
 import { HelperText } from "react-native-paper";
-import Button from "../components/Button";
-import ImageLogo from "../components/ImageLogo";
-import InputField from "../components/InputField";
+import Button from "../../components/Button";
+import ImageLogo from "../../components/ImageLogo";
+import InputField from "../../components/InputField";
 
-import styles from "../components/styles/LoginScreenStyles";
-import loginSchema from "../validation/LoginValidation";
-import apiService from "../services/apiServices";
+import styles from "../../components/styles/LoginScreenStyles";
+import loginSchema from "../../validation/LoginValidation";
+import apiService from "../../services/apiServices";
 
 const LoginScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState<boolean>(false);

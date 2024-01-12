@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { PaperProvider } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import RootLayout from './screens/RootLayout';
+import { AuthProvider } from './contexts/auth';
 
 export default function App() {
   return (
@@ -13,7 +14,9 @@ export default function App() {
       <PaperProvider>
         <StatusBar style="auto" />
         <NavigationContainer>
-          <RootLayout />
+          <AuthProvider>
+            <RootLayout />
+          </AuthProvider>
         </NavigationContainer>
       </PaperProvider>
     </GestureHandlerRootView>
@@ -27,3 +30,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

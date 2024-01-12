@@ -2,7 +2,7 @@ interface EventsResponse {
     events: Event[];
 }
 
-interface Event {
+interface IEvent {
     attendees: any[];
     _id: string;
     name: string;
@@ -15,4 +15,4 @@ interface Event {
 }
 
 
-export { EventsResponse, Event };
+export { EventsResponse, IEvent };
