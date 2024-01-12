@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode, useState, useEffect } from "react";
+import React, { createContext, useContext, ReactNode, useState, useEffect, useMemo, useCallback } from "react";
 import { IClub } from "../interfaces/index.interface";
 
 // Define the authentication state shape
@@ -22,19 +22,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(false);
 
   // Add functions for login and logout
-  const login = (club: IClub) => {
+  const login = useCallback((club: IClub) => {
     setClub(club);
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setClub(null);
-  };
-  const register = (club: IClub) => {
-    setClub(club);
-  };
-  
+  }, []);
 
-  const memoizedValue = React.useMemo(
+  const register = useCallback((club: IClub) => {
+    setClub(club);
+  }, []);
+
+
+  const memoizedValue = useMemo(
     () => ({
       state: { 
         club,
