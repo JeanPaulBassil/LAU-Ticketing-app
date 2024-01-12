@@ -1,12 +1,14 @@
+// HomeScreen.tsx
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, TouchableOpacity, TextInput, Modal, FlatList, Pressable, Image } from 'react-native';
+import { SafeAreaView, View, Text, Modal, FlatList, TextInput } from 'react-native';
 import Button from '../components/Button';
+import EventItem from '../components/EventItem';
+import DatePickerButton from '../components/DatePickerButton';
+import { formatDate } from '../utils/date';
 import styles from '../components/styles/HomeScreenStyles';
 import api from '../services/api';
-import { IEvent } from '../interfaces/events.interface';
+import { IEvent, EventsResponse } from '../interfaces/events.interface';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import dayjs from 'dayjs';
-
 
 const HomeScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -18,16 +20,12 @@ const HomeScreen = () => {
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
 
-    const formatDate = (date) => dayjs(date).format('DD MMM YYYY hh:mm A');
-
     useEffect(() => {
         const fetchEvents = async () => {
             setLoading(true);
             try {
                 const response = await api.getEvents();
-                if (response.data.events) {
-                    setEvents(response.data.events);
-                }
+                setEvents(response.data.events);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -53,10 +51,10 @@ const HomeScreen = () => {
                 data={events}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity style={styles.eventitem}>
-                        <Text style={styles.eventName}>{item.name}</Text>
-                        <Text style={styles.arrowIcon}>→</Text>
-                    </TouchableOpacity>
+                    <EventItem 
+                      name={item.name} 
+                      onPress={() => {/* Handle event press */}} 
+                    />
                 )}
                 style={styles.eventsList}
             />
@@ -78,9 +76,12 @@ const HomeScreen = () => {
                             onChangeText={setEventName}
                         />
 
-                        <Pressable onPress={() => setShowStartDatePicker(true)} style={styles.dateInputButton}>
-                            <Text>{startDate ? `Start Date: ${formatDate(startDate)}` : 'Select Start Date'}</Text>
-                        </Pressable>
+                        <DatePickerButton 
+                          date={startDate} 
+                          onPress={() => setShowStartDatePicker(true)} 
+                          formatDate={formatDate} 
+                          label="Start Date"
+                        />
                         <DateTimePickerModal
                             isVisible={showStartDatePicker}
                             mode="datetime"
@@ -89,12 +90,15 @@ const HomeScreen = () => {
                                 setShowStartDatePicker(false);
                             }}
                             onCancel={() => setShowStartDatePicker(false)}
-                            textColor="black"
+                            textColor='black'
                         />
 
-                        <Pressable onPress={() => setShowEndDatePicker(true)} style={styles.dateInputButton}>
-                            <Text>{endDate ? `End Date: ${formatDate(endDate)}` : 'Select End Date'}</Text>
-                        </Pressable>
+                        <DatePickerButton 
+                          date={endDate} 
+                          onPress={() => setShowEndDatePicker(true)} 
+                          formatDate={formatDate} 
+                          label="End Date"
+                        />
                         <DateTimePickerModal
                             isVisible={showEndDatePicker}
                             mode="datetime"
@@ -107,8 +111,17 @@ const HomeScreen = () => {
                         />
 
                         <View style={styles.modalButtons}>
-                            <Button title='Cancel' style={styles.cancelButton} textStyle={styles.cancelButtonTextStyle} onPress={() => setModalVisible(false)} />
-                            <Button title='Add' style={styles.addEventButton} onPress={() => {/* Add event logic here */}} />
+                            <Button 
+                              title='Cancel' 
+                              style={styles.cancelButton} 
+                              textStyle={styles.cancelButtonTextStyle} 
+                              onPress={() => setModalVisible(false)} 
+                            />
+                            <Button 
+                              title='Add' 
+                              style={styles.addEventButton} 
+                              onPress={() => {/* Add event logic here */}} 
+                            />
                         </View>
                     </View>
                 </View>
