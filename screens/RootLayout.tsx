@@ -5,6 +5,7 @@ import HomeScreen from "./Home";
 import getFonts from "../utils/getFonts";
 import * as SplashScreen from "expo-splash-screen";
 import useAuth from "../contexts/auth";
+import CodeScreen from "./authentication/Code";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,7 +45,7 @@ const RootLayout = () => {
         headerShown: false,
       }}
     >
-      {state.club === null ? (
+      {/* {state.club === null ? (
         <>
           <Stack.Screen name="Login" component={LoginScreen} />
         </>
@@ -52,7 +53,8 @@ const RootLayout = () => {
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
         </>
-      )}
+      )} */}
+      <Stack.Screen name="Code" component={CodeScreen} />
     </Stack.Navigator>
   );
 };

@@ -4,6 +4,7 @@ import { SafeAreaView, FlatList, View, Text, TouchableOpacity, Modal, TextInput 
 import styles from '../components/styles/HomeScreenStyles';
 import api from '../services/api';
 import { IEvent } from '../interfaces/events.interface';
+
 const eventsData = [
     { id: '1', name: 'Software Engineering' },
     { id: '2', name: 'Computer Science' },
@@ -34,7 +35,6 @@ const HomeScreen = () => {
         fetchEvents();
     }, []);
 
-    
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
