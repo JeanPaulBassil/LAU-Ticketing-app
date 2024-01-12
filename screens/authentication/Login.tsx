@@ -1,6 +1,5 @@
 import { ActivityIndicator } from "react-native-paper";
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 
 import * as yup from "yup";
 import {
@@ -39,9 +38,7 @@ const LoginScreen = ({ navigation }: any) => {
       setError(null);
       // navigation.navigate("Home");
     } catch (error) {
-      if (error instanceof yup.ValidationError) {
-        setError(error.message);
-      } else if (error instanceof Error) {
+      if (error instanceof yup.ValidationError || error instanceof Error) {
         setError(error.message);
       } else {
         setError("An unexpected error occurred");

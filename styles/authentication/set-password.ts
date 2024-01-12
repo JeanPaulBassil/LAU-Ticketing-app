@@ -12,7 +12,6 @@ export default StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-end",
-   
   },
   inputs_container: {
     display: "flex",
