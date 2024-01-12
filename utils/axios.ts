@@ -9,7 +9,7 @@ const axiosInstance: AxiosInstance = axios.create({
 
 
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => response.data,
+  (response: AxiosResponse) => response,
   (error) => {
     if (error.response && error.response.status === 403) {
       // Handle session expiration here (e.g., show a notification to the user)

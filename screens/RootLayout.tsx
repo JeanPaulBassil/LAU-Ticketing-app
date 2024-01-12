@@ -41,7 +41,6 @@ const RootLayout = () => {
 
 
   return (
-    
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
