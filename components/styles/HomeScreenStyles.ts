@@ -4,7 +4,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        alignItems: 'center',
         backgroundColor: '#EAF2EF',
     },
     header: {
@@ -30,7 +29,6 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     eventitem: {
-        width: '80%',
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#FFF',
@@ -55,11 +53,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 22,
-        backgroundColor: 'black',
-        opacity: 0.6,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalView: {
-        height: '25%',
         width: '80%',
         margin: 20,
         backgroundColor: '#EAF2EF',
@@ -72,6 +68,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     modalText: {
+        marginLeft: 3,
         marginBottom: 20,
         fontSize: 18,
         color: '#121420',
@@ -79,12 +76,12 @@ const styles = StyleSheet.create({
     },
     modalInput: {
         marginBottom: 15,
-        paddingHorizontal: 15,
-        paddingVertical: 15,
+        padding: 12,
         borderWidth: 1,
         borderColor: '#AAAAAA',
         borderRadius: 10,
-        width: '100%'
+        width: '100%',
+        backgroundColor: '#F2F2F2',
     },
     modalButtons: {
         flexDirection: 'row',
@@ -109,6 +106,32 @@ const styles = StyleSheet.create({
         backgroundColor: '#005C07',
         marginLeft: 15,
     },
+    eventsList: {
+        width: '100%',
+        marginTop: 10,
+    }, 
+    datePickerContainer: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        backgroundColor: 'white',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: -2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    dateInputButton: {
+        marginBottom: 10,
+        padding: 12,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#AAAAAA',
+    },
+    
 });
 
 export default styles;
