@@ -4,8 +4,7 @@ import LoginScreen from "./authentication/Login";
 import HomeScreen from "./Home";
 import getFonts from "../utils/getFonts";
 import * as SplashScreen from "expo-splash-screen";
-import useAuth, { AuthProvider } from "../contexts/auth";
-
+import useAuth, { AuthProvider, AuthState } from "../contexts/auth";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,25 +32,29 @@ const RootLayout = () => {
   useEffect(() => {
     const hideSplash = async () => {
       await SplashScreen.hideAsync();
-    }
+    };
     if (ready && !state.loading) {
       hideSplash();
     }
-  },[ready, state.loading]);
-
+  }, [ready, state.loading]);
 
   return (
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      {state.club === null ? (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </>
+      )}
+    </Stack.Navigator>
   );
 };
 
 export default RootLayout;
-
-

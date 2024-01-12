@@ -11,7 +11,7 @@ import { IClub } from "../interfaces/index.interface";
 import api from "../services/api";
 
 // Define the authentication state shape
-interface AuthState {
+export interface AuthState {
   club: IClub | null;
   loading: boolean;
 }
