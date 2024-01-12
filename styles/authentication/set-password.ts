@@ -7,6 +7,13 @@ export default StyleSheet.create({
     backgroundColor: "#EAF2EF",
     flex: 1,
   },
+  container: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+   
+  },
   inputs_container: {
     display: "flex",
     flexDirection: "column",
