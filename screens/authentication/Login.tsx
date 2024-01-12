@@ -36,10 +36,14 @@ const LoginScreen = ({ navigation }: any) => {
       const club = response.data;
       login(club);
       setError(null);
-      // navigation.navigate("Home");
-    } catch (error) {
+    } catch (error: any ) {
+      console.log(error);
+      if (error && error.response && error.response.statusCode === 400) {
+        navigation.navigate("Code", { name } );
+        return;
+      }
       if (error instanceof yup.ValidationError || error instanceof Error) {
-        setError(error.message);
+        setError(error.message); 
       } else {
         setError("An unexpected error occurred");
         console.error(error);
@@ -89,15 +93,16 @@ const LoginScreen = ({ navigation }: any) => {
                 {error}
               </HelperText>
             )}
-
-            <Button
-              onPress={handlePress}
-              title={loading ? "" : "→"}
-              disabled={loading}
-              style={loading ? styles.buttonDisabled : undefined}
-            >
-              {loading && <ActivityIndicator size="small" color="#FFF" />}
-            </Button>
+            <View style={styles.submit_container}>
+              <Button
+                onPress={handlePress}
+                title={loading ? "" : "Login →"}
+                disabled={loading}
+                style={[styles.submit_button, loading ? styles.buttonDisabled : undefined]}
+              >
+                {loading && <ActivityIndicator size="small" color="#FFF" />}
+              </Button>
+            </View>
           </View>
           <View style={{ flex : 1 }} />
         </View>

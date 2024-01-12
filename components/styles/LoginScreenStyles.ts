@@ -33,5 +33,17 @@ export default StyleSheet.create({
   },
   buttonDisabled: {
     opacity: 0.3,
+  },
+  submit_button: {
+    width: 130,
+    height: 50,
+    
+  },
+  submit_container: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "flex-end",
+    marginTop: 10
   }
 });

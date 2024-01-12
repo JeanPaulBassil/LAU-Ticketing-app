@@ -8,6 +8,15 @@ import useAuth from "../contexts/auth";
 import CodeScreen from "./authentication/Code";
 import SetPasswordScreen from "./authentication/SetPassword";
 
+
+export type RootStackParamList = {
+  Home: undefined; 
+  Login: undefined;
+  Code: {
+    name: string;
+  }
+};
+
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
@@ -46,17 +55,17 @@ const RootLayout = () => {
         headerShown: false,
       }}
     >
-      {/* {state.club === null ? (
+      {state.club === null ? (
         <>
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Code" component={CodeScreen} />
+          <Stack.Screen name="SetPassword" component={SetPasswordScreen} />
         </>
       ) : (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
         </>
-      )} */}
-      <Stack.Screen name="SetPassword" component={SetPasswordScreen} />
-      <Stack.Screen name="Code" component={CodeScreen} />
+      )}
     </Stack.Navigator>
   );
 };

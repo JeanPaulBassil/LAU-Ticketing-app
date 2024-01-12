@@ -60,6 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     getCurrentClub();
   }, []);
 
+  console.log('club', club);
+
   const memoizedValue = useMemo(
     () => ({
       state: {

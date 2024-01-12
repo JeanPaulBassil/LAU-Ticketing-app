@@ -10,27 +10,22 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
-import { StackNavigationProp } from "@react-navigation/stack";
 
 import styles from "../../styles/authentication/code";
-
+// import { RootStackParamList } from '../RootLayout';
 const CELL_COUNT = 6;
 
-type RootStackParamList = {
-  Home: undefined; 
-};
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
-type HomeScreenProps = {
-  navigation: HomeScreenNavigationProp;
-};
 
-const Code = ({ navigation }: HomeScreenProps) => {
+const Code = ({ route,  navigation }: { route: any, navigation: any }) => {
+  const { name } = route ;
+  
   const [value, setValue] = useState<string>("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
+
 
   return (
     <SafeAreaView style={styles.root}>
@@ -77,7 +72,7 @@ const Code = ({ navigation }: HomeScreenProps) => {
         )}
       />
       <View style={styles.submit_button_container}>
-        <CustomButton onPress={() => {}} title='Continue' style={styles.submit_button} />
+        <CustomButton onPress={() => navigation.navigate("SetPassword", { name, code: value })} title='Continue' style={styles.submit_button} />
       </View>
     </SafeAreaView>
   );

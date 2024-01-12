@@ -11,19 +11,19 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error) => {
+    console.log(error);
     if (error.response && error.response.status === 403) {
       // Handle session expiration here (e.g., show a notification to the user)
       // You can also redirect the user to the login page or perform other actions
       console.log("Session expired. Please log in again.");
       throw new Error("Session expired. Please log in again.");
     }
-    if (error.response) {
-      throw new Error(error.response.data.message || 'An error occurred.');
-    } else if (error.request) {
-      throw new Error('Network error occurred.');
-    } else {
-      throw new Error('An unknown error occurred.');
-    }
+    // else if (error.request) {
+    //   throw new Error('Network error occurred.');
+    // } else {
+    //   throw new Error('An unknown error occurred.');
+    // }
+    return error ;
   }
 );
 

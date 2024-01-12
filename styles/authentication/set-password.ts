@@ -38,6 +38,9 @@ export default StyleSheet.create({
   submit_button: {
     width: "100%",
   },
+  buttonDisabled: {
+    opacity: 0.3,
+  },
   top_logo: {
     maxWidth: "80%",
     textAlign: "center",

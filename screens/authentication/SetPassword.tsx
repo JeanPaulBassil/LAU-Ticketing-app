@@ -13,39 +13,33 @@ import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/Button";
 import * as yup from "yup";
 import { CommonActions } from "@react-navigation/native";
-
-import { StackNavigationProp } from "@react-navigation/stack";
 import InputField from "../../components/InputField";
-import { HelperText } from "react-native-paper";
+import { HelperText, ActivityIndicator } from "react-native-paper";
 import setPasswordSchema from "../../validation/set-password";
 import styles from "../../styles/authentication/set-password";
+import api from "../../services/api";
+import useAuth from "../../contexts/auth";
+import { IClub } from "../../interfaces/clubs.interface";
 
-type RootStackParamList = {
-  SetPassword: undefined;
-};
-type SetPasswordScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "SetPassword"
->;
-type SetPasswordScreenProps = {
-  navigation: SetPasswordScreenNavigationProp;
-};
-
-const SetPassword = ({ navigation }: SetPasswordScreenProps) => {
+const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => {
   const [password, setPassword] = useState<string>("");
   const [passConfirmation, setPassConfirmation] = useState<string>("");
   const [ loading, setLoading ] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { name, code } = route ;
+  const { login } = useAuth();
 
   const handlePress = async () => {
     try {
       setLoading(true);
       await setPasswordSchema.validate({ password, passConfirmation });
-    //   const response = await api.login({ password, passConfirmation });
-    //   const club = response.data;
-    //   login(club);
+      const club: IClub = await api.verifyAccount({ 
+        name,
+        code,
+        password
+     });
+      login(club);
       setError(null);
-      // navigation.navigate("Home");
     } catch (error) {
       if (error instanceof yup.ValidationError || error instanceof Error) {
         setError(error.message);
@@ -118,10 +112,13 @@ const SetPassword = ({ navigation }: SetPasswordScreenProps) => {
 
             <View style={styles.submit_button_container}>
               <CustomButton
-                onPress={() => {}}
-                title="Confirm"
-                style={styles.submit_button}
-              />
+                onPress={() => handlePress()}
+                title={loading ? "loading..." : "Continue"}
+                disabled={loading}
+                style={[styles.submit_button, loading ? styles.buttonDisabled : undefined]}
+              >
+                 {loading && <ActivityIndicator size="small" color="#FFF" />}
+              </CustomButton>
             </View>
             <View style={{ flex : 1 }} />
           </View>
