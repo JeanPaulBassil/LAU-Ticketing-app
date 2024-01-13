@@ -41,6 +41,10 @@ export default StyleSheet.create({
   buttonDisabled: {
     opacity: 0.3,
   },
+  error_text: {
+    marginTop: -20,
+    width: '100%',
+  },
   top_logo: {
     maxWidth: "80%",
     textAlign: "center",

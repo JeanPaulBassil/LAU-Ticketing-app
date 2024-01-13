@@ -37,7 +37,10 @@ export default StyleSheet.create({
   submit_button: {
     width: 130,
     height: 50,
-    
+  },
+  error_text: {
+    marginTop: -20,
+    width: '100%',
   },
   submit_container: {
     display: "flex",

@@ -17,13 +17,17 @@ const CELL_COUNT = 6;
 
 
 const Code = ({ route,  navigation }: { route: any, navigation: any }) => {
-  const { name } = route ;
+  const { clubname } = route.params ;
   
   const [value, setValue] = useState<string>("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
+  });
+  console.log({
+    clubname, 
+    value
   });
 
 
@@ -72,7 +76,7 @@ const Code = ({ route,  navigation }: { route: any, navigation: any }) => {
         )}
       />
       <View style={styles.submit_button_container}>
-        <CustomButton onPress={() => navigation.navigate("SetPassword", { name, code: value })} title='Continue' style={styles.submit_button} />
+        <CustomButton onPress={() => navigation.navigate("SetPassword", { clubname, code: value })} title='Continue' style={styles.submit_button} />
       </View>
     </SafeAreaView>
   );

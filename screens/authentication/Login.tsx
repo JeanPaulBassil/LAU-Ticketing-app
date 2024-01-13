@@ -20,6 +20,12 @@ import styles from "../../components/styles/LoginScreenStyles";
 import loginSchema from "../../validation/LoginValidation";
 import api from "../../services/api";
 import useAuth from "../../contexts/auth";
+import { IClub } from "../../interfaces/clubs.interface";
+import { AxiosResponse } from "axios";
+
+const emailSent = (response: AxiosResponse<IClub>) => {
+  return response.status === 202 ;
+}
 
 const LoginScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,16 +38,16 @@ const LoginScreen = ({ navigation }: any) => {
     try {
       setLoading(true);
       await loginSchema.validate({ name, password });
-      const response = await api.login({ name, password });
+      const response: AxiosResponse<IClub> = await api.login({ name, password });
+      if (emailSent(response)) {
+        navigation.navigate("Code", { clubname: name } );
+        return;
+      }
       const club = response.data;
+      console.log('club => ',club);
       login(club);
       setError(null);
     } catch (error: any ) {
-      console.log(error);
-      if (error && error.response && error.response.statusCode === 400) {
-        navigation.navigate("Code", { name } );
-        return;
-      }
       if (error instanceof yup.ValidationError || error instanceof Error) {
         setError(error.message); 
       } else {
@@ -89,7 +95,7 @@ const LoginScreen = ({ navigation }: any) => {
               style={styles.input}
             />
             {error && (
-              <HelperText type="error" visible={!!error}>
+              <HelperText padding="none" style={styles.error_text} type="error" visible={!!error}>
                 {error}
               </HelperText>
             )}

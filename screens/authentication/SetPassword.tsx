@@ -26,15 +26,16 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
   const [passConfirmation, setPassConfirmation] = useState<string>("");
   const [ loading, setLoading ] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const { name, code } = route ;
+  const { clubname, code } = route.params ;
   const { login } = useAuth();
+
 
   const handlePress = async () => {
     try {
       setLoading(true);
-      await setPasswordSchema.validate({ password, passConfirmation });
+      await setPasswordSchema.validate({ password, confirmPassword: passConfirmation });
       const club: IClub = await api.verifyAccount({ 
-        name,
+        name: clubname,
         code,
         password
      });
@@ -90,21 +91,16 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
                 secureTextEntry
                 style={styles.input}
               />
-              {error && (
-                <HelperText type="error" visible={!!error}>
-                  {error}
-                </HelperText>
-              )}
               <InputField
                 placeholder="Confirm Password"
                 placeholderTextColor="#AAAAAA"
-                value={password}
-                onChangeText={setPassword}
+                value={passConfirmation}
+                onChangeText={setPassConfirmation}
                 secureTextEntry
                 style={styles.input}
               />
               {error && (
-                <HelperText type="error" visible={!!error}>
+                <HelperText padding="none" style={styles.error_text} type="error" visible={!!error}>
                   {error}
                 </HelperText>
               )}
