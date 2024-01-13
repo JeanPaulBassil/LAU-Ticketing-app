@@ -39,7 +39,7 @@ const Code = ({ route,  navigation }: { route: any, navigation: any }) => {
           name="arrow-back"
           size={33}
           color="black"
-          backgroundColor={'#EAF2EF'}
+          backgroundColor={'#f6f6f6'}
           onPress={() => navigation.dispatch(CommonActions.goBack())}
           borderRadius={50}
         ></Ionicons.Button>

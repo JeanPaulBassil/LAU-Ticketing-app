@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Platform,
   Keyboard,
@@ -68,7 +68,7 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
                 name="arrow-back"
                 size={33}
                 color="black"
-                backgroundColor={"#EAF2EF"}
+                backgroundColor={"#f6f6f6"}
                 onPress={() => navigation.dispatch(CommonActions.goBack())}
                 borderRadius={50}
               ></Ionicons.Button>
@@ -91,6 +91,7 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
                 secureTextEntry
                 style={styles.input}
               />
+              
               <InputField
                 placeholder="Confirm Password"
                 placeholderTextColor="#AAAAAA"
@@ -98,6 +99,7 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
                 onChangeText={setPassConfirmation}
                 secureTextEntry
                 style={styles.input}
+
               />
               {error && (
                 <HelperText padding="none" style={styles.error_text} type="error" visible={!!error}>

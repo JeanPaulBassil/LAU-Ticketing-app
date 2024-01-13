@@ -4,7 +4,7 @@ export default StyleSheet.create({
   root: {
     padding: 20, 
     minHeight: 300,
-    backgroundColor: '#EAF2EF',
+    backgroundColor: '#f6f6f6',
     flex: 1
   },
   submit_button_container: {
@@ -43,7 +43,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginBottom: 50
+    marginBottom: 80
   },
   title: {
     fontSize: 25,
