@@ -32,11 +32,19 @@ export default StyleSheet.create({
     paddingBottom: 15,
     width: '100%'
   },
+  password_container: {
+    position: 'relative'
+  },
+  icon: { 
+    position: 'absolute',
+    top: 20,
+    right: 0,
+  }, 
   buttonDisabled: {
     opacity: 0.3,
   },
   submit_button: {
-    width: 150,
+    width: 140,
     height: 50,
   },
   error_text: {
