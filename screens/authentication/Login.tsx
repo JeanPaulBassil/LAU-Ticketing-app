@@ -1,7 +1,6 @@
 import { ActivityIndicator } from "react-native-paper";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
 import * as yup from "yup";
 import {
   View,
@@ -53,20 +52,21 @@ const LoginScreen = ({ navigation }: any) => {
         return;
       }
       const club = response.data;
-      console.log("club => ", club);
       login(club);
       setError(null);
     } catch (error: any) {
-      if (error instanceof yup.ValidationError || error instanceof Error) {
+      if (error instanceof yup.ValidationError) {
         setError(error.message);
+      } else if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
       } else {
         setError("An unexpected error occurred");
-        console.error(error);
       }
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [name, password]);
+  
 
   return (
     <KeyboardAvoidingView
