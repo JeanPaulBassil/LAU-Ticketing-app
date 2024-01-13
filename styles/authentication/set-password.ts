@@ -26,6 +26,14 @@ export default StyleSheet.create({
     paddingBottom: 15,
     width: '100%'
   },
+  icon: { 
+    position: 'absolute',
+    top: 20,
+    right: 0,
+  },
+  password_container: {
+    position: 'relative'
+  },
   
   submit_button_container: {
     display: "flex",

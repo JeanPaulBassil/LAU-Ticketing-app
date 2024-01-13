@@ -8,7 +8,9 @@ import {
   Image,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  TextInput
 } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/Button";
 import * as yup from "yup";
@@ -29,6 +31,20 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
   const { clubname, code } = route.params ;
   const { login } = useAuth();
 
+
+  const passwordInputRef = useRef<TextInput>(null);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [ showConfirmation, setShowConfirmation ] = useState<boolean>(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleShowConfirmation = () => {
+    setShowConfirmation(!showConfirmation);
+  }
+  const handleClubNameSubmit = () => {
+    passwordInputRef.current?.focus();
+  };
 
   const handlePress = async () => {
     try {
@@ -83,24 +99,43 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
               </Text>
             </View>
             <View style={styles.inputs_container}>
-              <InputField
-                placeholder="Password"
-                placeholderTextColor="#AAAAAA"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                style={styles.input}
-              />
-              
-              <InputField
-                placeholder="Confirm Password"
-                placeholderTextColor="#AAAAAA"
-                value={passConfirmation}
-                onChangeText={setPassConfirmation}
-                secureTextEntry
-                style={styles.input}
-
-              />
+              <View style={styles.password_container}>
+                <InputField
+                  placeholder="Password"
+                  placeholderTextColor="#AAAAAA"
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!showPassword}
+                  style={styles.input}
+                  returnKeyType="next"
+                  onSubmitEditing={handleClubNameSubmit}
+                />
+                <MaterialCommunityIcons
+                  name={showPassword ? "eye-off" : "eye"}
+                  size={22}
+                  color="#aaa"
+                  style={styles.icon}
+                  onPress={toggleShowPassword}
+                />
+                </View>
+                <View style={styles.password_container}>
+                  <InputField
+                    placeholder="Confirm Password"
+                    placeholderTextColor="#AAAAAA"
+                    value={passConfirmation}
+                    onChangeText={setPassConfirmation}
+                    secureTextEntry={!showConfirmation}
+                    style={styles.input}
+                    ref={passwordInputRef}
+                  />
+                  <MaterialCommunityIcons
+                  name={showConfirmation ? "eye-off" : "eye"}
+                  size={22}
+                  color="#aaa"
+                  style={styles.icon}
+                  onPress={toggleShowConfirmation}
+                />
+              </View>
               {error && (
                 <HelperText padding="none" style={styles.error_text} type="error" visible={!!error}>
                   {error}
