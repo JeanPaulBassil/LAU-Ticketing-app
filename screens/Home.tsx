@@ -10,6 +10,7 @@ import useDatePicker from '../hooks/useDatePicker';
 import useForm from '../hooks/useForm';
 import { HelperText } from 'react-native-paper';
 import EventModal from '../components/EventModal';
+import EventList from '../components/EventList';
 
 const HomeScreen = () => {
     const { events, loading, fetchEvents, addEvent, error } = useEvents();
@@ -61,17 +62,7 @@ const HomeScreen = () => {
                     </HelperText>
             )}
 
-            <FlatList
-                data={events}
-                keyExtractor={(item) => item._id}
-                renderItem={({ item }) => (
-                    <EventItem 
-                      name={item.name} 
-                      onPress={() => {/* Handle event press */}} 
-                    />
-                )}
-                style={styles.eventsList}
-            />
+            <EventList events={events} />
 
             <EventModal
                 visible={visible}
