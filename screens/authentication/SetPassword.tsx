@@ -8,7 +8,7 @@ import {
   Image,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  TextInput
+  TextInput,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,25 +23,30 @@ import api from "../../services/api";
 import useAuth from "../../contexts/auth";
 import { IClub } from "../../interfaces/clubs.interface";
 
-const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => {
+const SetPassword = ({
+  route,
+  navigation,
+}: {
+  route: any;
+  navigation: any;
+}) => {
   const [password, setPassword] = useState<string>("");
   const [passConfirmation, setPassConfirmation] = useState<string>("");
-  const [ loading, setLoading ] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const { clubname, code } = route.params ;
+  const { clubname, code } = route.params;
   const { login } = useAuth();
-
 
   const passwordInputRef = useRef<TextInput>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [ showConfirmation, setShowConfirmation ] = useState<boolean>(false);
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
   const toggleShowConfirmation = () => {
     setShowConfirmation(!showConfirmation);
-  }
+  };
   const handleClubNameSubmit = () => {
     passwordInputRef.current?.focus();
   };
@@ -49,12 +54,15 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
   const handlePress = async () => {
     try {
       setLoading(true);
-      await setPasswordSchema.validate({ password, confirmPassword: passConfirmation });
-      const club: IClub = await api.verifyAccount({ 
+      await setPasswordSchema.validate({
+        password,
+        confirmPassword: passConfirmation,
+      });
+      const club: IClub = await api.verifyAccount({
         name: clubname,
         code,
-        password
-     });
+        password,
+      });
       login(club);
       setError(null);
     } catch (error) {
@@ -68,7 +76,7 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
       setLoading(false);
     }
   };
-  
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -117,18 +125,18 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
                   style={styles.icon}
                   onPress={toggleShowPassword}
                 />
-                </View>
-                <View style={styles.password_container}>
-                  <InputField
-                    placeholder="Confirm Password"
-                    placeholderTextColor="#AAAAAA"
-                    value={passConfirmation}
-                    onChangeText={setPassConfirmation}
-                    secureTextEntry={!showConfirmation}
-                    style={styles.input}
-                    ref={passwordInputRef}
-                  />
-                  <MaterialCommunityIcons
+              </View>
+              <View style={styles.password_container}>
+                <InputField
+                  placeholder="Confirm Password"
+                  placeholderTextColor="#AAAAAA"
+                  value={passConfirmation}
+                  onChangeText={setPassConfirmation}
+                  secureTextEntry={!showConfirmation}
+                  style={styles.input}
+                  ref={passwordInputRef}
+                />
+                <MaterialCommunityIcons
                   name={showConfirmation ? "eye-off" : "eye"}
                   size={22}
                   color="#aaa"
@@ -137,7 +145,12 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
                 />
               </View>
               {error && (
-                <HelperText padding="none" style={styles.error_text} type="error" visible={!!error}>
+                <HelperText
+                  padding="none"
+                  style={styles.error_text}
+                  type="error"
+                  visible={!!error}
+                >
                   {error}
                 </HelperText>
               )}
@@ -148,12 +161,15 @@ const SetPassword = ({ route, navigation }: { route: any, navigation: any} ) => 
                 onPress={() => handlePress()}
                 title={loading ? "loading..." : "Continue"}
                 disabled={loading}
-                style={[styles.submit_button, loading ? styles.buttonDisabled : undefined]}
+                style={[
+                  styles.submit_button,
+                  loading ? styles.buttonDisabled : undefined,
+                ]}
               >
-                 {loading && <ActivityIndicator size="small" color="#FFF" />}
+                {loading && <ActivityIndicator size="small" color="#FFF" />}
               </CustomButton>
             </View>
-            <View style={{ flex : 1 }} />
+            <View style={{ flex: 1 }} />
           </View>
         </TouchableWithoutFeedback>
       </SafeAreaView>
