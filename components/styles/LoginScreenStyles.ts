@@ -7,6 +7,7 @@ export default StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     justifyContent: "flex-end",
+    backgroundColor: "#f6f6f6"
   },
   title: {
     marginTop: 14,
@@ -35,7 +36,7 @@ export default StyleSheet.create({
     opacity: 0.3,
   },
   submit_button: {
-    width: 130,
+    width: 150,
     height: 50,
   },
   error_text: {
