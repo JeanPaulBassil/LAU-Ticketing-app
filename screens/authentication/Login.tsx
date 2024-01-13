@@ -1,5 +1,5 @@
 import { ActivityIndicator } from "react-native-paper";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback,useRef, forwardRef } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as yup from "yup";
 import {
@@ -10,6 +10,8 @@ import {
   Platform,
   Keyboard,
   SafeAreaView,
+  TextInput,
+  TextInputProps
 } from "react-native";
 import { HelperText } from "react-native-paper";
 import Button from "../../components/Button";
@@ -24,8 +26,10 @@ import { IClub } from "../../interfaces/clubs.interface";
 import { AxiosResponse } from "axios";
 
 const emailSent = (response: AxiosResponse<IClub>) => {
+  console.log('email sent');
   return response.status === 202;
 };
+
 
 const LoginScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,7 +38,12 @@ const LoginScreen = ({ navigation }: any) => {
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
 
+  const passwordInputRef = useRef<TextInput>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const handleClubNameSubmit = () => {
+    passwordInputRef.current?.focus();
+  };
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -94,6 +103,9 @@ const LoginScreen = ({ navigation }: any) => {
                 value={name}
                 onChangeText={setName}
                 style={styles.input}
+                returnKeyType="next"
+                onSubmitEditing={handleClubNameSubmit}
+
               />
               <View style={styles.password_container}>
                 <InputField
@@ -103,6 +115,7 @@ const LoginScreen = ({ navigation }: any) => {
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
                   style={styles.input}
+                  ref={passwordInputRef}
                 />
                 <MaterialCommunityIcons
                   name={showPassword ? "eye-off" : "eye"}
