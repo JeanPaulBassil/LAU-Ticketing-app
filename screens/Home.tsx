@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator } from 'react-native';
 import Button from '../components/Button';
 import EventItem from '../components/EventItem';
-import DatePickerButton from '../components/DatePickerButton';
-import { formatDate } from '../utils/date';
 import styles from '../components/styles/HomeScreenStyles';
-import api from '../services/api';
-import { IEvent, createEventData } from '../interfaces/events.interface';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { createEventData } from '../interfaces/events.interface';
 import useEvents from '../hooks/useEvents';
 import useModal from '../hooks/useModal';
 import useDatePicker from '../hooks/useDatePicker';
 import useForm from '../hooks/useForm';
 import { HelperText } from 'react-native-paper';
+import EventModal from '../components/EventModal';
 
 const HomeScreen = () => {
     const { events, loading, fetchEvents, addEvent, error } = useEvents();
@@ -76,71 +73,11 @@ const HomeScreen = () => {
                 style={styles.eventsList}
             />
 
-            <Modal
-                animationType='fade'
-                transparent={true}
+            <EventModal
                 visible={visible}
-                onRequestClose={closeModal}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Add Event</Text>
-                        <TextInput
-                            placeholder='Event Name'
-                            style={styles.modalInput}
-                            placeholderTextColor={'#AAAAAA'}
-                            value={eventName}
-                            onChangeText={(text) => handleChange('eventName', text)}
-                        />
-
-                        <DatePickerButton 
-                          date={startDate} 
-                          onPress={showStartPicker} 
-                          formatDate={formatDate} 
-                          label="Start Date"
-                        />
-                        <DateTimePickerModal
-                            isVisible={isStartVisible}
-                            mode="datetime"
-                            onConfirm={confirmStartPicker}
-                            onCancel={hideStartPicker}
-                            textColor='black'
-                        />
-
-                        <DatePickerButton 
-                          date={endDate} 
-                          onPress={showEndPicker} 
-                          formatDate={formatDate} 
-                          label="End Date"
-                        />
-                        <DateTimePickerModal
-                            isVisible={isEndVisible}
-                            mode="datetime"
-                            onConfirm={confirmEndPicker}
-                            onCancel={hideEndPicker}
-                            textColor='black'
-                        />
-
-                        <View style={styles.modalButtons}>
-                            <Button 
-                              title='Cancel' 
-                              style={styles.cancelButton} 
-                              textStyle={styles.cancelButtonTextStyle} 
-                              onPress={closeModal} 
-                            >
-                                {loading && <ActivityIndicator size="small" color="#FFF" />}
-                            </Button>
-                            <Button 
-                              title='Add' 
-                              style={styles.addEventButton} 
-                              onPress={handleAddEvent} 
-                            >
-                                {loading && <ActivityIndicator size="small" color="#FFF" />}
-                            </Button>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+                onClose={closeModal}
+                onAdd={addEvent}
+            />
         </SafeAreaView>
     );
 };

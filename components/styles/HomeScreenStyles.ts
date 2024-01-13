@@ -94,9 +94,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#D6D6D6',
     },
-    cancelButtonTextStyle: {
+    cancelButtonText: {
         fontSize: 18,
-        color: '#121420',
+        color: 'black',
         fontFamily: 'PTSans_400Regular'
     },
     addEventButton: {
