@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, Modal, FlatList, TextInput } from 'react-native';
+import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator } from 'react-native';
 import Button from '../components/Button';
 import EventItem from '../components/EventItem';
 import DatePickerButton from '../components/DatePickerButton';
@@ -12,9 +12,10 @@ import useEvents from '../hooks/useEvents';
 import useModal from '../hooks/useModal';
 import useDatePicker from '../hooks/useDatePicker';
 import useForm from '../hooks/useForm';
+import { HelperText } from 'react-native-paper';
 
 const HomeScreen = () => {
-    const { events, loading, fetchEvents, addEvent } = useEvents();
+    const { events, loading, fetchEvents, addEvent, error } = useEvents();
     const { visible, openModal, closeModal} = useModal();
     const { date: startDate, isPickerVisible: isStartVisible, showPicker: showStartPicker, hidePicker: hideStartPicker, handleConfirm: confirmStartPicker } = useDatePicker();
     const { date: endDate, isPickerVisible: isEndVisible, showPicker: showEndPicker, hidePicker: hideEndPicker, handleConfirm: confirmEndPicker } = useDatePicker();
@@ -43,11 +44,25 @@ const HomeScreen = () => {
                 <Text style={styles.headerText}>Events</Text>
                 <Button
                     onPress={openModal}
-                    title="Add Event"
-                    style={styles.addButton}
-                    textStyle={styles.addButtonText}
-                />
+                    title={loading ? "" : "Add Event"}
+                    disabled={loading}
+                    style={[styles.addButton, loading ? styles.buttonDisabled : undefined]}
+                >
+                    {loading && <ActivityIndicator size="small" color="#FFF" />}
+                </Button>
+                
             </View>
+
+            {error && (
+                    <HelperText
+                      padding="none"
+                      style={styles.errorText}
+                      type="error"
+                      visible={!!error}
+                    >
+                      {error}
+                    </HelperText>
+            )}
 
             <FlatList
                 data={events}
@@ -112,12 +127,16 @@ const HomeScreen = () => {
                               style={styles.cancelButton} 
                               textStyle={styles.cancelButtonTextStyle} 
                               onPress={closeModal} 
-                            />
+                            >
+                                {loading && <ActivityIndicator size="small" color="#FFF" />}
+                            </Button>
                             <Button 
                               title='Add' 
                               style={styles.addEventButton} 
                               onPress={handleAddEvent} 
-                            />
+                            >
+                                {loading && <ActivityIndicator size="small" color="#FFF" />}
+                            </Button>
                         </View>
                     </View>
                 </View>

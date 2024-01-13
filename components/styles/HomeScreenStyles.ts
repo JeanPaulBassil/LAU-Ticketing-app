@@ -131,7 +131,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#AAAAAA',
     },
-    
+    buttonDisabled: {
+        opacity: 0.3,
+    },
+    errorText: {
+        color: 'red', 
+        fontSize: 14,
+        marginHorizontal: 20,
+        marginTop: 5,
+    },
 });
 
 export default styles;
