@@ -8,20 +8,19 @@ import styles from '../components/styles/HomeScreenStyles';
 import api from '../services/api';
 import { IEvent, createEventData } from '../interfaces/events.interface';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import useEvents from '../hooks/events/useEvents';
-import useModal from '../hooks/events/useModal';
-import useDatePicker from '../hooks/events/useDatePicker';
-
+import useEvents from '../hooks/useEvents';
+import useModal from '../hooks/useModal';
+import useDatePicker from '../hooks/useDatePicker';
+import useForm from '../hooks/useForm';
 
 const HomeScreen = () => {
-    const [eventName, setEventName] = useState('');
-    const [refreshEvents, setRefreshEvents] = useState<boolean>(false);
-
     const { events, loading, fetchEvents, addEvent } = useEvents();
     const { visible, openModal, closeModal} = useModal();
     const { date: startDate, isPickerVisible: isStartVisible, showPicker: showStartPicker, hidePicker: hideStartPicker, handleConfirm: confirmStartPicker } = useDatePicker();
     const { date: endDate, isPickerVisible: isEndVisible, showPicker: showEndPicker, hidePicker: hideEndPicker, handleConfirm: confirmEndPicker } = useDatePicker();
-    
+    const { values, handleChange, resetForm } = useForm({eventName: ''});
+    const { eventName } = values;
+
     const handleAddEvent = async () => {
         const eventData: createEventData = {
             name: eventName,
@@ -31,7 +30,7 @@ const HomeScreen = () => {
         };
         closeModal();
         await addEvent(eventData);
-        setEventName('');
+        resetForm();
     };
 
     useEffect(() => {
@@ -76,7 +75,7 @@ const HomeScreen = () => {
                             style={styles.modalInput}
                             placeholderTextColor={'#AAAAAA'}
                             value={eventName}
-                            onChangeText={setEventName}
+                            onChangeText={(text) => handleChange('eventName', text)}
                         />
 
                         <DatePickerButton 
