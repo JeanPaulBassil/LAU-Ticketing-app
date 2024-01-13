@@ -10,18 +10,17 @@ import { IEvent, createEventData } from '../interfaces/events.interface';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import useEvents from '../hooks/events/useEvents';
 import useModal from '../hooks/events/useModal';
+import useDatePicker from '../hooks/events/useDatePicker';
 
 
 const HomeScreen = () => {
     const [eventName, setEventName] = useState('');
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-    const [showStartDatePicker, setShowStartDatePicker] = useState(false);
-    const [showEndDatePicker, setShowEndDatePicker] = useState(false);
     const [refreshEvents, setRefreshEvents] = useState<boolean>(false);
 
     const { events, loading, fetchEvents, addEvent } = useEvents();
     const { visible, openModal, closeModal} = useModal();
+    const { date: startDate, isPickerVisible: isStartVisible, showPicker: showStartPicker, hidePicker: hideStartPicker, handleConfirm: confirmStartPicker } = useDatePicker();
+    const { date: endDate, isPickerVisible: isEndVisible, showPicker: showEndPicker, hidePicker: hideEndPicker, handleConfirm: confirmEndPicker } = useDatePicker();
     
     const handleAddEvent = async () => {
         const eventData: createEventData = {
@@ -82,35 +81,29 @@ const HomeScreen = () => {
 
                         <DatePickerButton 
                           date={startDate} 
-                          onPress={() => setShowStartDatePicker(true)} 
+                          onPress={showStartPicker} 
                           formatDate={formatDate} 
                           label="Start Date"
                         />
                         <DateTimePickerModal
-                            isVisible={showStartDatePicker}
+                            isVisible={isStartVisible}
                             mode="datetime"
-                            onConfirm={(date) => {
-                                setStartDate(date);
-                                setShowStartDatePicker(false);
-                            }}
-                            onCancel={() => setShowStartDatePicker(false)}
+                            onConfirm={confirmStartPicker}
+                            onCancel={hideStartPicker}
                             textColor='black'
                         />
 
                         <DatePickerButton 
                           date={endDate} 
-                          onPress={() => setShowEndDatePicker(true)} 
+                          onPress={showEndPicker} 
                           formatDate={formatDate} 
                           label="End Date"
                         />
                         <DateTimePickerModal
-                            isVisible={showEndDatePicker}
+                            isVisible={isEndVisible}
                             mode="datetime"
-                            onConfirm={(date) => {
-                                setEndDate(date);
-                                setShowEndDatePicker(false);
-                            }}
-                            onCancel={() => setShowEndDatePicker(false)}
+                            onConfirm={confirmEndPicker}
+                            onCancel={hideEndPicker}
                             textColor='black'
                         />
 
