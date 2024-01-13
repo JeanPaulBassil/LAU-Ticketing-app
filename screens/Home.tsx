@@ -8,11 +8,11 @@ import styles from '../components/styles/HomeScreenStyles';
 import api from '../services/api';
 import { IEvent, createEventData } from '../interfaces/events.interface';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import useEvents from '../hooks/useEvents';
+import useEvents from '../hooks/events/useEvents';
+import useModal from '../hooks/events/useModal';
 
 
 const HomeScreen = () => {
-    const [modalVisible, setModalVisible] = useState(false);
     const [eventName, setEventName] = useState('');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -21,6 +21,7 @@ const HomeScreen = () => {
     const [refreshEvents, setRefreshEvents] = useState<boolean>(false);
 
     const { events, loading, fetchEvents, addEvent } = useEvents();
+    const { visible, openModal, closeModal} = useModal();
     
     const handleAddEvent = async () => {
         const eventData: createEventData = {
@@ -29,8 +30,8 @@ const HomeScreen = () => {
             start_date: startDate.toISOString(),
             end_date: endDate.toISOString(),
         };
+        closeModal();
         await addEvent(eventData);
-        setModalVisible(false);
         setEventName('');
     };
 
@@ -43,7 +44,7 @@ const HomeScreen = () => {
             <View style={styles.header}>
                 <Text style={styles.headerText}>Events</Text>
                 <Button
-                    onPress={() => setModalVisible(true)}
+                    onPress={openModal}
                     title="Add Event"
                     style={styles.addButton}
                     textStyle={styles.addButtonText}
@@ -65,8 +66,8 @@ const HomeScreen = () => {
             <Modal
                 animationType='fade'
                 transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)}
+                visible={visible}
+                onRequestClose={closeModal}
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
@@ -118,7 +119,7 @@ const HomeScreen = () => {
                               title='Cancel' 
                               style={styles.cancelButton} 
                               textStyle={styles.cancelButtonTextStyle} 
-                              onPress={() => setModalVisible(false)} 
+                              onPress={closeModal} 
                             />
                             <Button 
                               title='Add' 

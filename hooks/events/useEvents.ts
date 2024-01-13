@@ -1,6 +1,6 @@
 import { useState } from "react";
-import api from "../services/api";
-import { IEvent, createEventData } from "../interfaces/events.interface";
+import api from "../../services/api";
+import { IEvent, createEventData } from "../../interfaces/events.interface";
 import { AxiosResponse } from "axios";
 
 
