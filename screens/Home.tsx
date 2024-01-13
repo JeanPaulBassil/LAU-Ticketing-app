@@ -8,19 +8,20 @@ import styles from '../components/styles/HomeScreenStyles';
 import api from '../services/api';
 import { IEvent, createEventData } from '../interfaces/events.interface';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import useEvents from '../hooks/useEvents';
 
 
 const HomeScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [eventName, setEventName] = useState('');
-    const [events, setEvents] = useState<IEvent[]>([]);
-    const [loading, setLoading] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
     const [refreshEvents, setRefreshEvents] = useState<boolean>(false);
 
+    const { events, loading, fetchEvents, addEvent } = useEvents();
+    
     const handleAddEvent = async () => {
         const eventData: createEventData = {
             name: eventName,
@@ -28,30 +29,14 @@ const HomeScreen = () => {
             start_date: startDate.toISOString(),
             end_date: endDate.toISOString(),
         };
-
-        try {
-            await api.createEvent(eventData);
-            setModalVisible(false);
-            setRefreshEvents(prev => !prev);
-        } catch (error) {
-            console.error(error);
-        }
+        await addEvent(eventData);
+        setModalVisible(false);
+        setEventName('');
     };
 
     useEffect(() => {
-        const fetchEvents = async () => {
-            setLoading(true);
-            try {
-                const response = await api.getEvents();
-                setEvents(response.data.events);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchEvents();
-    }, [refreshEvents]);
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
