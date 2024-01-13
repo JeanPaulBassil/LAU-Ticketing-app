@@ -7,6 +7,7 @@ export default StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     justifyContent: "flex-end",
+    backgroundColor: "#f6f6f6"
   },
   title: {
     marginTop: 14,
@@ -31,7 +32,30 @@ export default StyleSheet.create({
     paddingBottom: 15,
     width: '100%'
   },
+  password_container: {
+    position: 'relative'
+  },
+  icon: { 
+    position: 'absolute',
+    top: 20,
+    right: 0,
+  }, 
   buttonDisabled: {
     opacity: 0.3,
+  },
+  submit_button: {
+    width: 140,
+    height: 50,
+  },
+  error_text: {
+    marginTop: -20,
+    width: '100%',
+  },
+  submit_container: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "flex-end",
+    marginTop: 10
   }
 });

@@ -1,7 +1,6 @@
 import { ActivityIndicator } from "react-native-paper";
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-
+import React, { useState, useCallback,useRef, forwardRef } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as yup from "yup";
 import {
   View,
@@ -10,7 +9,9 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
-  SafeAreaView
+  SafeAreaView,
+  TextInput,
+  TextInputProps
 } from "react-native";
 import { HelperText } from "react-native-paper";
 import Button from "../../components/Button";
@@ -21,6 +22,14 @@ import styles from "../../components/styles/LoginScreenStyles";
 import loginSchema from "../../validation/LoginValidation";
 import api from "../../services/api";
 import useAuth from "../../contexts/auth";
+import { IClub } from "../../interfaces/clubs.interface";
+import { AxiosResponse } from "axios";
+
+const emailSent = (response: AxiosResponse<IClub>) => {
+  console.log('email sent')
+  return response.status === 202;
+};
+
 
 const LoginScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,29 +38,45 @@ const LoginScreen = ({ navigation }: any) => {
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
 
-  const handlePress = async () => {
+  const passwordInputRef = useRef<TextInput>(null);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const handleClubNameSubmit = () => {
+    passwordInputRef.current?.focus();
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handlePress = useCallback(async () => {
     try {
       setLoading(true);
       await loginSchema.validate({ name, password });
-      const response = await api.login({ name, password });
+      const response: AxiosResponse<IClub> = await api.login({
+        name,
+        password,
+      });
+      if (emailSent(response)) {
+        navigation.navigate("Code", { clubname: name });
+        return;
+      }
       const club = response.data;
       login(club);
       setError(null);
-      // navigation.navigate("Home");
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof yup.ValidationError) {
         setError(error.message);
-      } else if (error instanceof Error) {
-        setError(error.message);
+      } else if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
       } else {
         setError("An unexpected error occurred");
-        console.error(error);
       }
     } finally {
       setLoading(false);
     }
-  };
-  useEffect(() => {}, []);
+  }, [name, password]);
+  
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -59,52 +84,73 @@ const LoginScreen = ({ navigation }: any) => {
       keyboardVerticalOffset={Platform.OS === "android" ? 75 : 0}
     >
       <SafeAreaView style={{ flex: 1 }}>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
-          <View>
-            <ImageLogo />
-            <Text style={styles.title}>
-              Welcome to LAU {"\n"}Barcode{" "}
-              <Text style={styles.scanner}>scanner!</Text>
-            </Text>
-            <Text style={styles.subtitle}>
-              Please use your club name provided by the SLO.
-            </Text>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.container}>
+            <View>
+              <ImageLogo />
+              <Text style={styles.title}>
+                Welcome to LAU {"\n"}Barcode{" "}
+                <Text style={styles.scanner}>scanner!</Text>
+              </Text>
+              <Text style={styles.subtitle}>
+                Please use your club name provided by the SLO.
+              </Text>
+            </View>
+            <View style={styles.inputs_container}>
+              <InputField
+                placeholder="Club Name"
+                placeholderTextColor="#AAAAAA"
+                value={name}
+                onChangeText={setName}
+                style={styles.input}
+                returnKeyType="next"
+                onSubmitEditing={handleClubNameSubmit}
+              />
+              <View style={styles.password_container}>
+                <InputField
+                  placeholder="Password"
+                  placeholderTextColor="#AAAAAA"
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!showPassword}
+                  style={styles.input}
+                  ref={passwordInputRef}
+                />
+                <MaterialCommunityIcons
+                  name={showPassword ? "eye-off" : "eye"}
+                  size={22}
+                  color="#aaa"
+                  style={styles.icon}
+                  onPress={toggleShowPassword}
+                />
+              </View>
+              {error && (
+                <HelperText
+                  padding="none"
+                  style={styles.error_text}
+                  type="error"
+                  visible={!!error}
+                >
+                  {error}
+                </HelperText>
+              )}
+              <View style={styles.submit_container}>
+                <Button
+                  onPress={handlePress}
+                  title={loading ? "" : "Login  →"}
+                  disabled={loading}
+                  style={[
+                    styles.submit_button,
+                    loading ? styles.buttonDisabled : undefined,
+                  ]}
+                >
+                  {loading && <ActivityIndicator size="small" color="#FFF" />}
+                </Button>
+              </View>
+            </View>
+            <View style={{ flex: 1 }} />
           </View>
-          <View style={styles.inputs_container}>
-            <InputField
-              placeholder="Club Name"
-              placeholderTextColor="#AAAAAA"
-              value={name}
-              onChangeText={setName}
-              style={styles.input}
-            />
-            <InputField
-              placeholder="Password"
-              placeholderTextColor="#AAAAAA"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              style={styles.input}
-            />
-            {error && (
-              <HelperText type="error" visible={!!error}>
-                {error}
-              </HelperText>
-            )}
-
-            <Button
-              onPress={handlePress}
-              title={loading ? "" : "→"}
-              disabled={loading}
-              style={loading ? styles.buttonDisabled : undefined}
-            >
-              {loading && <ActivityIndicator size="small" color="#FFF" />}
-            </Button>
-          </View>
-          <View style={{ flex : 1 }} />
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

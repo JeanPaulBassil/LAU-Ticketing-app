@@ -1,28 +1,26 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import config from "../config";
+import { navigate } from '../App';
+
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: config.backendUrl,
-  timeout: 7000,
+  timeout: 100000,
+  // should be max of 7
   withCredentials: true
 });
 
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
-  (error) => {
-    if (error.response && error.response.status === 403) {
-      // Handle session expiration here (e.g., show a notification to the user)
-      // You can also redirect the user to the login page or perform other actions
-      console.log("Session expired. Please log in again.");
-      throw new Error("Session expired. Please log in again.");
-    }
-    if (error.response) {
-      throw new Error(error.response.data.message || 'An error occurred.');
-    } else if (error.request) {
-      throw new Error('Network error occurred.');
+  (error: AxiosError) => {
+    if (error.response?.status === 403) {
+      // Handle 403 Forbidden response
+      console.log("Access denied. Navigating to the login screen.");
+      navigate('Login'); // Replace with your login screen name
     } else {
-      throw new Error('An unknown error occurred.');
+      // For all other errors, rethrow the error
+      return Promise.reject(error);
     }
   }
 );

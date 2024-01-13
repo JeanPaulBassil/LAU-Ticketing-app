@@ -10,6 +10,7 @@ import api from '../services/api';
 import { IEvent, EventsResponse } from '../interfaces/events.interface';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
+
 const HomeScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [eventName, setEventName] = useState('');

@@ -7,14 +7,22 @@ import { PaperProvider } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import RootLayout from './screens/RootLayout';
 import { AuthProvider } from './contexts/auth';
-import{ View } from 'react-native';
+import { NavigationContainerRef } from '@react-navigation/native';
+
+export const navigationRef = React.createRef<NavigationContainerRef<any>>();
+
+export function navigate(name: string, params?: any) {
+  navigationRef.current?.navigate(name, params);
+}
+
+
 
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <PaperProvider>
         <StatusBar style='auto'/>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <AuthProvider>
             {/* <View style={{ marginTop: 5 }} /> */}
             <RootLayout />

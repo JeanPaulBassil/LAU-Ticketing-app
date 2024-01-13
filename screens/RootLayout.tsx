@@ -5,6 +5,17 @@ import HomeScreen from "./Home";
 import getFonts from "../utils/getFonts";
 import * as SplashScreen from "expo-splash-screen";
 import useAuth from "../contexts/auth";
+import CodeScreen from "./authentication/Code";
+import SetPasswordScreen from "./authentication/SetPassword";
+
+
+export type RootStackParamList = {
+  Home: undefined; 
+  Login: undefined;
+  Code: {
+    name: string;
+  }
+};
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,6 +58,8 @@ const RootLayout = () => {
       {state.club === null ? (
         <>
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Code" component={CodeScreen} />
+          <Stack.Screen name="SetPassword" component={SetPasswordScreen} />
         </>
       ) : (
         <>

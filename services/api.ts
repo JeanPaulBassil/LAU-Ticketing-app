@@ -1,6 +1,6 @@
 import axios from '../utils/axios';
 import { AxiosResponse } from 'axios';
-import { LoginData, LoginResponse, EventsResponse, IClub } from '../interfaces/index.interface';
+import { LoginData, LoginResponse, EventsResponse, IClub, verifyData } from '../interfaces/index.interface';
 
 
 const api = {
@@ -10,6 +10,10 @@ const api = {
     },
     getMe: async () => {
         const response: AxiosResponse<{club: IClub}> = await axios.get<{club: IClub}>('/auth/me');
+        return response.data.club;
+    },
+    verifyAccount: async (data: verifyData) => {
+        const response: AxiosResponse<{club: IClub}> = await axios.post<{club: IClub}>('/auth/verify', data);
         return response.data.club;
     },
     getEvents: async () => {

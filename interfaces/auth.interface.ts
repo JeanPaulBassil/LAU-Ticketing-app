@@ -8,6 +8,10 @@ interface LoginResponse {
     statusCode: number;
 }
 
+interface verifyData {
+    name: string;
+    code: string;
+    password: string;
+}
 
-
-export { LoginData, LoginResponse };
+export { LoginData, LoginResponse, verifyData };
