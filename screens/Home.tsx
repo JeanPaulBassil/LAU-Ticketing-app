@@ -1,4 +1,3 @@
-// HomeScreen.tsx
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, Modal, FlatList, TextInput } from 'react-native';
 import Button from '../components/Button';
@@ -7,7 +6,7 @@ import DatePickerButton from '../components/DatePickerButton';
 import { formatDate } from '../utils/date';
 import styles from '../components/styles/HomeScreenStyles';
 import api from '../services/api';
-import { IEvent, EventsResponse } from '../interfaces/events.interface';
+import { IEvent, createEventData } from '../interfaces/events.interface';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 
@@ -20,6 +19,24 @@ const HomeScreen = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+    const [refreshEvents, setRefreshEvents] = useState<boolean>(false);
+
+    const handleAddEvent = async () => {
+        const eventData: createEventData = {
+            name: eventName,
+            description: 'blank',
+            start_date: startDate.toISOString(),
+            end_date: endDate.toISOString(),
+        };
+
+        try {
+            await api.createEvent(eventData);
+            setModalVisible(false);
+            setRefreshEvents(prev => !prev);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -34,7 +51,7 @@ const HomeScreen = () => {
             }
         };
         fetchEvents();
-    }, []);
+    }, [refreshEvents]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -121,7 +138,7 @@ const HomeScreen = () => {
                             <Button 
                               title='Add' 
                               style={styles.addEventButton} 
-                              onPress={() => {/* Add event logic here */}} 
+                              onPress={handleAddEvent} 
                             />
                         </View>
                     </View>

@@ -1,5 +1,5 @@
 import { LoginResponse, LoginData, verifyData } from "./auth.interface";
-import { EventsResponse, IEvent } from "./events.interface";
+import { EventsResponse, IEvent, createEventData } from "./events.interface";
 import { IClub } from "./clubs.interface";
 
 export { 
@@ -8,5 +8,6 @@ export {
     EventsResponse,
     IEvent,
     IClub,
-    verifyData
+    verifyData,
+    createEventData
 };
