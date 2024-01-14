@@ -11,7 +11,7 @@ import EventModal from '../components/EventModal';
 import EventList from '../components/EventList';
 import ErrorDisplay from '../components/ErrorDisplay';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: any) => {
     const { events, loading, fetchEvents, addEvent, error } = useEvents();
     const { visible, openModal, closeModal} = useModal();
     const { date: startDate, isPickerVisible: isStartVisible, showPicker: showStartPicker, hidePicker: hideStartPicker, handleConfirm: confirmStartPicker } = useDatePicker();
@@ -52,7 +52,7 @@ const HomeScreen = () => {
 
             <ErrorDisplay error={error} />
 
-            <EventList events={events} />
+            <EventList events={events} navigation={navigation}/>
 
             <EventModal
                 visible={visible}
