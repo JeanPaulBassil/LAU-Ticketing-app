@@ -26,6 +26,11 @@ const EventModal = ({ visible, onClose, onAdd }: { visible: boolean, onClose: ()
         onClose();
     };
 
+    const handleCancel = () => {
+        resetForm();
+        onClose();
+    }
+
     return (
         <Modal
             animationType='fade'
@@ -76,7 +81,7 @@ const EventModal = ({ visible, onClose, onAdd }: { visible: boolean, onClose: ()
                         <Button 
                           title='Cancel' 
                           style={styles.cancelButton} 
-                          onPress={onClose} 
+                          onPress={handleCancel} 
                           textStyle={styles.cancelButtonText}
                         />
                         <Button 
