@@ -1,7 +1,7 @@
 import axios from '../utils/axios';
-import { AxiosResponse } from 'axios';
+import { Axios, AxiosResponse } from 'axios';
 import { LoginData, LoginResponse, EventsResponse, IClub, verifyData, createEventData} from '../interfaces/index.interface';
-
+import { IStudent, IStudentResponse } from '../interfaces/index.interface';
 
 const api = {
     login: async (data: LoginData) => {
@@ -23,6 +23,14 @@ const api = {
     },
     createEvent: async (data: createEventData) => {
         const response: AxiosResponse<EventsResponse> = await axios.post<EventsResponse>('/events', data);
+        return response;
+    },
+    addStudent: async (data: IStudent, eventId: string) => {
+        const response: AxiosResponse<IStudentResponse> = await axios.post<IStudentResponse>(`/events/${eventId}/scan`, data);
+        return response;
+    },
+    getEventAttendees: async (eventId: string) => {
+        const response: AxiosResponse<IStudentResponse> = await axios.get<IStudentResponse>(`/events/${eventId}/scan`);
         return response;
     }
 }

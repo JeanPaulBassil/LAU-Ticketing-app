@@ -6,7 +6,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 export default function CameraButton({ title, onPress, icon, color }: any) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
+      {(icon != 'close') ?
       <Entypo name={icon} size={28} color={color ? color : '#f1f1f1'} />
+      :
+      <MaterialIcons name={icon} size={28} color={color ? color : '#f1f1f1'} />
+      }
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
