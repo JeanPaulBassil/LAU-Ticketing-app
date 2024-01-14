@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Pressable, SafeAreaView, Text, View, Image } from "react-native";
+import { SafeAreaView, Text, View, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/Button";
-
 import { CommonActions } from "@react-navigation/native";
 import {
   CodeField,
@@ -12,7 +11,7 @@ import {
 } from "react-native-confirmation-code-field";
 
 import styles from "../../styles/authentication/code";
-// import { RootStackParamList } from '../RootLayout';
+
 const CELL_COUNT = 6;
 
 
