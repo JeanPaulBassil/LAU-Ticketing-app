@@ -4,8 +4,8 @@ export default StyleSheet.create({
   root: {
     padding: 20,
     minHeight: 300,
-    backgroundColor: "#f6f6f6",
     flex: 1,
+    backgroundColor: '#f6f6f6'
   },
   container: {
     flex: 1,

@@ -9,12 +9,13 @@ const api = {
         return response;
     },
     getMe: async () => {
-        const response: AxiosResponse<{club: IClub}> = await axios.get<{club: IClub}>('/auth/me');
-        return response.data.club;
+        const response: AxiosResponse<IClub> = await axios.get<IClub>('/auth/me');
+        console.log(response);
+        return response.data;
     },
     verifyAccount: async (data: verifyData) => {
-        const response: AxiosResponse<{club: IClub}> = await axios.post<{club: IClub}>('/auth/verify', data);
-        return response.data.club;
+        const response: AxiosResponse<IClub> = await axios.post<IClub>('/auth/verify', data);
+        return response.data;
     },
     getEvents: async () => {
         const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events');
