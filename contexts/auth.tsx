@@ -49,7 +49,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const club: IClub = await api.getMe();
       setClub(club);
     } catch (err) {
-      console.log(err);
       setClub(null);
     } finally {
       setLoading(false);
@@ -60,7 +59,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     getCurrentClub();
   }, []);
 
-  console.log('club', club);
 
   const memoizedValue = useMemo(
     () => ({

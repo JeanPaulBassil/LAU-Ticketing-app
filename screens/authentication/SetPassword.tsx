@@ -65,12 +65,16 @@ const SetPassword = ({
       });
       login(club);
       setError(null);
-    } catch (error) {
-      if (error instanceof yup.ValidationError || error instanceof Error) {
+    } catch (error: any) {
+      if (error instanceof yup.ValidationError) {
         setError(error.message);
+      } else if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+        if (error.response.data.message === "Invalid credentials") {
+          setError(error.response.data.message + ". Please verify that you've entered the correct 6-digit code provided in the email and try again.");
+        }
       } else {
-        setError("An unexpected error occurred");
-        console.error(error);
+        setError("An unexpected error occurred, Please try signing in again later.");
       }
     } finally {
       setLoading(false);

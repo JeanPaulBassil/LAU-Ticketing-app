@@ -80,7 +80,7 @@ const LoginScreen = ({ navigation }: any) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
+      style={{ flex: 1, backgroundColor: '#f6f6f6' }}
       keyboardVerticalOffset={Platform.OS === "android" ? 75 : 0}
     >
       <SafeAreaView style={{ flex: 1 }}>

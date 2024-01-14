@@ -14,10 +14,9 @@ import styles from "../../styles/authentication/code";
 
 const CELL_COUNT = 6;
 
+const Code = ({ route, navigation }: { route: any; navigation: any }) => {
+  const { clubname } = route.params;
 
-const Code = ({ route,  navigation }: { route: any, navigation: any }) => {
-  const { clubname } = route.params ;
-  
   const [value, setValue] = useState<string>("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -25,10 +24,9 @@ const Code = ({ route,  navigation }: { route: any, navigation: any }) => {
     setValue,
   });
   console.log({
-    clubname, 
-    value
+    clubname,
+    value,
   });
-
 
   return (
     <SafeAreaView style={styles.root}>
@@ -38,20 +36,22 @@ const Code = ({ route,  navigation }: { route: any, navigation: any }) => {
           name="arrow-back"
           size={33}
           color="black"
-          backgroundColor={'#f6f6f6'}
+          backgroundColor={"#f6f6f6"}
           onPress={() => navigation.dispatch(CommonActions.goBack())}
           borderRadius={50}
         ></Ionicons.Button>
-        
       </View>
       <View style={styles.top_logo}>
-        <Image source={require('../../assets/lauLogo.png')} />
+        <Image source={require("../../assets/lauLogo.png")} />
       </View>
       <View style={styles.top_container}>
         <Text style={styles.title}>Please Verify Your Account</Text>
-        <Text style={styles.sub_title}>We have sent you a verification code to your email. Please enter it below.</Text>
+        <Text style={styles.sub_title}>
+          We have sent you a verification code to your email. Please enter it
+          below.
+        </Text>
       </View>
-      
+
       <CodeField
         ref={ref}
         {...props}
@@ -75,7 +75,14 @@ const Code = ({ route,  navigation }: { route: any, navigation: any }) => {
         )}
       />
       <View style={styles.submit_button_container}>
-        <CustomButton onPress={() => navigation.navigate("SetPassword", { clubname, code: value })} title='Continue' style={styles.submit_button} />
+        <CustomButton
+          disabled={value.length !== 6}
+          onPress={() =>
+            navigation.navigate("SetPassword", { clubname, code: value })
+          }
+          title="Continue"
+          style={styles.submit_button}
+        />
       </View>
     </SafeAreaView>
   );
