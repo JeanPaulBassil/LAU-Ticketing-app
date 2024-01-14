@@ -1,6 +1,6 @@
 import axios from '../utils/axios';
 import { AxiosResponse } from 'axios';
-import { LoginData, LoginResponse, EventsResponse, IClub, verifyData } from '../interfaces/index.interface';
+import { LoginData, LoginResponse, EventsResponse, IClub, verifyData, createEventData} from '../interfaces/index.interface';
 
 
 const api = {
@@ -21,20 +21,12 @@ const api = {
         const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events');
         return response;
     },
+    createEvent: async (data: createEventData) => {
+        const response: AxiosResponse<EventsResponse> = await axios.post<EventsResponse>('/events', data);
+        return response;
+    }
 }
 
-// const checkError = (error: any) => {
-//     if(AXIOS.isAxiosError(error)) {
-//         console.log(error.message)
-//         if(error.response) 
-//             throw new Error(error.response.data.message) || 'An error occurred';
-//         else 
-//             throw new Error(error.message);
-        
-//     } else {
-//         throw new Error('an Unknown error occurred.');
-//     }
-// }
 
 export default api;
 

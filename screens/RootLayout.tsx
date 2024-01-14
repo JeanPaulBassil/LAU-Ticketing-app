@@ -7,6 +7,8 @@ import * as SplashScreen from "expo-splash-screen";
 import useAuth from "../contexts/auth";
 import CodeScreen from "./authentication/Code";
 import SetPasswordScreen from "./authentication/SetPassword";
+import { IEvent } from "../interfaces/events.interface";
+import EventScreen from "./events/Event";
 
 
 export type RootStackParamList = {
@@ -14,7 +16,8 @@ export type RootStackParamList = {
   Login: undefined;
   Code: {
     name: string;
-  }
+  },
+  Event: {event: IEvent};
 };
 
 SplashScreen.preventAutoHideAsync();
@@ -64,6 +67,7 @@ const RootLayout = () => {
       ) : (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Event" component={EventScreen} />
         </>
       )}
     </Stack.Navigator>

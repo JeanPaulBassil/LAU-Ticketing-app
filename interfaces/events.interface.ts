@@ -16,5 +16,12 @@ interface IEvent {
     __v: number;
 }
 
+interface createEventData {
+    name: string;
+    description: string;
+    start_date: string;
+    end_date: string;
+}
 
-export { EventsResponse, IEvent };
+
+export { EventsResponse, IEvent, createEventData };

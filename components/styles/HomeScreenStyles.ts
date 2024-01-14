@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 15,
         marginTop: 15,
-        marginBottom: 20,
     },
     headerText: {
         fontSize: 30,
@@ -94,9 +93,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#D6D6D6',
     },
-    cancelButtonTextStyle: {
+    cancelButtonText: {
         fontSize: 18,
-        color: '#121420',
+        color: 'black',
         fontFamily: 'PTSans_400Regular'
     },
     addEventButton: {
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
     },
     eventsList: {
         width: '100%',
-        marginTop: 10,
+        height: '100%',
     }, 
     datePickerContainer: {
         position: 'absolute',
@@ -131,7 +130,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#AAAAAA',
     },
-    
+    buttonDisabled: {
+        opacity: 0.3,
+    },
+    errorText: {
+        color: 'red', 
+        fontSize: 14,
+        marginHorizontal: 20,
+        marginTop: 5,
+    },
 });
 
 export default styles;
