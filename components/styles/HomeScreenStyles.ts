@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 15,
         marginTop: 15,
-        marginBottom: 20,
     },
     headerText: {
         fontSize: 30,
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
     },
     eventsList: {
         width: '100%',
-        marginTop: 10,
+        height: '100%',
     }, 
     datePickerContainer: {
         position: 'absolute',

@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator } from 'react-native';
 import Button from '../components/Button';
-import EventItem from '../components/EventItem';
 import styles from '../components/styles/HomeScreenStyles';
 import { createEventData } from '../interfaces/events.interface';
 import useEvents from '../hooks/useEvents';
 import useModal from '../hooks/useModal';
 import useDatePicker from '../hooks/useDatePicker';
 import useForm from '../hooks/useForm';
-import { HelperText } from 'react-native-paper';
 import EventModal from '../components/EventModal';
 import EventList from '../components/EventList';
+import ErrorDisplay from '../components/ErrorDisplay';
 
 const HomeScreen = () => {
     const { events, loading, fetchEvents, addEvent, error } = useEvents();
@@ -51,16 +50,7 @@ const HomeScreen = () => {
                 
             </View>
 
-            {error && (
-                    <HelperText
-                      padding="none"
-                      style={styles.errorText}
-                      type="error"
-                      visible={!!error}
-                    >
-                      {error}
-                    </HelperText>
-            )}
+            <ErrorDisplay error={error} />
 
             <EventList events={events} />
 
