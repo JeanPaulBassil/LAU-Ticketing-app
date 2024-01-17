@@ -14,6 +14,7 @@ import StudentNameModal from '../../components/StudentNameModal';
 import StudentItem from '../../components/StudentItem';
 import { IStudent } from '../../interfaces/students.interface';
 import useForm from '../../hooks/useForm';
+import useModal from '../../hooks/useModal';
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
@@ -28,25 +29,28 @@ const EventDetailScreen = ({ route }: any) => {
     const [flash, setFlash] = useState<FlashMode>(Camera.Constants.FlashMode.off);
     const [showNameModal, setShowNameModal] = useState<boolean>(false);
     const cameraRef = useRef<Camera>(null);
-    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [currentStudentId, setCurrentStudentId] = useState<number | null>(null);
     const [newName, setNewName] = useState('');
     const { values: formValues, handleChange, resetForm } = useForm({ studentName: '' });
+
+    const cameraModal = useModal();
+    const editModal = useModal();
+    const nameModal = useModal();
 
 
     const handleStudentNameSubmit = async () => {
         try {
             const studentData = { student_id: parseInt(data), name: formValues.studentName };
-            const response = await api.addStudent(studentData, event._id);
-            console.log('Student added with name:', response);
+            const response = await api.addStu dent(studentData, event._id);
+    
             resetForm(); 
+            nameModal.closeModal(); 
         } catch (error) {
             console.error('Error adding student with name:', error);
             setError(error.response.data.message);
         }
-        setShowNameModal(false);
     };
-
+    
     useEffect(() => {
         const fetchStudents = async () => {
             try {
@@ -77,18 +81,14 @@ const EventDetailScreen = ({ route }: any) => {
 
     const handleEditSubmit = async () => {
         try {
-            // Call the API method to edit the student
-            const response = await api.editStudent(currentStudentId, newName);
-    
-            // Refresh the list of students
-        } catch (error: any) {
+            const response = await api.editStudent(currentStudentId, newName);    
+            editModal.closeModal(); 
+        } catch (error) {
             console.error('Error editing student:', error);
             setError(error.response.data.message);
         }
-    
-        // Close the edit modal
-        setIsEditModalVisible(false);
     };
+    
 
     const renderStudentItem = ({ item }: any) => (
         <StudentItem 
@@ -97,7 +97,7 @@ const EventDetailScreen = ({ route }: any) => {
                 console.log('Editing student with ID:', item.student_id); // Debugging log
                 setCurrentStudentId(item.student_id);
                 setNewName(item.name);
-                setIsEditModalVisible(true);
+                editModal.openModal();
             }}
         />
     );
@@ -108,7 +108,7 @@ const EventDetailScreen = ({ route }: any) => {
             <View style={styles.header}>
                 <Text style={styles.headerText}>{event.name}</Text>
                 <Button
-                    onPress={() => setIsCameraVisible(true)}
+                    onPress={cameraModal.openModal}
                     title={loading ? "" : "Scan"}
                     disabled={loading}
                     style={[styles.addButton, loading ? styles.buttonDisabled : undefined]}
@@ -117,7 +117,7 @@ const EventDetailScreen = ({ route }: any) => {
                 </Button>                
             </View>
             {error && <ErrorDisplay error={error} />}
-            {isCameraVisible && <View style={StyleSheet.absoluteFillObject}>
+            {cameraModal.visible && <View style={StyleSheet.absoluteFillObject}>
                 <Camera
                     style={cameraStyles.camera}
                     type={type}
@@ -127,7 +127,7 @@ const EventDetailScreen = ({ route }: any) => {
                     onBarCodeScanned={ async (scan) => {
                             setData(scan.data);
                             console.log(scan.data);
-                            setIsCameraVisible(false);
+                            cameraModal.closeModal();
                     
                             try {
                                 const studentData = { student_id: parseInt(scan.data) };
@@ -168,16 +168,16 @@ const EventDetailScreen = ({ route }: any) => {
                     </View>
             </View>}
             <StudentNameModal
-                visible={isEditModalVisible}
-                onClose={() => setIsEditModalVisible(false)}
+                visible={editModal.visible}
+                onClose={() => editModal.closeModal}
                 onSubmit={handleEditSubmit}
                 studentName={newName}          
-                setStudentName={setNewName}    
+                setStudentName={(name: string) => handleChange('studentName', name)}    
             />
 
             <StudentNameModal
-                visible={showNameModal}
-                onClose={() => setShowNameModal(false)}
+                visible={nameModal.visible}
+                onClose={() => nameModal.closeModal}
                 onSubmit={handleStudentNameSubmit}
             />
 
