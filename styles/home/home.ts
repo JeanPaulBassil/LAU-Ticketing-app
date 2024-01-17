@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         backgroundColor: '#f6f6f6',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        // backgroundColor: 'purple'
     },
     header: {
         flexDirection: 'row',
@@ -15,7 +16,8 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 15,
         marginTop: 15,
-        position: 'relative'
+        position: 'relative',
+        // backgroundColor: 'red'
     },
     header_underline: {
         position: 'absolute',
@@ -59,64 +61,6 @@ const styles = StyleSheet.create({
     arrowIcon: {
         fontSize: 20,
     },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalView: {
-        width: '80%',
-        margin: 20,
-        backgroundColor: '#EAF2EF',
-        borderRadius: 20,
-        padding: 20,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2},
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    modalText: {
-        marginLeft: 3,
-        marginBottom: 20,
-        fontSize: 18,
-        color: '#121420',
-        fontFamily: 'PTSans_400Regular'
-    },
-    modalInput: {
-        marginBottom: 15,
-        padding: 12,
-        borderWidth: 1,
-        borderColor: '#AAAAAA',
-        borderRadius: 10,
-        width: '100%',
-        backgroundColor: '#F2F2F2',
-    },
-    modalButtons: {
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-        width: '100%',
-    },
-    cancelButton: {
-        width: 90,
-        height: 40,
-        borderRadius: 5,
-        backgroundColor: '#D6D6D6',
-    },
-    cancelButtonText: {
-        fontSize: 18,
-        color: 'black',
-        fontFamily: 'PTSans_400Regular'
-    },
-    addEventButton: {
-        width: 90,
-        height: 40,
-        borderRadius: 5,
-        backgroundColor: '#005C07',
-        marginLeft: 15,
-    },
     eventsList: {
         width: '100%',
         height: '100%',
@@ -137,9 +81,9 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     dateInputButton: {
-        marginBottom: 10,
+        marginBottom: 20,
         padding: 12,
-        borderRadius: 10,
+        borderRadius: 3,
         borderWidth: 1,
         borderColor: '#AAAAAA',
     },

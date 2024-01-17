@@ -33,10 +33,6 @@ const HomeScreen = ({ navigation }: any) => {
                 </Button>
                 
             </View>
-            
-            <View style={{backgroundColor: 'red', flex: 1}}>
-                <Text style={{color: 'black'}}>asdasd</Text>
-            </View>
 
             <ErrorDisplay error={error} />
 
