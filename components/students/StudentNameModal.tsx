@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Modal, TextInput, StyleSheet } from 'react-native';
-import Button from './Button';
-import styles from '../styles/home/home'; 
+import Button from '../common/Button';
+import styles from '../../styles/home/modal'; 
 
 const StudentNameModal = ({ visible, onClose, onSubmit }: any) => {
     const [studentName, setStudentName] = useState('');

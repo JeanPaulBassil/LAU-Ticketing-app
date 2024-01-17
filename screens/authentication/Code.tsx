@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, View, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import CustomButton from "../../components/Button";
+import CustomButton from "../../components/common/Button";
 import { CommonActions } from "@react-navigation/native";
 import {
   CodeField,

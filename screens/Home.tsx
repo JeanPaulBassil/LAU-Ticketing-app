@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image } from 'react-native';
-import Button from '../components/Button';
+import Button from '../components/common/Button';
 import styles from '../styles/home/home';
 import useEvents from '../hooks/useEvents';
 import useModal from '../hooks/useModal';
-import EventModal from '../components/EventModal';
-import EventList from '../components/EventList';
-import ErrorDisplay from '../components/ErrorDisplay';
+import EventModal from '../components/events/EventModal';
+import EventList from '../components/events/EventList';
+import ErrorDisplay from '../components/common/ErrorDisplay';
 import NoEvents from '../components/events/NoEvents';
 
 const HomeScreen = ({ navigation }: any) => {

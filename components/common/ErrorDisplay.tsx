@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/home/home';
+import styles from '../../styles/home/home';
 import { HelperText } from 'react-native-paper';
 
 const ErrorDisplay = ({ error }: {error: string}) => {

@@ -2,16 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, Modal, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
 import styles from '../../styles/home/home';
 import Constants from 'expo-constants';
-import ErrorDisplay from '../../components/ErrorDisplay';
-import Button from '../../components/Button';
+import ErrorDisplay from '../../components/common/ErrorDisplay';
+import Button from '../../components/common/Button';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Camera, CameraType } from 'expo-camera';
 import { FlashMode } from 'react-native-camera';
 import { MaterialIcons } from '@expo/vector-icons';
-import CameraButton from '../../components/CameraButtons';
+import CameraButton from '../../components/scans/CameraButtons';
 import api from '../../services/api';
-import StudentNameModal from '../../components/StudentNameModal';
-import StudentItem from '../../components/StudentItem';
+import StudentNameModal from '../../components/students/StudentNameModal';
+import StudentItem from '../../components/students/StudentItem';
 import { IStudent } from '../../interfaces/students.interface';
 
 const EventDetailScreen = ({ route }: any) => {

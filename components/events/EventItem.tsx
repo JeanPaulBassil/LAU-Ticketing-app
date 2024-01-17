@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import styles from '../styles/home/home';
+import styles from '../../styles/home/home';
 
 interface EventItemProps {
   name: string;

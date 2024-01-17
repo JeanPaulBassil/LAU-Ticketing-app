@@ -12,10 +12,10 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import CustomButton from "../../components/Button";
+import CustomButton from "../../components/common/Button";
 import * as yup from "yup";
 import { CommonActions } from "@react-navigation/native";
-import InputField from "../../components/InputField";
+import InputField from "../../components/common/InputField";
 import { HelperText, ActivityIndicator } from "react-native-paper";
 import setPasswordSchema from "../../validation/set-password";
 import styles from "../../styles/authentication/set-password";

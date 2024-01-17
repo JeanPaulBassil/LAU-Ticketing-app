@@ -8,7 +8,7 @@ type ImageLogoProps = {
 const ImageLogo: React.FC<ImageLogoProps> = ({ style }) => {
     return (
         <Image 
-            source={require('../assets/lauLogo.png')}
+            source={require('../../assets/lauLogo.png')}
             style={[styles.logo, style]}
         />
     )

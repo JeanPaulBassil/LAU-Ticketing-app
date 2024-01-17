@@ -10,13 +10,13 @@ import {
   Keyboard,
   SafeAreaView,
 } from "react-native";
-import Button from "./Button";
+import Button from "../common/Button";
 import DatePickerButton from "./DatePickerButton";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { formatDate } from "../utils/date";
-import useForm from "../hooks/useForm";
-import useDatePicker from "../hooks/useDatePicker";
-import styles from "../styles/home/modal";
+import { formatDate } from "../../utils/date";
+import useForm from "../../hooks/useForm";
+import useDatePicker from "../../hooks/useDatePicker";
+import styles from "../../styles/home/modal";
 
 const EventModal = ({
   visible,

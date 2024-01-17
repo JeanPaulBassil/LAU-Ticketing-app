@@ -14,9 +14,9 @@ import {
   TextInputProps
 } from "react-native";
 import { HelperText } from "react-native-paper";
-import Button from "../../components/Button";
-import ImageLogo from "../../components/ImageLogo";
-import InputField from "../../components/InputField";
+import Button from "../../components/common/Button";
+import ImageLogo from "../../components/common/ImageLogo";
+import InputField from "../../components/common/InputField";
 
 import styles from "../../styles/authentication/login";
 import loginSchema from "../../validation/LoginValidation";
