@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
         color: '#121420', 
     },
     addButton: {
-        width: 110,
-        height: 40,
-        borderRadius: 5,
+        width: 120,
+        height: 38,
+        borderRadius: 3,
     },
     addButtonText: {
         fontSize: 18,
