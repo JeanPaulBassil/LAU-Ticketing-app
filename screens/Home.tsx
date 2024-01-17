@@ -38,12 +38,13 @@ const HomeScreen = ({ navigation }: any) => {
 
             <EventList events={events} navigation={navigation}/>
 
-            {/* <NoEvents events={events} loading={loading} error={error} /> */}
-            <View style={styles.container}>
-                {/* {content} */}
-                <Image source={require("../assets/events/no-events-found.png")} />
-                
+            <NoEvents events={events} loading={loading} error={error} />
+            
+            <View style={styles.body}>
+                <Image style={styles.image} source={require("../assets/events/no-events-found.png")} />
+                <Text style={styles.notFoundMessage}>There are no upcoming events at this time.</Text>
             </View>
+            
 
             <EventModal
                 visible={visible}

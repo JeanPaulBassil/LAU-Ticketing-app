@@ -2,12 +2,10 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'flex-start',
         backgroundColor: '#f6f6f6',
         display: 'flex',
         flexDirection: 'column',
-        // backgroundColor: 'purple'
+        flex: 1
     },
     header: {
         flexDirection: 'row',
@@ -17,7 +15,6 @@ const styles = StyleSheet.create({
         padding: 15,
         marginTop: 15,
         position: 'relative',
-        // backgroundColor: 'red'
     },
     header_underline: {
         position: 'absolute',
@@ -63,7 +60,7 @@ const styles = StyleSheet.create({
     },
     eventsList: {
         width: '100%',
-        height: '100%',
+        // height: '100%',
         zIndex: -1,
     }, 
     datePickerContainer: {
@@ -96,6 +93,19 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginTop: 5,
     },
+    image: {
+        width: "90%",
+        height: 300,
+        resizeMode: "contain",
+        backgroundColor: '#f6f6f6',
+    },
+    body: {
+        
+    },
+    notFoundMessage: {
+        fontSize: 20,
+        color: 'grey',
+    }
 });
 
 export default styles;

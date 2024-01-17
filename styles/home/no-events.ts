@@ -2,33 +2,20 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'red',
-        flex: 1,
-    },
-    noEvents: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red',
-        width:'100%'
+        width:'100%',
+        display: 'flex'
     },
-    eventsText: {
+    notFoundMessage: {
         fontSize: 20,
-        color: 'black',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    errorText: {
-        fontSize: 18,
-        color: 'red',
-        textAlign: 'center',
+        color: 'grey',
+        
     },
     image: {
-        width: "100%",
+        width: "90%",
         height: 300,
-        resizeMode: "cover",
+        resizeMode: "contain"
     }
 });
 

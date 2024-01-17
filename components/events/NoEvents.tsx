@@ -10,21 +10,14 @@ interface NoEventsProps {
 }
 
 const NoEvents = ({ events, loading, error }: NoEventsProps) => {
-    if (loading || events.length > 0) {
+    if (error || loading || events.length > 0) {
         return null;
-    }
-
-    let content = <Text style={[styles.eventsText]}>There are no upcoming events at this time.</Text>;
-
-    if (error) {
-        content = <Text style={[styles.eventsText, styles.errorText]}>Error loading events. Try Again.</Text>;
     }
 
     return (
         <View style={styles.container}>
-            {content}
-            <Image style={styles.image} source={require("../../assets/no-events-found.png")} />
-            
+            <Image style={styles.image} source={require("../../assets/events/no-events-found.png")} />
+            <Text style={styles.notFoundMessage}>There are no upcoming events at this time.</Text>
         </View>
     );
 }

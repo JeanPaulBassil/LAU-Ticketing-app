@@ -8,7 +8,6 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
-  SafeAreaView,
 } from "react-native";
 import Button from "../common/Button";
 import DatePickerButton from "./DatePickerButton";
