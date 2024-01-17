@@ -1,7 +1,7 @@
-import { BACKEND_URL, BACKEND_PORT } from "@env";
+// import { BACKEND_URL, BACKEND_PORT } from "@env";
 
 const config = {
-    backendUrl: `${BACKEND_URL}:${BACKEND_PORT}`
+    backendUrl: `http://172.20.10.3:3000`
 }
 
 export default config;

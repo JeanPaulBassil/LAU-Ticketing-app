@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        backgroundColor: '#EAF2EF',
+        backgroundColor: '#f6f6f6',
     },
     header: {
         flexDirection: 'row',
@@ -13,6 +13,16 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 15,
         marginTop: 15,
+        position: 'relative'
+    },
+    header_underline: {
+        position: 'absolute',
+        bottom: 12,
+        left: 17,
+        backgroundColor: '#005C07',
+        width: 60,
+        height: 2,
+        borderRadius: 50,
     },
     headerText: {
         fontSize: 30,

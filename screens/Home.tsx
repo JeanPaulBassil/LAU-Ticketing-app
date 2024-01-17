@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator } from 'react-native';
 import Button from '../components/Button';
-import styles from '../components/styles/HomeScreenStyles';
+import styles from '../styles/home/home';
 import { createEventData } from '../interfaces/events.interface';
 import useEvents from '../hooks/useEvents';
 import useModal from '../hooks/useModal';
@@ -39,6 +39,7 @@ const HomeScreen = ({ navigation }: any) => {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Events</Text>
+                <View style={styles.header_underline} />
                 <Button
                     onPress={openModal}
                     title={loading ? "" : "Add Event"}

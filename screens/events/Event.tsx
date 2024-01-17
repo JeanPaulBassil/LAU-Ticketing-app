@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, Modal, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
-import styles from '../../components/styles/HomeScreenStyles';
+import styles from '../../styles/home/home';
 import Constants from 'expo-constants';
 import ErrorDisplay from '../../components/ErrorDisplay';
 import Button from '../../components/Button';
@@ -119,6 +119,7 @@ const EventDetailScreen = ({ route }: any) => {
                     ref={cameraRef}
                     autoFocus={Camera.Constants.AutoFocus.on}
                     onBarCodeScanned={async (scan) => {
+                        setIsCameraVisible(false);
                         if (scan.data !== data) {
                             setData(scan.data);
                             console.log(scan.data);
@@ -139,7 +140,7 @@ const EventDetailScreen = ({ route }: any) => {
                                 }
                             } 
                     
-                            setIsCameraVisible(false);
+                            
                         }
                     }}
                 >

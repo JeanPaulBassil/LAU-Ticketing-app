@@ -6,7 +6,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { formatDate } from '../utils/date';
 import useForm from '../hooks/useForm';
 import useDatePicker from '../hooks/useDatePicker';
-import styles from './styles/HomeScreenStyles'; 
+import styles from '../styles/home/home'; 
 
 const EventModal = ({ visible, onClose, onAdd }: { visible: boolean, onClose: () => void, onAdd: (eventData: any) => Promise<void> }) => {
     const { values, handleChange, resetForm } = useForm({ eventName: '' });
