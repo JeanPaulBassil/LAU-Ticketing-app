@@ -6,27 +6,27 @@ import { View, Text, Image } from "react-native";
 interface NoEventsProps { 
     loading: boolean;
     error: string;
-    events: IEvent[]
+    events: IEvent[];
 }
 
 const NoEvents = ({ events, loading, error }: NoEventsProps) => {
-    if (loading || error || !events || !events.length) {
+    if (loading || events.length > 0) {
         return null;
     }
 
-    console.log('events', events)
-    console.log('loading', loading);
-    console.log('error', error);
-    console.log('events.length', events.length);
-    console.log('events.length === 0', events.length === 0);
+    let content = <Text style={[styles.eventsText]}>There are no upcoming events at this time.</Text>;
+
+    if (error) {
+        content = <Text style={[styles.eventsText, styles.errorText]}>Error loading events. Try Again.</Text>;
+    }
 
     return (
-        <View style={styles.noEvents}>
-            <Image source={require("../../assets/no-events-found.svg")} />
-            <Text style={styles.noEventsText}>There are no upcoming events at this time.</Text>
+        <View style={styles.container}>
+            {content}
+            <Image style={styles.image} source={require("../../assets/no-events-found.png")} />
+            
         </View>
     );
-    
 }
 
 export default NoEvents;

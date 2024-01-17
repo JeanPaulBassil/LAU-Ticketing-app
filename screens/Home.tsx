@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator } from 'react-native';
+import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image } from 'react-native';
 import Button from '../components/Button';
 import styles from '../styles/home/home';
 import { createEventData } from '../interfaces/events.interface';
@@ -47,7 +47,12 @@ const HomeScreen = ({ navigation }: any) => {
 
             <EventList events={events} navigation={navigation}/>
 
-            <NoEvents events={events} loading={loading} error={error} />
+            {/* <NoEvents events={events} loading={loading} error={error} /> */}
+            <View style={styles.container}>
+                {/* {content} */}
+                <Image source={require("../assets/events/no-events-found.png")} />
+                
+            </View>
 
             <EventModal
                 visible={visible}

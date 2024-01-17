@@ -26,7 +26,6 @@ import { IClub } from "../../interfaces/clubs.interface";
 import { AxiosResponse } from "axios";
 
 const emailSent = (response: AxiosResponse<IClub>) => {
-  console.log('email sent')
   return response.status === 202;
 };
 
