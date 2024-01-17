@@ -3,12 +3,11 @@ import { View, Text, Modal, TextInput, StyleSheet } from 'react-native';
 import Button from './Button';
 import styles from './styles/HomeScreenStyles'; 
 
-const StudentNameModal = ({ visible, onClose, onSubmit }: any) => {
-    const [studentName, setStudentName] = useState('');
+const StudentNameModal = ({ visible, onClose, onSubmit, studentName, setStudentName }: any) => {
 
     const handleSubmit = async () => {
         onSubmit(studentName);
-        setStudentName('');
+        setStudentName(''); // This will now update the state in EventDetailScreen
     };
 
     const handleCancel = () => {

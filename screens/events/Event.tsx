@@ -13,6 +13,7 @@ import api from '../../services/api';
 import StudentNameModal from '../../components/StudentNameModal';
 import StudentItem from '../../components/StudentItem';
 import { IStudent } from '../../interfaces/students.interface';
+import useForm from '../../hooks/useForm';
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
@@ -30,13 +31,15 @@ const EventDetailScreen = ({ route }: any) => {
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [currentStudentId, setCurrentStudentId] = useState<number | null>(null);
     const [newName, setNewName] = useState('');
-    
+    const { values: formValues, handleChange, resetForm } = useForm({ studentName: '' });
 
-    const handleStudentNameSubmit = async (name) => {
+
+    const handleStudentNameSubmit = async () => {
         try {
-            const studentData = { student_id: parseInt(data), name };
+            const studentData = { student_id: parseInt(data), name: formValues.studentName };
             const response = await api.addStudent(studentData, event._id);
             console.log('Student added with name:', response);
+            resetForm(); 
         } catch (error) {
             console.error('Error adding student with name:', error);
             setError(error.response.data.message);
@@ -72,27 +75,30 @@ const EventDetailScreen = ({ route }: any) => {
     }
     
 
-    const handleEditStudent = (studentId: number) => {
-        setCurrentStudentId(studentId);
-        setIsEditModalVisible(true);
-    };
-
     const handleEditSubmit = async () => {
-        if (currentStudentId !== null) {
-            try {
-                await api.editStudent(currentStudentId, newName);
-            } catch  (error: any){
-                console.error('Error editing student: ', );
-            } finally {
-                setIsEditModalVisible(false);
-            }
+        try {
+            // Call the API method to edit the student
+            const response = await api.editStudent(currentStudentId, newName);
+    
+            // Refresh the list of students
+        } catch (error: any) {
+            console.error('Error editing student:', error);
+            setError(error.response.data.message);
         }
+    
+        // Close the edit modal
+        setIsEditModalVisible(false);
     };
 
     const renderStudentItem = ({ item }: any) => (
         <StudentItem 
             name={item.name} 
-            onEdit={() => handleEditStudent(item.id)}
+            onEdit={() => {
+                console.log('Editing student with ID:', item.student_id); // Debugging log
+                setCurrentStudentId(item.student_id);
+                setNewName(item.name);
+                setIsEditModalVisible(true);
+            }}
         />
     );
     return (
@@ -118,10 +124,10 @@ const EventDetailScreen = ({ route }: any) => {
                     flashMode={flash}
                     ref={cameraRef}
                     autoFocus={Camera.Constants.AutoFocus.on}
-                    onBarCodeScanned={async (scan) => {
-                        if (scan.data !== data) {
+                    onBarCodeScanned={ async (scan) => {
                             setData(scan.data);
                             console.log(scan.data);
+                            setIsCameraVisible(false);
                     
                             try {
                                 const studentData = { student_id: parseInt(scan.data) };
@@ -139,8 +145,6 @@ const EventDetailScreen = ({ route }: any) => {
                                 }
                             } 
                     
-                            setIsCameraVisible(false);
-                        }
                     }}
                 >
                     
@@ -163,7 +167,14 @@ const EventDetailScreen = ({ route }: any) => {
                         }}/>
                     </View>
             </View>}
-            <StudentNameModal visible={isEditModalVisible} onClose={() => setIsEditModalVisible(false)} onSubmit={handleEditSubmit}/>
+            <StudentNameModal
+                visible={isEditModalVisible}
+                onClose={() => setIsEditModalVisible(false)}
+                onSubmit={handleEditSubmit}
+                studentName={newName}          
+                setStudentName={setNewName}    
+            />
+
             <StudentNameModal
                 visible={showNameModal}
                 onClose={() => setShowNameModal(false)}
