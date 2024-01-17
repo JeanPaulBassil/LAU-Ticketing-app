@@ -6,7 +6,6 @@ import { navigate } from '../App';
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: config.backendUrl,
   timeout: 100000,
-  // should be max of 7
   withCredentials: true
 });
 

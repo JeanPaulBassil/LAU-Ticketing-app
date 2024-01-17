@@ -26,13 +26,18 @@ const api = {
         return response;
     },
     addStudent: async (data: IStudent, eventId: string) => {
-        const response: AxiosResponse<IStudentResponse> = await axios.post<IStudentResponse>(`/events/${eventId}/scan`, data);
+        const response: AxiosResponse<IStudentResponse> = await axios.post<IStudentResponse>(`/scans/${eventId}`, data);
         return response;
     },
     getEventAttendees: async (eventId: string) => {
-        const response: AxiosResponse<IStudentResponse> = await axios.get<IStudentResponse>(`/events/${eventId}/scan`);
+        const response: AxiosResponse<IStudentResponse> = await axios.get<IStudentResponse>(`/scans/${eventId}`);
         return response;
-    }
+    },
+    editStudent: async (studentId: number, newName: string) => {
+        console.log(studentId, newName);
+        const response: AxiosResponse<IStudentResponse> = await axios.put<IStudentResponse>(`/students`, {student_id: studentId, name: newName});
+        return response;
+    },
 }
 
 

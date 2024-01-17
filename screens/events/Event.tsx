@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, Modal, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
 import styles from '../../components/styles/HomeScreenStyles';
 import Constants from 'expo-constants';
 import ErrorDisplay from '../../components/ErrorDisplay';
@@ -27,6 +27,9 @@ const EventDetailScreen = ({ route }: any) => {
     const [flash, setFlash] = useState<FlashMode>(Camera.Constants.FlashMode.off);
     const [showNameModal, setShowNameModal] = useState<boolean>(false);
     const cameraRef = useRef<Camera>(null);
+    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+    const [currentStudentId, setCurrentStudentId] = useState<number | null>(null);
+    const [newName, setNewName] = useState('');
     
 
     const handleStudentNameSubmit = async (name) => {
@@ -67,24 +70,35 @@ const EventDetailScreen = ({ route }: any) => {
     if (!hasPermission) {
         return <Text>No access to camera</Text>;
     }
-
-
-    const handleDeleteStudent = (studentId: number) => {
-    };
+    
 
     const handleEditStudent = (studentId: number) => {
+        setCurrentStudentId(studentId);
+        setIsEditModalVisible(true);
     };
 
+    const handleEditSubmit = async () => {
+        if (currentStudentId !== null) {
+            try {
+                await api.editStudent(currentStudentId, newName);
+            } catch  (error: any){
+                console.error('Error editing student: ', );
+            } finally {
+                setIsEditModalVisible(false);
+            }
+        }
+    };
 
     const renderStudentItem = ({ item }: any) => (
         <StudentItem 
             name={item.name} 
             onEdit={() => handleEditStudent(item.id)}
-            onDelete={() => handleDeleteStudent(item.id)}
         />
     );
     return (
         <SafeAreaView style={styles.container}>
+
+            
             <View style={styles.header}>
                 <Text style={styles.headerText}>{event.name}</Text>
                 <Button
@@ -114,14 +128,15 @@ const EventDetailScreen = ({ route }: any) => {
                                 console.log(studentData.id, typeof studentData.id)
                                 const response = await api.addStudent(studentData, event._id);
                                 console.log('Student added:', response);
-                                // Handle the response as needed
                             } catch (error: any) {
                                 console.error('Error adding student:', error.response.data.message);
-                                if(error.response.data.message === 'Student with ID 202101772 not found, Please provide a name'){
+                                const regex = /^Student with ID \d{9} not found, Please provide a name$/;
+                                if(regex.test(error.response.data.message)){
+                                    console.log("Here")
                                     setShowNameModal(true);
-                                } else
-                                setError(error.response.data.message);
-                                // Handle the error as needed
+                                } else {
+                                    setError(error.response.data.message);
+                                }
                             } 
                     
                             setIsCameraVisible(false);
@@ -148,7 +163,7 @@ const EventDetailScreen = ({ route }: any) => {
                         }}/>
                     </View>
             </View>}
-
+            <StudentNameModal visible={isEditModalVisible} onClose={() => setIsEditModalVisible(false)} onSubmit={handleEditSubmit}/>
             <StudentNameModal
                 visible={showNameModal}
                 onClose={() => setShowNameModal(false)}
@@ -171,7 +186,8 @@ const cameraStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#000',
         justifyContent: 'center',
-        paddingBottom: 20
+        paddingBottom: 20,
+        zIndex: 1,
     },
     camera: {
         flex: 1,

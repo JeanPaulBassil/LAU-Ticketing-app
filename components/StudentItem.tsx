@@ -2,16 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
-const StudentItem = ({ name, onEdit, onDelete }) => {
+const StudentItem = ({ name, onEdit}: any) => {
     return (
         <View style={styles.studentItem}>
             <Text style={styles.studentName}>{name}</Text>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={onEdit}>
                     <FontAwesome5 name="pen" size={20} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={onDelete}>
-                    <FontAwesome name="trash" size={20} color="black" />
                 </TouchableOpacity>
             </View>
         </View>
