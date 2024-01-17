@@ -97,8 +97,6 @@ const EventDetailScreen = ({ route }: any) => {
     );
     return (
         <SafeAreaView style={styles.container}>
-
-            
             <View style={styles.header}>
                 <Text style={styles.headerText}>{event.name}</Text>
                 <Button

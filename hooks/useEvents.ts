@@ -19,6 +19,8 @@ const useEvents = () => {
             setError(error.response?.data?.message || "An error occurred while fetching events.");
         } finally {
             setLoading(false);
+            // for testing purposes
+            setEvents([]);
         }
     }    
 
@@ -35,7 +37,7 @@ const useEvents = () => {
         }
     }
 
-    return { events, loading, fetchEvents, addEvent, error };
+    return { events, loading, fetchEvents, addEvent, error, setEvents };
 }
 
 export default useEvents;

@@ -18,7 +18,7 @@ import Button from "../../components/Button";
 import ImageLogo from "../../components/ImageLogo";
 import InputField from "../../components/InputField";
 
-import styles from "../../components/styles/LoginScreenStyles";
+import styles from "../../styles/authentication/login";
 import loginSchema from "../../validation/LoginValidation";
 import api from "../../services/api";
 import useAuth from "../../contexts/auth";

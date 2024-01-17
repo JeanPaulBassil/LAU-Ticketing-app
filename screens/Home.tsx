@@ -10,29 +10,20 @@ import useForm from '../hooks/useForm';
 import EventModal from '../components/EventModal';
 import EventList from '../components/EventList';
 import ErrorDisplay from '../components/ErrorDisplay';
+import NoEvents from '../components/events/NoEvents';
 
 const HomeScreen = ({ navigation }: any) => {
-    const { events, loading, fetchEvents, addEvent, error } = useEvents();
+    const { events, loading, fetchEvents, addEvent, error, setEvents } = useEvents();
     const { visible, openModal, closeModal} = useModal();
     const { date: startDate, isPickerVisible: isStartVisible, showPicker: showStartPicker, hidePicker: hideStartPicker, handleConfirm: confirmStartPicker } = useDatePicker();
     const { date: endDate, isPickerVisible: isEndVisible, showPicker: showEndPicker, hidePicker: hideEndPicker, handleConfirm: confirmEndPicker } = useDatePicker();
     const { values, handleChange, resetForm } = useForm({eventName: ''});
     const { eventName } = values;
 
-    const handleAddEvent = async () => {
-        const eventData: createEventData = {
-            name: eventName,
-            description: 'blank',
-            start_date: startDate.toISOString(),
-            end_date: endDate.toISOString(),
-        };
-        closeModal();
-        await addEvent(eventData);
-        resetForm();
-    };
 
     useEffect(() => {
         fetchEvents();
+        setEvents([]);
     }, []);
 
     return (
@@ -50,10 +41,13 @@ const HomeScreen = ({ navigation }: any) => {
                 </Button>
                 
             </View>
+            
 
             <ErrorDisplay error={error} />
 
             <EventList events={events} navigation={navigation}/>
+
+            <NoEvents events={events} loading={loading} error={error} />
 
             <EventModal
                 visible={visible}
