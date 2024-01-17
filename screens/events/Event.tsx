@@ -15,13 +15,13 @@ import { IStudent } from '../../interfaces/students.interface';
 import useForm from '../../hooks/useForm';
 import useModal from '../../hooks/useModal';
 import useCamera from '../../hooks/useCamera';
+import useStudents from '../../hooks/useStudents';
 
 const EventDetailScreen = ({ route }: any) => {
+    const [error, setError] = useState<string>('');
     const { event } = route.params;
-    const [loading, setLoading] = useState(false);
-    const [students, setStudents] = useState([]);
+    const { students, studentError, loading, addStudent, editStudent } = useStudents(event._id);
     const [scanData, setScanData] = useState(null);
-    const [error, setError] = useState('');
     const [showNameModal, setShowNameModal] = useState<boolean>(false);
     const cameraRef = useRef<Camera>(null);
     const [currentStudentId, setCurrentStudentId] = useState<number | null>(null);
@@ -32,35 +32,13 @@ const EventDetailScreen = ({ route }: any) => {
     const nameModal = useModal();
     const { hasPermission, type, toggleCameraType, flashMode, toggleFlashMode, isCameraVisible, openCameraModal, closeCameraModal } = useCamera();
 
-
     const handleStudentNameSubmit = async () => {
-        try {
-            const studentData = { student_id: parseInt(data), name: formValues.studentName };
-            const response = await api.addStudent(studentData, event._id);
-    
-            resetForm(); 
-            nameModal.closeModal(); 
-        } catch (error) {
-            console.error('Error adding student with name:', error);
-            setError(error.response.data.message);
-        }
+        const studentData = { student_id: parseInt(scanData), name: formValues.studentName };
+        console.log("Form Vals", formValues);
+        await addStudent(studentData);
+        resetForm(); 
+        nameModal.closeModal(); 
     };
-    
-    useEffect(() => {
-        const fetchStudents = async () => {
-            try {
-                const response = await api.getEventAttendees(event._id);
-                setStudents(response.data.attendees);
-            } catch (error) {
-                console.error('Error fetching students:', error);
-            }
-        };
-
-        fetchStudents();
-    }, []);
-
-    
-    
 
 
     if (!hasPermission) {
@@ -68,14 +46,9 @@ const EventDetailScreen = ({ route }: any) => {
     }
     
 
-    const handleEditSubmit = async () => {
-        try {
-            const response = await api.editStudent(currentStudentId, newName);    
-            editModal.closeModal(); 
-        } catch (error: any) {
-            console.error('Error editing student:', error);
-            setError(error.response.data.message);
-        }
+    const handleEditSubmit = async (newName: string) => {
+        await editStudent(currentStudentId, newName);
+        editModal.closeModal(); 
     };
     
 
@@ -118,7 +91,7 @@ const EventDetailScreen = ({ route }: any) => {
                         console.log(scan.data);
                         cameraModal.closeModal();
                         try {
-                            const studentData = { student_id: parseInt(scan.data) };
+                            const studentData = { student_id: parseInt(scan.data)};
                             console.log(studentData.id, typeof studentData.id)
                             const response = await api.addStudent(studentData, event._id);
                             console.log('Student added:', response);
@@ -127,7 +100,7 @@ const EventDetailScreen = ({ route }: any) => {
                             const regex = /^Student with ID \d{9} not found, Please provide a name$/;
                             if(regex.test(error.response.data.message)){
                                 console.log("Here")
-                                setShowNameModal(true);
+                                nameModal.openModal();
                             } else {
                                 setError(error.response.data.message);
                             }
@@ -159,6 +132,8 @@ const EventDetailScreen = ({ route }: any) => {
                 visible={nameModal.visible}
                 onClose={() => nameModal.closeModal}
                 onSubmit={handleStudentNameSubmit}
+                studentName={formValues.studentName}
+                setStudentName={(name: string) => handleChange('studentName', name)}
             />
 
         <View style={styles.eventsList}>

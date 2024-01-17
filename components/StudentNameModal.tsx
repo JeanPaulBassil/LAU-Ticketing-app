@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, TextInput, StyleSheet } from 'react-native';
 import Button from './Button';
 import styles from './styles/HomeScreenStyles'; 
 
 const StudentNameModal = ({ visible, onClose, onSubmit, studentName, setStudentName }: any) => {
+    const [localName, setLocalName] = useState(studentName);
+
+    useEffect(() => {
+        setLocalName(studentName);
+    }, [studentName]);
 
     const handleSubmit = async () => {
-        onSubmit(studentName);
-        setStudentName(''); // This will now update the state in EventDetailScreen
+        onSubmit(localName);
+        setLocalName(''); 
     };
 
     const handleCancel = () => {
-        setStudentName('');
+        setLocalName('');
         onClose();
     };
 
@@ -29,8 +34,8 @@ const StudentNameModal = ({ visible, onClose, onSubmit, studentName, setStudentN
                         placeholder='Student Name'
                         style={styles.modalInput}
                         placeholderTextColor={'#AAAAAA'}
-                        value={studentName}
-                        onChangeText={setStudentName}
+                        value={localName}
+                        onChangeText={setLocalName}
                     />
                     <View style={styles.modalButtons}>
                         <Button 
