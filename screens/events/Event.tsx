@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useReducer } from 'react';
 import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, Modal, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
 import styles from '../../components/styles/HomeScreenStyles';
 import Constants from 'expo-constants';
@@ -17,28 +17,97 @@ import useModal from '../../hooks/useModal';
 import useCamera from '../../hooks/useCamera';
 import useStudents from '../../hooks/useStudents';
 
+type State = {
+    error: string;
+    scanData: number | null;
+    currentStudentId: number | null;
+    newName: string;
+    showNameModal: boolean;
+};
+
+type Action =
+    | { type: 'SET_ERROR'; payload: string }
+    | { type: 'SET_SCAN_DATA'; payload: number | null }
+    | { type: 'SET_CURRENT_STUDENT_ID'; payload: number | null }
+    | { type: 'SET_NEW_NAME'; payload: string }
+    | { type: 'TOGGLE_NAME_MODAL' };
+
+const initialState: State = {
+    error: '',
+    scanData: null,
+    currentStudentId: null,
+    newName: '',
+    showNameModal: false,
+};
+
+function reducer(state: State, action: Action): State {
+    switch (action.type) {
+        case 'SET_ERROR':
+            return { ...state, error: action.payload };
+        case 'SET_SCAN_DATA':
+            return { ...state, scanData: action.payload };
+        case 'SET_CURRENT_STUDENT_ID':
+            return { ...state, currentStudentId: action.payload };
+        case 'SET_NEW_NAME':
+            return { ...state, newName: action.payload };
+        case 'TOGGLE_NAME_MODAL':
+            return { ...state, showNameModal: !state.showNameModal };
+        default:
+            return state;
+    }
+}
+
 const EventDetailScreen = ({ route }: any) => {
-    const [error, setError] = useState<string>('');
     const { event } = route.params;
     const { students, studentError, loading, addStudent, editStudent } = useStudents(event._id);
-    const [scanData, setScanData] = useState(null);
-    const [showNameModal, setShowNameModal] = useState<boolean>(false);
+    const [{ error, scanData, currentStudentId, newName, showNameModal }, dispatch] = useReducer(reducer, initialState);
+
     const cameraRef = useRef<Camera>(null);
-    const [currentStudentId, setCurrentStudentId] = useState<number | null>(null);
-    const [newName, setNewName] = useState('');
     const { values: formValues, handleChange, resetForm } = useForm({ studentName: '' });
     const cameraModal = useModal();
     const editModal = useModal();
     const nameModal = useModal();
     const { hasPermission, type, toggleCameraType, flashMode, toggleFlashMode, isCameraVisible, openCameraModal, closeCameraModal } = useCamera();
 
-    const handleStudentNameSubmit = async () => {
-        const studentData = { student_id: parseInt(scanData), name: formValues.studentName };
-        console.log("Form Vals", formValues);
-        await addStudent(studentData);
-        resetForm(); 
-        nameModal.closeModal(); 
+    const handleStudentScan = async (scannedData: number): Promise<void> => {
+        dispatch({ type: 'SET_SCAN_DATA', payload: scannedData });
+        cameraModal.closeModal();
+        await addScannedStudent(scannedData);
     };
+
+    const addScannedStudent = async (scannedData: number): Promise<void> => {
+        try {
+            const studentData = { student_id: scannedData };
+            const response = await api.addStudent(studentData, event._id);
+            console.log('Student added:', response);
+        } catch (error: any) {
+            handleStudentAddError(error);
+        }
+    };
+
+    const handleStudentAddError = (error: any): void => {
+        console.error('Error adding student:', error.response.data.message);
+        const regex = /^Student with ID \d{9} not found, Please provide a name$/;
+        if (regex.test(error.response.data.message)) {
+            nameModal.openModal();
+        } else {
+            dispatch({ type: 'SET_ERROR', payload: error.response.data.message });
+        }
+    };
+    
+    const handleStudentEdit = async (studentId: number | null, newName: string): Promise<void> => {
+        try {
+            if (studentId !== null) {
+                await editStudent(studentId, newName);
+                editModal.closeModal();
+                dispatch({ type: 'SET_CURRENT_STUDENT_ID', payload: null });
+                dispatch({ type: 'SET_NEW_NAME', payload: '' });
+            }
+        } catch (error: any) {
+            dispatch({ type: 'SET_ERROR', payload: error.response.data.message });
+        }
+    };
+    
 
 
     if (!hasPermission) {
@@ -56,13 +125,13 @@ const EventDetailScreen = ({ route }: any) => {
         <StudentItem 
             name={item.name} 
             onEdit={() => {
-                console.log('Editing student with ID:', item.student_id); // Debugging log
-                setCurrentStudentId(item.student_id);
-                setNewName(item.name);
+                dispatch({ type: 'SET_CURRENT_STUDENT_ID', payload: item.student_id });
+                dispatch({ type: 'SET_NEW_NAME', payload: item.name });
                 editModal.openModal();
             }}
         />
     );
+    
     return (
         <SafeAreaView style={styles.container}>
 
@@ -86,25 +155,8 @@ const EventDetailScreen = ({ route }: any) => {
                     flashMode={flashMode}
                     ref={cameraRef}
                     autoFocus={AutoFocus.on}
-                    onBarCodeScanned={ async (scan) => {
-                        setScanData(scan.data);
-                        console.log(scan.data);
-                        cameraModal.closeModal();
-                        try {
-                            const studentData = { student_id: parseInt(scan.data)};
-                            console.log(studentData.id, typeof studentData.id)
-                            const response = await api.addStudent(studentData, event._id);
-                            console.log('Student added:', response);
-                        } catch (error: any) {
-                            console.error('Error adding student:', error.response.data.message);
-                            const regex = /^Student with ID \d{9} not found, Please provide a name$/;
-                            if(regex.test(error.response.data.message)){
-                                console.log("Here")
-                                nameModal.openModal();
-                            } else {
-                                setError(error.response.data.message);
-                            }
-                        } 
+                    onBarCodeScanned={async (scan) => {
+                        await handleStudentScan(parseInt(scan.data));
                     }}
                 >
                     
@@ -131,7 +183,7 @@ const EventDetailScreen = ({ route }: any) => {
             <StudentNameModal
                 visible={nameModal.visible}
                 onClose={() => nameModal.closeModal}
-                onSubmit={handleStudentNameSubmit}
+                onSubmit={addStudent}
                 studentName={formValues.studentName}
                 setStudentName={(name: string) => handleChange('studentName', name)}
             />
