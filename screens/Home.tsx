@@ -2,11 +2,8 @@ import React, { useEffect } from 'react';
 import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image } from 'react-native';
 import Button from '../components/Button';
 import styles from '../styles/home/home';
-import { createEventData } from '../interfaces/events.interface';
 import useEvents from '../hooks/useEvents';
 import useModal from '../hooks/useModal';
-import useDatePicker from '../hooks/useDatePicker';
-import useForm from '../hooks/useForm';
 import EventModal from '../components/EventModal';
 import EventList from '../components/EventList';
 import ErrorDisplay from '../components/ErrorDisplay';
@@ -15,11 +12,6 @@ import NoEvents from '../components/events/NoEvents';
 const HomeScreen = ({ navigation }: any) => {
     const { events, loading, fetchEvents, addEvent, error, setEvents } = useEvents();
     const { visible, openModal, closeModal} = useModal();
-    const { date: startDate, isPickerVisible: isStartVisible, showPicker: showStartPicker, hidePicker: hideStartPicker, handleConfirm: confirmStartPicker } = useDatePicker();
-    const { date: endDate, isPickerVisible: isEndVisible, showPicker: showEndPicker, hidePicker: hideEndPicker, handleConfirm: confirmEndPicker } = useDatePicker();
-    const { values, handleChange, resetForm } = useForm({eventName: ''});
-    const { eventName } = values;
-
 
     useEffect(() => {
         fetchEvents();
@@ -42,6 +34,9 @@ const HomeScreen = ({ navigation }: any) => {
                 
             </View>
             
+            <View style={{backgroundColor: 'red', flex: 1}}>
+                <Text style={{color: 'black'}}>asdasd</Text>
+            </View>
 
             <ErrorDisplay error={error} />
 

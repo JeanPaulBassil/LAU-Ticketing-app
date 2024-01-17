@@ -10,7 +10,6 @@ const api = {
     },
     getMe: async () => {
         const response: AxiosResponse<IClub> = await axios.get<IClub>('/auth/me');
-        console.log(response);
         return response.data;
     },
     verifyAccount: async (data: verifyData) => {
@@ -34,7 +33,6 @@ const api = {
         return response;
     },
     editStudent: async (studentId: number, newName: string) => {
-        console.log(studentId, newName);
         const response: AxiosResponse<IStudentResponse> = await axios.put<IStudentResponse>(`/students`, {student_id: studentId, name: newName});
         return response;
     },

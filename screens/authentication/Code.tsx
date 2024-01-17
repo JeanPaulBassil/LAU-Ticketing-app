@@ -23,10 +23,6 @@ const Code = ({ route, navigation }: { route: any; navigation: any }) => {
     value,
     setValue,
   });
-  console.log({
-    clubname,
-    value,
-  });
 
   return (
     <SafeAreaView style={styles.root}>
