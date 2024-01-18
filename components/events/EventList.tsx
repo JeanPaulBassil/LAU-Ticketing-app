@@ -4,8 +4,15 @@ import EventItem from './EventItem';
 import styles from '../../styles/home/home';
 import { IEvent } from '../../interfaces/events.interface';
 
-const EventList = ({ events, navigation }: {events: IEvent[], navigation: any}) => {
-    if (events.length === 0) {
+interface EventListProps {
+    events: IEvent[];
+    navigation: any;
+    loading: boolean;
+}
+
+
+const EventList = ({ events, navigation, loading }: EventListProps) => {
+    if (events.length === 0 || loading) {
         return null;
     }
     

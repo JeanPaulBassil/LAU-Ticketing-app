@@ -15,6 +15,8 @@ const HomeScreen = ({ navigation }: any) => {
 
     useEffect(() => {
         fetchEvents();
+        // testing purposes
+        // setEvents([]);
     }, []);
 
     return (
@@ -35,11 +37,13 @@ const HomeScreen = ({ navigation }: any) => {
 
             <ErrorDisplay error={error} />
 
-            <EventList events={events} navigation={navigation}/>
+            <EventList loading={loading} events={events} navigation={navigation}/>
 
             <NoEvents events={events} loading={loading} error={error} />
             
-
+            {loading && <View style={styles.loadingContainer}>
+                <ActivityIndicator style={styles.loader} size="large" color="#005C4A" />
+            </View>}
             <EventModal
                 visible={visible}
                 onClose={closeModal}

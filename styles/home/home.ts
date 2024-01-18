@@ -100,8 +100,16 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
         backgroundColor: '#f6f6f6',
     },
-    body: {
-        
+    loadingContainer: {
+        flex: 1,
+        // backgroundColor: 'red',
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
+    loader: {
+        marginTop: -60,
+        transform: [{ scale: 1.3 }]
     },
     notFoundMessage: {
         fontSize: 20,
