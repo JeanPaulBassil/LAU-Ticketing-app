@@ -67,6 +67,7 @@ const EventDetailScreen = ({ route }: any) => {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>{event.name}</Text>
+                <View style={styles.header_underline} />
                 <Button
                     onPress={cameraModal.openModal}
                     title={loading ? "" : "Scan"}
