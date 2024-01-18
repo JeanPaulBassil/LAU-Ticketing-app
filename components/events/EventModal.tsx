@@ -69,7 +69,7 @@ const EventModal = ({
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1, backgroundColor: "#f6f6f6" }}
+        style={{ flex: 1 }}
         keyboardVerticalOffset={Platform.OS === "android" ? 75 : 0}
       >
           <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
