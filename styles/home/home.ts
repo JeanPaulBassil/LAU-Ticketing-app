@@ -90,13 +90,14 @@ const styles = StyleSheet.create({
     },
     errorTitle: {
         color: '#3D4852', 
-        fontSize: 24,
+        fontSize: 26,
         marginTop: 10,
         textAlign: 'center',
+        fontWeight: '600'
     },
     errorText: {
         color: '#3D4852', 
-        fontSize: 18,
+        fontSize: 16,
         marginHorizontal: 20,
         marginTop: 10,
         textAlign: 'center',
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
       error_button: {
         width: '100%',
         height: 50,
+        backgroundColor: '#DF2C2C',
       },
     image: {
         width: "90%",
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
         width: "90%",
         height: 300,
         resizeMode: "contain",
-        marginTop: -190,
+        marginTop: -150,
     }
 });
 
