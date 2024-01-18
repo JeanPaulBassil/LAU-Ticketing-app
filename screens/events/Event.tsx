@@ -1,23 +1,19 @@
-import React, { useEffect, useRef, useState, useReducer } from 'react';
-import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, Modal, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
+import React, { useRef} from 'react';
+import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
 import styles from '../../components/styles/HomeScreenStyles';
-import Constants from 'expo-constants';
 import ErrorDisplay from '../../components/ErrorDisplay';
 import Button from '../../components/Button';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { Camera, AutoFocus } from 'expo-camera';
-import { MaterialIcons } from '@expo/vector-icons';
-import CameraButton from '../../components/CameraButtons';
+import { Camera } from 'expo-camera';
 import api from '../../services/api';
 import StudentNameModal from '../../components/StudentNameModal';
 import StudentItem from '../../components/StudentItem';
-import { IStudent } from '../../interfaces/students.interface';
 import useForm from '../../hooks/useForm';
 import useModal from '../../hooks/useModal';
 import useCamera from '../../hooks/useCamera';
 import useStudents from '../../hooks/useStudents';
 import { useEventDetailReducer } from '../../hooks/useEventDetailReducer';
 import CameraComponent from '../../components/CameraComponent';
+import StudentList from '../../components/StudentList';
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
@@ -54,22 +50,7 @@ const EventDetailScreen = ({ route }: any) => {
         } else {
             dispatch({ type: 'SET_ERROR', payload: error.response.data.message });
         }
-    };
-    
-    const handleStudentEdit = async (studentId: number | null, newName: string): Promise<void> => {
-        try {
-            if (studentId !== null) {
-                await editStudent(studentId, newName);
-                editModal.closeModal();
-                dispatch({ type: 'SET_CURRENT_STUDENT_ID', payload: null });
-                dispatch({ type: 'SET_NEW_NAME', payload: '' });
-            }
-        } catch (error: any) {
-            dispatch({ type: 'SET_ERROR', payload: error.response.data.message });
-        }
-    };
-    
-
+    }; 
 
     if (!hasPermission) {
         return <Text>No access to camera</Text>;
@@ -137,28 +118,16 @@ const EventDetailScreen = ({ route }: any) => {
                 setStudentName={(name: string) => handleChange('studentName', name)}
             />
 
-        <View style={styles.eventsList}>
-            <FlatList
-                data={students}
-                keyExtractor={(item: any) => item._id} 
-                renderItem={renderStudentItem}
+            <StudentList
+                students={students}
+                onEditStudent={(item) => {
+                    dispatch({ type: 'SET_CURRENT_STUDENT_ID', payload: item.id });
+                    dispatch({ type: 'SET_NEW_NAME', payload: item.name });
+                    editModal.openModal();
+                }}
             />
-        </View>
         </SafeAreaView>
     );
 };
-
-const cameraStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-        justifyContent: 'center',
-        paddingBottom: 20,
-        zIndex: 1,
-    },
-    camera: {
-        flex: 1,
-    },
-});
 
 export default EventDetailScreen;
