@@ -1,12 +1,10 @@
-import React, { useRef} from 'react';
-import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
+import React from 'react';
+import { View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
 import styles from '../../components/styles/HomeScreenStyles';
 import ErrorDisplay from '../../components/ErrorDisplay';
 import Button from '../../components/Button';
-import { Camera } from 'expo-camera';
 import api from '../../services/api';
 import StudentNameModal from '../../components/StudentNameModal';
-import StudentItem from '../../components/StudentItem';
 import useForm from '../../hooks/useForm';
 import useModal from '../../hooks/useModal';
 import useCamera from '../../hooks/useCamera';
@@ -19,7 +17,6 @@ const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
     const { students, studentError, loading, addStudent, editStudent } = useStudents(event._id);
     const [{ error, scanData, currentStudentId, newName, showNameModal }, dispatch] = useEventDetailReducer();
-    const cameraRef = useRef<Camera>(null);
     const { values: formValues, handleChange, resetForm } = useForm({ studentName: '' });
     const cameraModal = useModal();
     const editModal = useModal();
@@ -65,17 +62,6 @@ const EventDetailScreen = ({ route }: any) => {
     const handleCloseCamera = () => {
         cameraModal.closeModal();
     }
-
-    const renderStudentItem = ({ item }: any) => (
-        <StudentItem 
-            name={item.name} 
-            onEdit={() => {
-                dispatch({ type: 'SET_CURRENT_STUDENT_ID', payload: item.student_id });
-                dispatch({ type: 'SET_NEW_NAME', payload: item.name });
-                editModal.openModal();
-            }}
-        />
-    );
 
     return (
         <SafeAreaView style={styles.container}>
