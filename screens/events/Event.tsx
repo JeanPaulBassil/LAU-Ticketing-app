@@ -17,6 +17,7 @@ import useModal from '../../hooks/useModal';
 import useCamera from '../../hooks/useCamera';
 import useStudents from '../../hooks/useStudents';
 import { useEventDetailReducer } from '../../hooks/useEventDetailReducer';
+import CameraComponent from '../../components/CameraComponent';
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
@@ -80,6 +81,9 @@ const EventDetailScreen = ({ route }: any) => {
         editModal.closeModal(); 
     };
     
+    const handleCloseCamera = () => {
+        cameraModal.closeModal();
+    }
 
     const renderStudentItem = ({ item }: any) => (
         <StudentItem 
@@ -108,30 +112,15 @@ const EventDetailScreen = ({ route }: any) => {
                 </Button>                
             </View>
             {error && <ErrorDisplay error={error} />}
-            {cameraModal.visible && <View style={StyleSheet.absoluteFillObject}>
-                <Camera
-                    style={cameraStyles.camera}
-                    type={type}
-                    flashMode={flashMode}
-                    ref={cameraRef}
-                    autoFocus={AutoFocus.on}
-                    onBarCodeScanned={async (scan) => {
-                        await handleStudentScan(parseInt(scan.data));
-                    }}
-                >
-                    
-                </Camera>
-                <View style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        padding: 20,
-                        backgroundColor: 'black',
-                    }}>
-                        <CameraButton icon={'retweet'} onPress={toggleCameraType}/>
-                        <CameraButton icon={'flash'} onPress={toggleFlashMode}/>
-                        <CameraButton icon={'close'} onPress={cameraModal.closeModal}/>
-                    </View>
-            </View>}
+            {cameraModal.visible && 
+            <CameraComponent
+                onBarCodeScanned={(data) => handleStudentScan(parseInt(data))}
+                cameraType={type} 
+                flashMode={flashMode}
+                toggleCameraType={toggleCameraType} 
+                toggleFlashMode={toggleFlashMode} 
+                onClose={handleCloseCamera}
+            />}
             <StudentNameModal
                 visible={editModal.visible}
                 onClose={() => editModal.closeModal}
