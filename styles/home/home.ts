@@ -89,10 +89,12 @@ const styles = StyleSheet.create({
         opacity: 0.3,
     },
     errorText: {
-        color: 'red', 
-        fontSize: 14,
+        color: '#E50406', 
+        fontSize: 18,
         marginHorizontal: 20,
-        marginTop: 5,
+        marginTop: 10,
+        textAlign: 'center',
+        // backgroundColor: 'red'
     },
     image: {
         width: "90%",
@@ -114,6 +116,19 @@ const styles = StyleSheet.create({
     notFoundMessage: {
         fontSize: 20,
         color: 'grey',
+    },
+    errorContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        flex: 1,
+    },
+    errorImage: {
+        width: "90%",
+        height: 300,
+        resizeMode: "contain",
+        marginTop: -190,
     }
 });
 

@@ -37,7 +37,7 @@ const HomeScreen = ({ navigation }: any) => {
 
             <ErrorDisplay error={error} />
 
-            <EventList loading={loading} events={events} navigation={navigation}/>
+            <EventList error={error} events={events} navigation={navigation}/>
 
             <NoEvents events={events} loading={loading} error={error} />
             

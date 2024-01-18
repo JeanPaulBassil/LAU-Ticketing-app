@@ -7,22 +7,22 @@ import { IEvent } from '../../interfaces/events.interface';
 interface EventListProps {
     events: IEvent[];
     navigation: any;
-    loading: boolean;
+    error: string;
 }
 
 
-const EventList = ({ events, navigation, loading }: EventListProps) => {
-    if (events.length === 0 || loading) {
+const EventList = ({ events, navigation, error }: EventListProps) => {
+    if (events.length === 0 || error) {
         return null;
     }
-    
+
     const renderItem = ({ item }: { item: IEvent }) => (
         <EventItem 
         name={item.name} 
         onPress={() => navigation.navigate('Event', { event: item })}
     />
     );
-
+    
     return (
         <View style={styles.eventsList}>
             <FlatList
@@ -33,6 +33,7 @@ const EventList = ({ events, navigation, loading }: EventListProps) => {
             />
         </View>
     );
+    
 };
 
 export default EventList;

@@ -33,7 +33,7 @@ const api = {
         return response;
     },
     editStudent: async (studentId: number, newName: string) => {
-        const response: AxiosResponse<IStudentResponse> = await axios.put<IStudentResponse>(`/students`, {student_id: studentId, name: newName});
+        const response: AxiosResponse<IStudentResponse> = await axios.put<IStudentResponse>(`/students/:id`, { name: newName});
         return response;
     },
 }
