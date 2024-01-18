@@ -1,17 +1,17 @@
 import React from 'react';
 import { View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
-import styles from '../../components/styles/HomeScreenStyles';
-import ErrorDisplay from '../../components/ErrorDisplay';
-import Button from '../../components/Button';
+import styles from '../../styles/home/home';
+import ErrorDisplay from '../../components/common/ErrorDisplay';
+import Button from '../../components/common/Button';
 import api from '../../services/api';
-import StudentNameModal from '../../components/StudentNameModal';
+import StudentNameModal from '../../components/students/StudentNameModal';
 import useForm from '../../hooks/useForm';
 import useModal from '../../hooks/useModal';
 import useCamera from '../../hooks/useCamera';
 import useStudents from '../../hooks/useStudents';
 import { useEventDetailReducer } from '../../hooks/useEventDetailReducer';
 import CameraComponent from '../../components/CameraComponent';
-import StudentList from '../../components/StudentList';
+import StudentList from '../../components/students/StLudentist';
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
