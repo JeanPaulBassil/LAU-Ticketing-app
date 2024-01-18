@@ -8,11 +8,12 @@ interface EventListProps {
     events: IEvent[];
     navigation: any;
     error: string;
+    loading: boolean;
 }
 
 
-const EventList = ({ events, navigation, error }: EventListProps) => {
-    if (events.length === 0 || error) {
+const EventList = ({ events, navigation, error, loading }: EventListProps) => {
+    if (events.length === 0 || error || loading) {
         return null;
     }
 
@@ -22,7 +23,7 @@ const EventList = ({ events, navigation, error }: EventListProps) => {
         onPress={() => navigation.navigate('Event', { event: item })}
     />
     );
-    
+
     return (
         <View style={styles.eventsList}>
             <FlatList

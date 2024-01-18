@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
+  ActivityIndicator
 } from "react-native";
 import Button from "../common/Button";
 import DatePickerButton from "./DatePickerButton";
@@ -21,10 +22,12 @@ const EventModal = ({
   visible,
   onClose,
   onAdd,
+  loading
 }: {
   visible: boolean;
   onClose: () => void;
   onAdd: (eventData: any) => Promise<void>;
+  loading: boolean
 }) => {
   const { values, handleChange, resetForm } = useForm({ eventName: "" });
   const { eventName } = values;
@@ -127,12 +130,15 @@ const EventModal = ({
                       style={styles.cancelButton}
                       onPress={handleCancel}
                       textStyle={styles.cancelButtonText}
+                      
                     />
                     <Button
                       title="Add"
-                      style={styles.addEventButton}
                       onPress={handleAddEvent}
-                    />
+                      style={[styles.addEventButton, loading ? { opacity: 0.3 } : null]}
+                    >
+                      {loading && <ActivityIndicator size="small" color="#FFF" />}
+                    </Button>
                   </View>
                 </View>
               </View>

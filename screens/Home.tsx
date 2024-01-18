@@ -35,9 +35,9 @@ const HomeScreen = ({ navigation }: any) => {
                 
             </View>
 
-            <ErrorDisplay error={error} handleError={fetchEvents}/>
+            <ErrorDisplay loading={loading} error={error} handleError={fetchEvents}/>
 
-            <EventList error={error} events={events} navigation={navigation}/>
+            <EventList loading={loading} error={error} events={events} navigation={navigation} />
 
             <NoEvents events={events} loading={loading} error={error} />
             
@@ -48,6 +48,7 @@ const HomeScreen = ({ navigation }: any) => {
                 visible={visible}
                 onClose={closeModal}
                 onAdd={addEvent}
+                loading={loading}
             />
         </SafeAreaView>
     );

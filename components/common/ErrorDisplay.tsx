@@ -4,14 +4,17 @@ import { HelperText } from "react-native-paper";
 import { Image, View, Text } from "react-native";
 import CustomButton from "../../components/common/Button";
 
+interface ErrorDisplayProps {
+    error: string;
+    handleError: () => Promise<void>;
+    loading: boolean;
+}
 const ErrorDisplay = ({
   error,
   handleError,
-}: {
-  error: string;
-  handleError: () => Promise<void>;
-}) => {
-  if (!error) {
+  loading
+}: ErrorDisplayProps) => {
+  if (!error || loading) {
     return null;
   }
 
