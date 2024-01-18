@@ -55,6 +55,7 @@ const EventDetailScreen = ({ route }: any) => {
     
 
     const handleEditSubmit = async (newName: string) => {
+        console.log('currentStudentId', currentStudentId)
         await editStudent(currentStudentId, newName);
         editModal.closeModal(); 
     };
@@ -89,7 +90,7 @@ const EventDetailScreen = ({ route }: any) => {
             />}
             <StudentNameModal
                 visible={editModal.visible}
-                onClose={() => editModal.closeModal}
+                onClose={() => editModal.closeModal()}
                 onSubmit={handleEditSubmit}
                 studentName={newName}          
                 setStudentName={(name: string) => handleChange('studentName', name)}    
@@ -97,7 +98,7 @@ const EventDetailScreen = ({ route }: any) => {
 
             <StudentNameModal
                 visible={nameModal.visible}
-                onClose={() => nameModal.closeModal}
+                onClose={() => nameModal.closeModal()}
                 onSubmit={addStudent}
                 studentName={formValues.studentName}
                 setStudentName={(name: string) => handleChange('studentName', name)}
@@ -106,7 +107,7 @@ const EventDetailScreen = ({ route }: any) => {
             <StudentList
                 students={students}
                 onEditStudent={(item) => {
-                    dispatch({ type: 'SET_CURRENT_STUDENT_ID', payload: item.id });
+                    dispatch({ type: 'SET_CURRENT_STUDENT_ID', payload: item.student_id });
                     dispatch({ type: 'SET_NEW_NAME', payload: item.name });
                     editModal.openModal();
                 }}

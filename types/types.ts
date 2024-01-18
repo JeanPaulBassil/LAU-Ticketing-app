@@ -1,7 +1,7 @@
 export type State = {
     error: string;
     scanData: number | null;
-    currentStudentId: number;
+    currentStudentId: number | null;
     newName: string;
     showNameModal: boolean;
 };

@@ -39,6 +39,7 @@ const useStudents = (eventId: string) => {
     const editStudent = async (studentId: number, newName: string) => {
         try {
             console.log("newName: ", newName)
+            console.log("studentId: ", studentId)
             await api.editStudent(studentId, newName);
             fetchStudents();
         } catch (error: any) {

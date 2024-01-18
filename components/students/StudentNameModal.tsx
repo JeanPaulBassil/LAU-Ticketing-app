@@ -7,8 +7,11 @@ const StudentNameModal = ({ visible, onClose, onSubmit, studentName, setStudentN
     const [localName, setLocalName] = useState(studentName);
 
     useEffect(() => {
-        setLocalName(studentName);
-    }, [studentName]);
+        if (visible){
+            console.log('studentName', studentName)
+            setLocalName(studentName);
+        }
+    }, [studentName, visible]);
 
     const handleSubmit = async () => {
         onSubmit(localName);
