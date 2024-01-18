@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TextInput, StyleSheet } from 'react-native';
+import { View, Text, Modal, TextInput } from 'react-native';
 import Button from '../common/Button';
 import styles from '../../styles/home/modal'; 
 
