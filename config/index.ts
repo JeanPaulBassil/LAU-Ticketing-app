@@ -1,7 +1,7 @@
 import { BACKEND_URL, BACKEND_PORT } from "@env";
 
 const config = {
-    backendUrl: `http://172.20.10.3:3000`
+    backendUrl: `https://e318-212-28-227-50.ngrok-free.app`
 }
 
 export default config;

@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }: any) => {
                 
             </View>
 
-            <ErrorDisplay error={error} />
+            <ErrorDisplay error={error} handleError={fetchEvents}/>
 
             <EventList error={error} events={events} navigation={navigation}/>
 

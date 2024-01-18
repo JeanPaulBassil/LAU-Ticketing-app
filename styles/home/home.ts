@@ -88,14 +88,32 @@ const styles = StyleSheet.create({
     buttonDisabled: {
         opacity: 0.3,
     },
+    errorTitle: {
+        color: '#3D4852', 
+        fontSize: 24,
+        marginTop: 10,
+        textAlign: 'center',
+    },
     errorText: {
-        color: '#E50406', 
+        color: '#3D4852', 
         fontSize: 18,
         marginHorizontal: 20,
         marginTop: 10,
         textAlign: 'center',
-        // backgroundColor: 'red'
     },
+    error_button_container: {
+        display: 'flex',
+        flexDirection: 'row',
+        padding: 20,
+        marginTop: 25,
+        maxWidth: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+      },
+      error_button: {
+        width: '100%',
+        height: 50,
+      },
     image: {
         width: "90%",
         height: 300,

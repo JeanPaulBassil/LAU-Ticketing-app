@@ -2,7 +2,7 @@
 
 # dependencies
 node_modules/
-
+config/
 # Expo
 .expo/
 dist/
@@ -28,6 +28,7 @@ yarn-error.*
 .DS_Store
 *.pem
 config/*
+
 
 # local env files
 .env*.local

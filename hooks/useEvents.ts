@@ -22,7 +22,7 @@ const useEvents = () => {
             // testing purposes
             // setEvents([]);
             // setLoading(true);
-            setError(true);
+            setError('Internal Server Error');
         }
     }    
 
