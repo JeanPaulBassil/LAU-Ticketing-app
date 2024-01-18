@@ -7,6 +7,7 @@ interface IStudent {
 interface IStudentResponse {
     status: number;
     message: string;
+    attendees?: IStudent[];
 }
 
 export { IStudent, IStudentResponse }

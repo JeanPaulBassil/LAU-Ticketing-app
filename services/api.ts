@@ -24,7 +24,7 @@ const api = {
         const response: AxiosResponse<EventsResponse> = await axios.post<EventsResponse>('/events', data);
         return response;
     },
-    addStudent: async (data: IStudent, eventId: string) => {
+    addStudent: async (data: any, eventId: string) => {
         const response: AxiosResponse<IStudentResponse> = await axios.post<IStudentResponse>(`/scans/${eventId}`, data);
         return response;
     },
@@ -33,7 +33,8 @@ const api = {
         return response;
     },
     editStudent: async (studentId: number, newName: string) => {
-        const response: AxiosResponse<IStudentResponse> = await axios.put<IStudentResponse>(`/students/:id`, { name: newName});
+        console.log(studentId, newName);
+        const response: AxiosResponse<IStudentResponse> = await axios.put<IStudentResponse>(`/students/${studentId}`, {name: newName});
         return response;
     },
 }

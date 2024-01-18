@@ -1,106 +1,74 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, Modal, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
-import styles from '../../styles/home/home';
-import Constants from 'expo-constants';
-import ErrorDisplay from '../../components/common/ErrorDisplay';
-import Button from '../../components/common/Button';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { Camera, CameraType } from 'expo-camera';
-import { FlashMode } from 'react-native-camera';
-import { MaterialIcons } from '@expo/vector-icons';
-import CameraButton from '../../components/scans/CameraButtons';
+import React from 'react';
+import { View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
+import styles from '../../components/styles/HomeScreenStyles';
+import ErrorDisplay from '../../components/ErrorDisplay';
+import Button from '../../components/Button';
 import api from '../../services/api';
-import StudentNameModal from '../../components/students/StudentNameModal';
-import StudentItem from '../../components/students/StudentItem';
-import { IStudent } from '../../interfaces/students.interface';
+import StudentNameModal from '../../components/StudentNameModal';
+import useForm from '../../hooks/useForm';
+import useModal from '../../hooks/useModal';
+import useCamera from '../../hooks/useCamera';
+import useStudents from '../../hooks/useStudents';
+import { useEventDetailReducer } from '../../hooks/useEventDetailReducer';
+import CameraComponent from '../../components/CameraComponent';
+import StudentList from '../../components/StudentList';
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
-    const [loading, setLoading] = useState(false);
-    const [students, setStudents] = useState([]);
-    const [scanData, setScanData] = useState(null);
-    const [isCameraVisible, setIsCameraVisible] = useState(false);
-    const [error, setError] = useState('');
-    const [hasPermission, setHasPermission] = useState<boolean>(false);
-    const [data, setData] = useState<string>('');
-    const [type, setType] = useState<CameraType>(Camera.Constants.Type.back);
-    const [flash, setFlash] = useState<FlashMode>(Camera.Constants.FlashMode.off);
-    const [showNameModal, setShowNameModal] = useState<boolean>(false);
-    const cameraRef = useRef<Camera>(null);
-    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-    const [currentStudentId, setCurrentStudentId] = useState<number | null>(null);
-    const [newName, setNewName] = useState('');
-    
+    const { students, studentError, loading, addStudent, editStudent } = useStudents(event._id);
+    const [{ error, scanData, currentStudentId, newName, showNameModal }, dispatch] = useEventDetailReducer();
+    const { values: formValues, handleChange, resetForm } = useForm({ studentName: '' });
+    const cameraModal = useModal();
+    const editModal = useModal();
+    const nameModal = useModal();
+    const { hasPermission, type, toggleCameraType, flashMode, toggleFlashMode, isCameraVisible, openCameraModal, closeCameraModal } = useCamera();
 
-    const handleStudentNameSubmit = async (name) => {
-        try {
-            const studentData = { student_id: parseInt(data), name };
-            const response = await api.addStudent(studentData, event._id);
-            console.log('Student added with name:', response);
-        } catch (error) {
-            console.error('Error adding student with name:', error);
-            setError(error.response.data.message);
-        }
-        setShowNameModal(false);
+    const handleStudentScan = async (scannedData: number): Promise<void> => {
+        dispatch({ type: 'SET_SCAN_DATA', payload: scannedData });
+        cameraModal.closeModal();
+        await addScannedStudent(scannedData);
     };
 
-    useEffect(() => {
-        const fetchStudents = async () => {
-            try {
-                const response = await api.getEventAttendees(event._id);
-                console.log(response.data.attendees)
-                setStudents(response.data.attendees);
-            } catch (error) {
-                console.error('Error fetching students:', error);
-            }
-        };
+    const addScannedStudent = async (scannedData: number): Promise<void> => {
+        try {
+            const studentData = { student_id: scannedData };
+            const response = await api.addStudent(studentData, event._id);
+            console.log('Student added:', response);
+        } catch (error: any) {
+            handleStudentAddError(error);
+        }
+    };
 
-        fetchStudents();
-    }, []);
-
-    useEffect(() => {
-        (async () => {
-            const { status } = await Camera.requestCameraPermissionsAsync();
-            setHasPermission(status === 'granted');
-        })();
-    }, []);
-    
-
+    const handleStudentAddError = (error: any): void => {
+        console.error('Error adding student:', error.response.data.message);
+        const regex = /^Student with ID \d{9} not found, Please provide a name$/;
+        if (regex.test(error.response.data.message)) {
+            nameModal.openModal();
+        } else {
+            dispatch({ type: 'SET_ERROR', payload: error.response.data.message });
+        }
+    }; 
 
     if (!hasPermission) {
         return <Text>No access to camera</Text>;
     }
     
 
-    const handleEditStudent = (studentId: number) => {
-        setCurrentStudentId(studentId);
-        setIsEditModalVisible(true);
+    const handleEditSubmit = async (newName: string) => {
+        await editStudent(currentStudentId, newName);
+        editModal.closeModal(); 
     };
+    
+    const handleCloseCamera = () => {
+        cameraModal.closeModal();
+    }
 
-    const handleEditSubmit = async () => {
-        if (currentStudentId !== null) {
-            try {
-                await api.editStudent(currentStudentId, newName);
-            } catch  (error: any){
-                console.error('Error editing student: ', );
-            } finally {
-                setIsEditModalVisible(false);
-            }
-        }
-    };
-
-    const renderStudentItem = ({ item }: any) => (
-        <StudentItem 
-            name={item.name} 
-            onEdit={() => handleEditStudent(item.id)}
-        />
-    );
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>{event.name}</Text>
                 <Button
-                    onPress={() => setIsCameraVisible(true)}
+                    onPress={cameraModal.openModal}
                     title={loading ? "" : "Scan"}
                     disabled={loading}
                     style={[styles.addButton, loading ? styles.buttonDisabled : undefined]}
@@ -109,88 +77,41 @@ const EventDetailScreen = ({ route }: any) => {
                 </Button>                
             </View>
             {error && <ErrorDisplay error={error} />}
-            {isCameraVisible && <View style={StyleSheet.absoluteFillObject}>
-                <Camera
-                    style={cameraStyles.camera}
-                    type={type}
-                    flashMode={flash}
-                    ref={cameraRef}
-                    autoFocus={Camera.Constants.AutoFocus.on}
-                    onBarCodeScanned={async (scan) => {
-                        setIsCameraVisible(false);
-                        if (scan.data !== data) {
-                            setData(scan.data);
-                            console.log(scan.data);
-                    
-                            try {
-                                const studentData = { student_id: parseInt(scan.data) };
-                                console.log(studentData.id, typeof studentData.id)
-                                const response = await api.addStudent(studentData, event._id);
-                                console.log('Student added:', response);
-                            } catch (error: any) {
-                                console.error('Error adding student:', error.response.data.message);
-                                const regex = /^Student with ID \d{9} not found, Please provide a name$/;
-                                if(regex.test(error.response.data.message)){
-                                    console.log("Here")
-                                    setShowNameModal(true);
-                                } else {
-                                    setError(error.response.data.message);
-                                }
-                            } 
-                    
-                            
-                        }
-                    }}
-                >
-                    
-                </Camera>
-                <View style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        padding: 20,
-                        backgroundColor: 'black',
-                    }}>
-                        <CameraButton icon={'retweet'} onPress={() => {
-                            setType(type === Camera.Constants.Type.back ? Camera.Constants.Type.front : Camera.Constants.Type.back)
-                        }}/>
-                        <CameraButton icon={'flash'} onPress={() => {
-                            setFlash(flash === Camera.Constants.FlashMode.off ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off)
-                        }}/>
-                        <CameraButton icon={'close'} onPress={() => {
-                            setIsCameraVisible(false);
-                            setData('');
-                        }}/>
-                    </View>
-            </View>}
-            <StudentNameModal visible={isEditModalVisible} onClose={() => setIsEditModalVisible(false)} onSubmit={handleEditSubmit}/>
+            {cameraModal.visible && 
+            <CameraComponent
+                onBarCodeScanned={(data) => handleStudentScan(parseInt(data))}
+                cameraType={type} 
+                flashMode={flashMode}
+                toggleCameraType={toggleCameraType} 
+                toggleFlashMode={toggleFlashMode} 
+                onClose={handleCloseCamera}
+            />}
             <StudentNameModal
-                visible={showNameModal}
-                onClose={() => setShowNameModal(false)}
-                onSubmit={handleStudentNameSubmit}
+                visible={editModal.visible}
+                onClose={() => editModal.closeModal}
+                onSubmit={handleEditSubmit}
+                studentName={newName}          
+                setStudentName={(name: string) => handleChange('studentName', name)}    
             />
 
-        <View style={styles.eventsList}>
-            <FlatList
-                data={students}
-                keyExtractor={(item) => item._id} 
-                renderItem={renderStudentItem}
+            <StudentNameModal
+                visible={nameModal.visible}
+                onClose={() => nameModal.closeModal}
+                onSubmit={addStudent}
+                studentName={formValues.studentName}
+                setStudentName={(name: string) => handleChange('studentName', name)}
             />
-        </View>
+
+            <StudentList
+                students={students}
+                onEditStudent={(item) => {
+                    dispatch({ type: 'SET_CURRENT_STUDENT_ID', payload: item.id });
+                    dispatch({ type: 'SET_NEW_NAME', payload: item.name });
+                    editModal.openModal();
+                }}
+            />
         </SafeAreaView>
     );
 };
-
-const cameraStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-        justifyContent: 'center',
-        paddingBottom: 20,
-        zIndex: 1,
-    },
-    camera: {
-        flex: 1,
-    },
-});
 
 export default EventDetailScreen;
