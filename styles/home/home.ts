@@ -57,10 +57,11 @@ const styles = StyleSheet.create({
     },
     arrowIcon: {
         fontSize: 20,
+        color: '#005C4A',
     },
     eventsList: {
         width: '100%',
-        // height: '100%',
+        height: '100%',
         zIndex: -1,
     }, 
     datePickerContainer: {

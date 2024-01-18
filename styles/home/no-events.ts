@@ -5,12 +5,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width:'100%',
-        display: 'flex'
+        display: 'flex',
+        marginTop: 50
     },
     notFoundMessage: {
-        fontSize: 20,
-        color: 'grey',
-        
+        fontSize: 18,
+        color: 'grey'     
     },
     image: {
         width: "90%",

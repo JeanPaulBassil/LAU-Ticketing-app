@@ -5,6 +5,10 @@ import styles from '../../styles/home/home';
 import { IEvent } from '../../interfaces/events.interface';
 
 const EventList = ({ events, navigation }: {events: IEvent[], navigation: any}) => {
+    if (events.length === 0) {
+        return null;
+    }
+    
     const renderItem = ({ item }: { item: IEvent }) => (
         <EventItem 
         name={item.name} 
