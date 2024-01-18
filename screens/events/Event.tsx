@@ -10,8 +10,8 @@ import useModal from '../../hooks/useModal';
 import useCamera from '../../hooks/useCamera';
 import useStudents from '../../hooks/useStudents';
 import { useEventDetailReducer } from '../../hooks/useEventDetailReducer';
-import CameraComponent from '../../components/CameraComponent';
-import StudentList from '../../components/students/StLudentist';
+import CameraComponent from '../../components/scans/CameraComponent';
+import StudentList from '../../components/students/StudentList';
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
