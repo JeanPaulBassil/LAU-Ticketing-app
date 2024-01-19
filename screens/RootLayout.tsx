@@ -35,7 +35,6 @@ const RootLayout = () => {
         // Load fonts, make API calls and do other things
         await getFonts();
       } catch (e) {
-        console.warn(e);
       } finally {
         setReady(true);
       }

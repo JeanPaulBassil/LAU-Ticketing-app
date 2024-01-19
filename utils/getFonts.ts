@@ -8,7 +8,6 @@ const getFonts = async () => {
       PTSans_700Bold,
     });
   } catch (error) {
-    console.log("Error loading fonts: ", error);
   }
 };
 

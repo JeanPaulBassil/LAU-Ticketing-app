@@ -13,10 +13,8 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError) => {
-    console.log(error);
     if (error.response?.status === 403) {
       // Handle 403 Forbidden response
-      console.log("Access denied. Navigating to the login screen.");
       navigate('Login'); // Replace with your login screen name
     } else {
       // For all other errors, rethrow the error

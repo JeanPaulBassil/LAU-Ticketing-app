@@ -11,30 +11,30 @@ interface EventListProps {
     loading: boolean;
 }
 
-
 const EventList = ({ events, navigation, error, loading }: EventListProps) => {
-    if (events.length === 0 || error || loading) {
+    if (error || loading || events.length === 0) {
         return null;
     }
 
+    const reversedEvents = [...events].reverse();
+
     const renderItem = ({ item }: { item: IEvent }) => (
         <EventItem 
-        name={item.name} 
-        onPress={() => navigation.navigate('Event', { event: item })}
-    />
+            name={item.name} 
+            onPress={() => navigation.navigate('Event', { event: item })}
+        />
     );
 
     return (
         <View style={styles.eventsList}>
             <FlatList
-                data={events}
+                data={reversedEvents}
                 keyExtractor={(item) => item._id}
                 renderItem={renderItem}
                 style={styles.eventsList}
             />
         </View>
     );
-    
 };
 
 export default EventList;
