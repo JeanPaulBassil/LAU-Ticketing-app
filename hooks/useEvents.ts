@@ -13,7 +13,7 @@ const useEvents = () => {
         try {
             setLoading(true);
             const response: AxiosResponse = await api.getEvents();
-            setEvents(response.data.events);
+            setEvents(response.data);
             setError('');
         } catch (error: any) {
             setError(error.response?.data?.message || "An error occurred while fetching events.");

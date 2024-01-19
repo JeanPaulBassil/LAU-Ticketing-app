@@ -10,7 +10,7 @@ interface NoEventsProps {
 }
 
 const NoEvents = ({ events, loading, error }: NoEventsProps) => {
-    if (error || loading || events.length > 0) {
+    if (error || loading || Array.isArray(events) && events.length > 0) {
         return null;
     }
 

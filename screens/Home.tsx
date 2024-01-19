@@ -13,6 +13,7 @@ const HomeScreen = ({ navigation }: any) => {
     const { events, loading, fetchEvents, addEvent, error, setEvents } = useEvents();
     const { visible, openModal, closeModal} = useModal();
 
+    
     useEffect(() => {
         fetchEvents();
         // testing purposes

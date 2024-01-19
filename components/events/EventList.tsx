@@ -12,11 +12,10 @@ interface EventListProps {
 }
 
 const EventList = ({ events, navigation, error, loading }: EventListProps) => {
-    if (error || loading || events.length === 0) {
+    if (error || loading || Array.isArray(events) && events.length === 0) {
         return null;
     }
-
-    const reversedEvents = [...events].reverse();
+    console.log("EventList.tsx: events: ", events);
 
     const renderItem = ({ item }: { item: IEvent }) => (
         <EventItem 
@@ -28,7 +27,7 @@ const EventList = ({ events, navigation, error, loading }: EventListProps) => {
     return (
         <View style={styles.eventsList}>
             <FlatList
-                data={reversedEvents}
+                data={events}
                 keyExtractor={(item) => item._id}
                 renderItem={renderItem}
                 style={styles.eventsList}

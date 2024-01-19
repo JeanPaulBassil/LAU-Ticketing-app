@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width:'100%',
         display: 'flex',
-        marginTop: 50
+        marginTop: 50,
+        zIndex: -1
     },
     notFoundMessage: {
         fontSize: 18,
