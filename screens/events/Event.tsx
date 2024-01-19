@@ -15,7 +15,7 @@ import StudentList from '../../components/students/StudentList';
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
-    const { students, studentError, loading, addStudent, editStudent } = useStudents(event._id);
+    const { students, studentError, loading, addStudent, editStudent, fetchStudents } = useStudents(event._id);
     const [{ error, scanData, currentStudentId, newName, showNameModal }, dispatch] = useEventDetailReducer();
     const { values: formValues, handleChange, resetForm } = useForm({ studentName: '' });
     const cameraModal = useModal();
@@ -33,14 +33,14 @@ const EventDetailScreen = ({ route }: any) => {
         try {
             const studentData = { student_id: scannedData };
             const response = await api.addStudent(studentData, event._id);
-            console.log('Student added:', response);
         } catch (error: any) {
             handleStudentAddError(error);
+        } finally {
+            fetchStudents();
         }
     };
 
     const handleStudentAddError = (error: any): void => {
-        console.error('Error adding student:', error.response.data.message);
         const regex = /^Student with ID \d{9} not found, Please provide a name$/;
         if (regex.test(error.response.data.message)) {
             nameModal.openModal();
@@ -55,13 +55,20 @@ const EventDetailScreen = ({ route }: any) => {
     
 
     const handleEditSubmit = async (newName: string) => {
-        console.log('currentStudentId', currentStudentId)
-        await editStudent(currentStudentId, newName);
         editModal.closeModal(); 
+        await editStudent(currentStudentId, newName);
     };
+    
+
+    
     
     const handleCloseCamera = () => {
         cameraModal.closeModal();
+    }
+
+    const handleError = async () => {
+        dispatch({ type: 'SET_ERROR', payload: '' });
+        fetchStudents();
     }
 
     return (
@@ -78,7 +85,7 @@ const EventDetailScreen = ({ route }: any) => {
                     {loading && <ActivityIndicator size="small" color="#FFF" />}
                 </Button>                
             </View>
-            {error && <ErrorDisplay error={error} />}
+            {error && <ErrorDisplay error={error} handleError={handleError} />}
             {cameraModal.visible && 
             <CameraComponent
                 onBarCodeScanned={(data) => handleStudentScan(parseInt(data))}
@@ -99,7 +106,10 @@ const EventDetailScreen = ({ route }: any) => {
             <StudentNameModal
                 visible={nameModal.visible}
                 onClose={() => nameModal.closeModal()}
-                onSubmit={addStudent}
+                onSubmit={(name: string) => {
+                    nameModal.closeModal();
+                    addStudent({name, student_id: scanData})
+                }}
                 studentName={formValues.studentName}
                 setStudentName={(name: string) => handleChange('studentName', name)}
             />

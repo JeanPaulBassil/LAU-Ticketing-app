@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import StudentItem from './StudentItem';
 import { IStudent } from '../../interfaces/students.interface';
+import styles from '../../styles/home/home';
 
 type Props = {
     students: IStudent[];
@@ -21,6 +22,7 @@ const StudentList: React.FC<Props> = ({ students, onEditStudent }) => {
                     onEdit={() => onEditStudent(item)}
                 />
             )}
+            style={styles.eventsList}
         />
     );
 };

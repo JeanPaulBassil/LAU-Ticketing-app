@@ -8,7 +8,6 @@ const StudentNameModal = ({ visible, onClose, onSubmit, studentName, setStudentN
 
     useEffect(() => {
         if (visible){
-            console.log('studentName', studentName)
             setLocalName(studentName);
         }
     }, [studentName, visible]);

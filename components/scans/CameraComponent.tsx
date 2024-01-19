@@ -42,16 +42,9 @@ const CameraComponent: React.FC<CameraComponentProps> = ({
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: '#000',
-        justifyContent: 'center',
-        paddingBottom: 20,
-        zIndex: 1,
-    },
     camera: {
         flex: 1,
+        zIndex: 1,
     },
     buttonContainer: {
         flexDirection: 'row',

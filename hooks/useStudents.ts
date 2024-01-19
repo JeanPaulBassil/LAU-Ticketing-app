@@ -13,10 +13,9 @@ const useStudents = (eventId: string) => {
         try {
             const response: AxiosResponse = await api.getEventAttendees(eventId);
             setStudents(response.data.attendees);
-            setLoading(false);
         } catch (error: any) {
-            console.error('Error fetching students:', error);
             setError(error.response.data.message);
+        } finally {
             setLoading(false);
         }
     };
@@ -27,23 +26,19 @@ const useStudents = (eventId: string) => {
 
     const addStudent = async (studentData: { student_id: number; name: string }) => {
         try {
-            console.log("Student data: ", studentData);
             await api.addStudent(studentData, eventId);
-            fetchStudents(); // Refresh the student list
         } catch (error: any) {
-            console.error('Error adding student:', error);
             setError(error.response.data.message);
+        } finally {
+            fetchStudents();
         }
     };
 
     const editStudent = async (studentId: number, newName: string) => {
         try {
-            console.log("newName: ", newName)
-            console.log("studentId: ", studentId)
             await api.editStudent(studentId, newName);
             fetchStudents();
         } catch (error: any) {
-            console.error('Error editing student:', error);
             setError(error.response.data.message);
         }
     };
@@ -54,7 +49,7 @@ const useStudents = (eventId: string) => {
         loading,
         addStudent,
         editStudent,
-        fetchStudents
+        fetchStudents,
     };
 };
 

@@ -17,7 +17,7 @@ const api = {
         return response.data;
     },
     getEvents: async () => {
-        const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events');
+        const response: AxiosResponse<EventsResponse> = await axios.get<EventsResponse>('/events/active');
         return response;
     },
     createEvent: async (data: createEventData) => {
