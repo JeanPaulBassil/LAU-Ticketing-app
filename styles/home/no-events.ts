@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width:'100%',
         display: 'flex',
-        marginTop: 50,
-        zIndex: -1
+        zIndex: -1,
+        flex: 1,
     },
     notFoundMessage: {
         fontSize: 18,
@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     image: {
         width: "90%",
         height: 300,
-        resizeMode: "contain"
+        resizeMode: "contain",
+        marginTop: -100
     }
 });
 

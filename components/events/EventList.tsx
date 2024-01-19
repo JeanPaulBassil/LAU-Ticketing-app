@@ -15,7 +15,6 @@ const EventList = ({ events, navigation, error, loading }: EventListProps) => {
     if (error || loading || Array.isArray(events) && events.length === 0) {
         return null;
     }
-    console.log("EventList.tsx: events: ", events);
 
     const renderItem = ({ item }: { item: IEvent }) => (
         <EventItem 
