@@ -12,6 +12,8 @@ import useStudents from '../../hooks/useStudents';
 import { useEventDetailReducer } from '../../hooks/useEventDetailReducer';
 import CameraComponent from '../../components/scans/CameraComponent';
 import StudentList from '../../components/students/StudentList';
+import NoStudents from '../../components/students/NoStudents';
+
 
 const EventDetailScreen = ({ route }: any) => {
     const { event } = route.params;
@@ -103,7 +105,7 @@ const EventDetailScreen = ({ route }: any) => {
                 studentName={formValues.studentName}
                 setStudentName={(name: string) => handleChange('studentName', name)}
             />
-
+            <NoStudents students={students} loading={loading} error={error} />
             <StudentList
                 students={students}
                 onEditStudent={(item) => {

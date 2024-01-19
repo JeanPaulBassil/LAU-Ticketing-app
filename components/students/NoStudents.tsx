@@ -1,16 +1,16 @@
 import React from "react";
-import { IEvent } from "../../interfaces/events.interface";
 import styles from "../../styles/home/no-events";
 import { View, Text, Image } from "react-native";
+import { IStudent } from "../../interfaces/students.interface";
 
 interface NoStudentsProps { 
     loading: boolean;
     error: string;
-    events: IEvent[];
+    students: IStudent[];
 }
 
-const NoStudents = ({ events, loading, error }: NoStudentsProps) => {
-    if (error || loading || events.length > 0) {
+const NoStudents = ({ students, loading, error }: NoStudentsProps) => {
+    if (error || loading || students.length > 0) {
         return null;
     }
 
