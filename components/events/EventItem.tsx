@@ -30,7 +30,6 @@ const EventItem: React.FC<EventItemProps> = ({ event, onPress }) => {
   if (!event) {
     return null;
   }
-  console.log(event);
 
   return (
     <TouchableOpacity

@@ -40,12 +40,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white'
     },
-    eventsList: {
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-        paddingBottom: 60,
-    },
     datePickerContainer: {
         position: 'absolute',
         bottom: 0,

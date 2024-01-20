@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import styles from "../../styles/home/home";
+import common from "../../styles/common";
 import ErrorDisplay from "../../components/common/ErrorDisplay";
 import Button from "../../components/common/Button";
 import api from "../../services/api";
@@ -13,8 +14,11 @@ import { useEventDetailReducer } from "../../hooks/useEventDetailReducer";
 import CameraComponent from "../../components/scans/CameraComponent";
 import StudentList from "../../components/students/StudentList";
 import NoStudents from "../../components/students/NoStudents";
+import useAuth from "../../contexts/auth";
 
 const EventDetailScreen = ({ route }: any) => {
+  const { state } = useAuth();
+
   const { event } = route.params;
   const {
     students,
@@ -90,12 +94,14 @@ const EventDetailScreen = ({ route }: any) => {
     dispatch({ type: "SET_ERROR", payload: "" });
     fetchStudents();
   };
-
+  console.log(event);
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>{event.name}</Text>
-        <View style={styles.header_underline} />
+    <SafeAreaView style={common.container}>
+      <View style={common.header}>
+        <View style={styles.header_left}>
+          <Text style={common.headerText}>{event.name}</Text>
+          <View style={common.header_underline} />
+        </View>
         <Button
           onPress={cameraModal.openModal}
           title={loading ? "" : "Scan"}
@@ -108,7 +114,25 @@ const EventDetailScreen = ({ route }: any) => {
           {loading && <ActivityIndicator size="small" color="#FFF" />}
         </Button>
       </View>
-      {error && <ErrorDisplay error={error} handleError={handleError} />}
+
+      <ErrorDisplay loading={loading} error={error} handleError={handleError} />
+
+      <StudentList
+        loading={loading}
+        error={studentError}
+        students={students}
+        onEditStudent={(item) => {
+          dispatch({
+            type: "SET_CURRENT_STUDENT_ID",
+            payload: item.student_id,
+          });
+          dispatch({ type: "SET_NEW_NAME", payload: item.name });
+          editModal.openModal();
+        }}
+      />
+
+      <NoStudents students={students} loading={loading} error={error} />
+
       {cameraModal.visible && (
         <CameraComponent
           onBarCodeScanned={(data) => handleStudentScan(parseInt(data))}
@@ -119,6 +143,17 @@ const EventDetailScreen = ({ route }: any) => {
           onClose={handleCloseCamera}
         />
       )}
+      
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color="#005C4A"
+          />
+        </View>
+      )}
+
       <StudentNameModal
         visible={editModal.visible}
         onClose={() => editModal.closeModal()}
@@ -136,18 +171,6 @@ const EventDetailScreen = ({ route }: any) => {
         }}
         studentName={formValues.studentName}
         setStudentName={(name: string) => handleChange("studentName", name)}
-      />
-      <NoStudents students={students} loading={loading} error={error} />
-      <StudentList
-        students={students}
-        onEditStudent={(item) => {
-          dispatch({
-            type: "SET_CURRENT_STUDENT_ID",
-            payload: item.student_id,
-          });
-          dispatch({ type: "SET_NEW_NAME", payload: item.name });
-          editModal.openModal();
-        }}
       />
     </SafeAreaView>
   );

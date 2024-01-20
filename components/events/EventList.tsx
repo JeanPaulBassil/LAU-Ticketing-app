@@ -1,8 +1,8 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import EventItem from './EventItem';
-import styles from '../../styles/home/home';
 import { IEvent } from '../../interfaces/events.interface';
+import { StyleSheet } from "react-native";
 
 interface EventListProps {
     events: IEvent[];
@@ -25,15 +25,25 @@ const EventList = ({ events, navigation, error, loading }: EventListProps) => {
     )};
 
     return (
-        <View style={styles.eventsList}>
+        <View style={styles.events_list}>
             <FlatList
                 data={events}
                 keyExtractor={(event) => event._id}
                 renderItem={renderItem}
-                style={styles.eventsList}
+                style={styles.events_list}
             />
         </View>
     );
 };
 
 export default EventList;
+
+
+const styles = StyleSheet.create({
+    events_list: {
+        width: '100%',
+        height: '100%',
+        zIndex: -1,
+        paddingBottom: 60,
+    }
+});
