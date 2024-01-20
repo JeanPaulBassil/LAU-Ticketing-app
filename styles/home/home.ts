@@ -40,38 +40,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white'
     },
-    eventitem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#FFF',
-        borderRadius: 10,
-        padding: 15,
-        marginTop: 10,
-        marginHorizontal: 15,
-        justifyContent: 'space-between',
-        shadowColor: 'black',
-        shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: 2},
-    },
-    light: {
-        color: '#005C4A',
-        fontSize: 14,
-        marginLeft: 10,
-    },
-    eventDetails: {
-    },
-    eventName: {
-        fontSize: 20,
-    },
-    subDetail: {
-        display: 'flex',
-        flexDirection: 'row',
-        marginTop: 7
-    },
-    arrowIcon: {
-        fontSize: 20,
-        color: '#005C4A',
-    },
     eventsList: {
         width: '100%',
         height: '100%',

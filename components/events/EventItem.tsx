@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import styles from '../../styles/home/home';
+import styles from '../../styles/home/event-item';
 import { Fontisto } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { IEvent } from '../../interfaces/events.interface';
+import { Ionicons } from '@expo/vector-icons';
 
 interface EventItemProps {
   event: IEvent;
@@ -23,25 +24,30 @@ const EventItem: React.FC<EventItemProps> = ({ event, onPress }) => {
   if (!event) {
     return null;
   }
-
+  console.log(event);
 
   return (
-    <TouchableOpacity style={styles.eventitem} onPress={onPress}>
-      <View style={styles.eventDetails}>
-        <Text style={styles.eventName}>{event.name}</Text>
+    <TouchableOpacity style={styles.event_container} onPress={onPress}>
+      <View>
+        <Text style={styles.event_name}>{event.name}</Text>
         <View>
-        <View style={[styles.subDetail, { marginTop: 13 }]}>
+        <View style={[styles.event_detail, { marginTop: 13 }]}>
           <Fontisto name="date" size={14} color="#005C4A" />
-            <Text style={styles.light}>{new Date(event.start_date).toDateString()}</Text>
+            <Text style={styles.event_detail_text}>{new Date(event.start_date).toDateString()}</Text>
           </View>    
-          <View style={styles.subDetail}>
+          <View style={styles.event_detail}>
             <MaterialCommunityIcons name="clock" size={14} color="#005C4A" />   
-            <Text style={styles.light}>{getTime(new Date(event.start_date))} - {getTime(new Date(event.end_date))}</Text>
-          </View>   
+            <Text style={styles.event_detail_text}>{getTime(new Date(event.start_date))} - {getTime(new Date(event.end_date))}</Text>
+          </View>  
+          <View style={styles.event_detail}>
+            <Ionicons name="person" size={14} color="#005C4A" />
+            <Text style={styles.event_detail_text}>30 attendees</Text>
+
+          </View> 
         </View>
       </View>
 
-      <Text style={styles.arrowIcon}>→</Text>
+      <Text style={styles.event_arrow}>→</Text>
     </TouchableOpacity>
   );
 };

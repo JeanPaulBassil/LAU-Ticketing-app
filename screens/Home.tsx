@@ -18,7 +18,7 @@ const HomeScreen = ({ navigation }: any) => {
     useEffect(() => {
         fetchEvents();
         // testing purposes
-        setEvents([]);  
+        // setEvents([]);  
     }, []);
 
     return (
