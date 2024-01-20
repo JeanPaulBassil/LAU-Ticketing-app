@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image } from 'react-native';
 import Button from '../components/common/Button';
 import styles from '../styles/home/home';
+import common from '../styles/common';
 import useEvents from '../hooks/useEvents';
 import useModal from '../hooks/useModal';
 import EventModal from '../components/events/EventModal';
@@ -22,11 +23,11 @@ const HomeScreen = ({ navigation }: any) => {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
+        <SafeAreaView style={common.container}>
+            <View style={common.header}>
                 <View style={styles.header_left}>
-                    <Text style={styles.headerText}>{state.club?.name}</Text>
-                    <View style={styles.header_underline} />
+                    <Text style={common.headerText}>{state.club?.name}</Text>
+                    <View style={common.header_underline} />
                 </View>
                 <Button
                     onPress={openModal}
