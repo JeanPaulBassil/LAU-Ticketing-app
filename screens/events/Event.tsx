@@ -15,6 +15,7 @@ import CameraComponent from "../../components/scans/CameraComponent";
 import StudentList from "../../components/students/StudentList";
 import NoStudents from "../../components/students/NoStudents";
 import useAuth from "../../contexts/auth";
+import { capitalize } from "../../utils/string";
 
 const EventDetailScreen = ({ route }: any) => {
   const { state } = useAuth();
@@ -94,12 +95,11 @@ const EventDetailScreen = ({ route }: any) => {
     dispatch({ type: "SET_ERROR", payload: "" });
     fetchStudents();
   };
-  console.log(event);
   return (
     <SafeAreaView style={common.container}>
       <View style={common.header}>
         <View style={styles.header_left}>
-          <Text style={common.headerText}>{event.name}</Text>
+          <Text style={common.headerText}>{capitalize(event)}</Text>
           <View style={common.header_underline} />
         </View>
         <Button
@@ -143,7 +143,7 @@ const EventDetailScreen = ({ route }: any) => {
           onClose={handleCloseCamera}
         />
       )}
-      
+
       {loading && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator

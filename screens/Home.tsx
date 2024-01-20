@@ -10,6 +10,7 @@ import EventList from '../components/events/EventList';
 import ErrorDisplay from '../components/common/ErrorDisplay';
 import NoEvents from '../components/events/NoEvents';
 import useAuth from '../contexts/auth';
+import { capitalize } from '../utils/string';
 
 const HomeScreen = ({ navigation }: any) => {
     const { events, loading, fetchEvents, addEvent, error, setEvents } = useEvents();
@@ -26,7 +27,7 @@ const HomeScreen = ({ navigation }: any) => {
         <SafeAreaView style={common.container}>
             <View style={common.header}>
                 <View style={styles.header_left}>
-                    <Text style={common.headerText}>{state.club?.name}</Text>
+                    <Text style={common.headerText}>{capitalize(state.club?.name)}</Text>
                     <View style={common.header_underline} />
                 </View>
                 <Button
