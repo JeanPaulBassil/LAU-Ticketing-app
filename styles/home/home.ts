@@ -13,20 +13,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         padding: 15,
-        marginTop: 15,
+        marginTop: 15
+    },
+    header_left: {
         position: 'relative',
     },
     header_underline: {
         position: 'absolute',
-        bottom: 12,
-        left: 17,
+        bottom: -10,
+        left: 0,
         backgroundColor: '#005C07',
-        width: 60,
+        width: '70%',
         height: 2,
         borderRadius: 50,
     },
     headerText: {
-        fontSize: 30,
+        fontSize: 20,
         color: '#121420', 
     },
     addButton: {
@@ -42,18 +44,29 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#FFF',
-        borderRadius: 12,
+        borderRadius: 10,
         padding: 15,
         marginTop: 10,
         marginHorizontal: 15,
         justifyContent: 'space-between',
-        height: 60,
         shadowColor: 'black',
         shadowOpacity: 0.26,
         shadowOffset: { width: 0, height: 2},
     },
+    light: {
+        color: '#005C4A',
+        fontSize: 14,
+        marginLeft: 10,
+    },
+    eventDetails: {
+    },
     eventName: {
         fontSize: 20,
+    },
+    subDetail: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: 7
     },
     arrowIcon: {
         fontSize: 20,

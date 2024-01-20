@@ -8,11 +8,12 @@ import EventModal from '../components/events/EventModal';
 import EventList from '../components/events/EventList';
 import ErrorDisplay from '../components/common/ErrorDisplay';
 import NoEvents from '../components/events/NoEvents';
+import useAuth from '../contexts/auth';
 
 const HomeScreen = ({ navigation }: any) => {
     const { events, loading, fetchEvents, addEvent, error, setEvents } = useEvents();
     const { visible, openModal, closeModal} = useModal();
-
+    const { state } = useAuth();
     
     useEffect(() => {
         fetchEvents();
@@ -23,8 +24,10 @@ const HomeScreen = ({ navigation }: any) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Events</Text>
-                <View style={styles.header_underline} />
+                <View style={styles.header_left}>
+                    <Text style={styles.headerText}>{state.club?.name}</Text>
+                    <View style={styles.header_underline} />
+                </View>
                 <Button
                     onPress={openModal}
                     title={loading ? "" : "Add Event"}

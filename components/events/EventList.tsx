@@ -16,18 +16,19 @@ const EventList = ({ events, navigation, error, loading }: EventListProps) => {
         return null;
     }
 
-    const renderItem = ({ item }: { item: IEvent }) => (
+    const renderItem = ({ item } : { item: IEvent } ) => {
+        return (
         <EventItem 
-            name={item.name} 
-            onPress={() => navigation.navigate('Event', { event: item })}
+            event={item}
+            onPress={() => navigation.navigate('Event', { event: item.name })}
         />
-    );
+    )};
 
     return (
         <View style={styles.eventsList}>
             <FlatList
                 data={events}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(event) => event._id}
                 renderItem={renderItem}
                 style={styles.eventsList}
             />
