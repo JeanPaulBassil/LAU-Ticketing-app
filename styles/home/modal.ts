@@ -2,17 +2,16 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     addButtonText: {
-        fontSize: 18,
+        fontSize: 10,
         color: 'white'
     },
-    centeredView: {
+    centered_view: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        // marginTop: 22,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.82)',
     },
-    modalView: {
+    modal_view: {
         width: '90%',
         margin: 20,
         backgroundColor: '#f6f6f6',
@@ -25,7 +24,14 @@ const styles = StyleSheet.create({
         elevation: 8,
         position: 'relative'
     },
-    modalText_underline: {
+    modal_text: {
+        marginLeft: 3,
+        marginBottom: 30,
+        fontSize: 18,
+        color: '#121420',
+        fontFamily: 'PTSans_400Regular'
+    },
+    modal_text_underline: {
         position: 'absolute',
         top: 48,
         left: 23,
@@ -34,14 +40,8 @@ const styles = StyleSheet.create({
         height: 2,
         borderRadius: 50,
     },
-    modalText: {
-        marginLeft: 3,
-        marginBottom: 30,
-        fontSize: 18,
-        color: '#121420',
-        fontFamily: 'PTSans_400Regular'
-    },
-    modalInput: {
+    
+    modal_input: {
         marginBottom: 20,
         padding: 12,
         borderWidth: 1,
@@ -50,25 +50,24 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#f6f6f6'
     },
-    modalButtons: {
-        marginTop: 15,
+    modal_button_container: {
+        marginTop: 17,
         flexDirection: 'row',
         justifyContent: 'flex-end',
         width: '100%',
     },
-    cancelButton: {
-        width: 90,
+    cancel_button: {
+        width: 100,
         height: 40,
         borderRadius: 3,
-        backgroundColor: '#D6D6D6',
+        backgroundColor: '#b8b8b8',
     },
-    cancelButtonText: {
-        fontSize: 18,
-        color: 'black',
-        fontFamily: 'PTSans_400Regular'
+    button_text: {
+        fontSize: 16,
+        fontFamily: 'PTSans_400Regular',
     },
-    addEventButton: {
-        width: 90,
+    submit_button: {
+        width: 100,
         height: 40,
         borderRadius: 3,
         backgroundColor: '#005C07',

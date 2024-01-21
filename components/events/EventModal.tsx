@@ -84,13 +84,13 @@ const EventModal = ({
                 justifyContent: "flex-end",
               }}
             >
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <Text style={styles.modalText}>Add New Event</Text>
-                  <View style={styles.modalText_underline} />
+              <View style={styles.centered_view}>
+                <View style={styles.modal_view}>
+                  <Text style={styles.modal_text}>Add New Event</Text>
+                  <View style={styles.modal_text_underline} />
                   <TextInput
                     placeholder="Event Name"
-                    style={styles.modalInput}
+                    style={styles.modal_input}
                     placeholderTextColor={"#AAAAAA"}
                     value={eventName}
                     onChangeText={(text) => handleChange("eventName", text)}
@@ -124,18 +124,18 @@ const EventModal = ({
                     textColor="black"
                   />
 
-                  <View style={styles.modalButtons}>
+                  <View style={styles.modal_button_container}>
                     <Button
                       title="Cancel"
-                      style={styles.cancelButton}
+                      style={styles.cancel_button}
                       onPress={handleCancel}
-                      textStyle={styles.cancelButtonText}
-                      
+                      textStyle={styles.button_text}
                     />
                     <Button
                       title="Add"
                       onPress={handleAddEvent}
-                      style={[styles.addEventButton, loading ? { opacity: 0.3 } : null]}
+                      style={[styles.submit_button, loading ? { opacity: 0.3 } : null]}
+                      textStyle={styles.button_text}
                     >
                       {loading && <ActivityIndicator size="small" color="#FFF" />}
                     </Button>

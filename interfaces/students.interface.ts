@@ -1,7 +1,8 @@
 
 interface IStudent {
-    id: number;
+    _id: number;
     name?: string;
+    student_id: number 
 }
 
 interface IStudentResponse {

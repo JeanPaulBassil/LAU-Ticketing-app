@@ -17,6 +17,10 @@ import NoStudents from "../../components/students/NoStudents";
 import useAuth from "../../contexts/auth";
 import { capitalize } from "../../utils/string";
 
+const isError = (error: string, studentError: string) => {
+  return error || studentError;
+}
+
 const EventDetailScreen = ({ route }: any) => {
   const { state } = useAuth();
 
@@ -119,7 +123,7 @@ const EventDetailScreen = ({ route }: any) => {
 
       <StudentList
         loading={loading}
-        error={studentError}
+        error={error || studentError}
         students={students}
         onEditStudent={(item) => {
           dispatch({
