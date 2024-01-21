@@ -13,11 +13,18 @@ import { MaterialIcons } from "@expo/vector-icons";
 import useAuth from "../../contexts/auth";
 import CustomButton from "../../components/common/Button";
 import api from "../../services/api";
+import { MaterialCommunityIcons } from "@expo/vector-icons"; // Import FontAwesome or any other icon library
 
 const Settings = () => {
-  const { logout } = useAuth();
+  const { logout, state } = useAuth();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const password = "Toni03018765"; // Replace with your actual password
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!isPasswordVisible);
+  };
 
   const signOut = useCallback(async () => {
     setLoading(true);
@@ -55,11 +62,53 @@ const Settings = () => {
             </View>
           )}
         </CustomButton>
-
       </View>
 
       <View style={styles.account_container}>
-        
+        <View>
+          <Text style={styles.account_text}>Account Details</Text>
+          <View style={styles.account_underline} />
+        </View>
+
+        <View style={styles.account_details}>
+          <Text style={styles.label}>Club Name</Text>
+          <View style={styles.input}>
+            <Text style={styles.input_text}>{state?.club?.name}</Text>
+          </View>
+        </View>
+        <View style={styles.account_details}>
+          <Text style={styles.label}>Email</Text>
+          <View style={styles.input}>
+            <Text style={styles.input_text}>{state?.club?.email}</Text>
+          </View>
+        </View>
+        {/* <View style={styles.account_details}>
+          <Text style={styles.label}>Password</Text>
+          <View style={[styles.input, styles.password_input]}>
+            <Text style={styles.input_text}>
+              {isPasswordVisible
+                ? password // Show the password if isPasswordVisible is true
+                : "*".repeat(
+                    password.length
+                  ) // Show asterisks for hidden password
+              }
+            </Text>
+            <MaterialCommunityIcons
+                  name={isPasswordVisible ? "eye-off" : "eye"}
+                  size={22}
+                  color="#aaa"
+                  style={styles.icon}
+                  onPress={togglePasswordVisibility}
+                />
+          </View>
+        </View> */}
+      </View>
+
+      <View style={styles.events_container}>
+        <View>
+          <Text style={styles.account_text}>Your Events</Text>
+          <View style={styles.account_underline} />
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./authentication/Login";
 import HomeScreen from "./Home";
@@ -50,6 +50,7 @@ const AppTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        animationEnabled: true,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
           display: "flex",
