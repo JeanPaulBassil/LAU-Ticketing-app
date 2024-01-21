@@ -12,11 +12,14 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     logout_button_text: {
         color: 'white',
         marginRight: 5
+    },
+    account_container: {
+
     }
 });
 

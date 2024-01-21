@@ -15,6 +15,7 @@ import { View, Platform } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useModal } from '../contexts/modal';
+import { useNavigation } from '@react-navigation/native';
 
 
 export type RootStackParamList = {
@@ -44,6 +45,8 @@ const AuthStack = () => (
 );
 const AppTabs = () => {
   const { setModalVisible } = useModal();
+  const navigation = useNavigation();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -108,7 +111,7 @@ const AppTabs = () => {
       />
       <Tab.Screen
         name="Create"
-        component={() => <View></View>}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -126,6 +129,7 @@ const AppTabs = () => {
               <TouchableOpacity
                 onPress={() => {
                   setModalVisible(true);
+                  navigation.navigate("Home");
                 }}
                 style={{
                   backgroundColor: "#005C4A",

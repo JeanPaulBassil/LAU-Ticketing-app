@@ -13,7 +13,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import useAuth from "../../contexts/auth";
 import CustomButton from "../../components/common/Button";
 import api from "../../services/api";
-import { AxiosError } from "axios";
 
 const Settings = () => {
   const { logout } = useAuth();
@@ -23,7 +22,7 @@ const Settings = () => {
   const signOut = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await api.logout();
+      await api.logout();
       setError("");
       logout();
     } catch (err: any) {
@@ -56,6 +55,11 @@ const Settings = () => {
             </View>
           )}
         </CustomButton>
+
+      </View>
+
+      <View style={styles.account_container}>
+        
       </View>
     </SafeAreaView>
   );
