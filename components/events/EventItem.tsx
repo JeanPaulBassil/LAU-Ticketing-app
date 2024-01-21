@@ -5,6 +5,7 @@ import { Fontisto } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { IEvent } from "../../interfaces/events.interface";
 import { Ionicons } from "@expo/vector-icons";
+import { getTime } from "../../utils/date";
 
 interface EventItemProps {
   event: IEvent;
@@ -16,15 +17,7 @@ const isActive = (event: IEvent): boolean => {
   return eventDate < currentDate;
 };
 
-const getTime = (date: Date): string => {
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
 
-  const formattedHours = hours.toString().padStart(2, "0");
-  const formattedMinutes = minutes.toString().padStart(2, "0");
-
-  return `${formattedHours}:${formattedMinutes}`;
-};
 
 const EventItem: React.FC<EventItemProps> = ({ event, onPress }) => {
   if (!event) {
