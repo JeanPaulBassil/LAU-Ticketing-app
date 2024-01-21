@@ -19,8 +19,7 @@ const HomeScreen = ({ navigation }: any) => {
     const { state } = useAuth();
     const { isModalVisible, setModalVisible } = useModal();
 
-    console.log('is modal visinble => ', isModalVisible);
-    
+
     const close = useCallback(() => {
         setModalVisible(false);
         closeModal();

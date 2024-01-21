@@ -36,6 +36,10 @@ const api = {
         const response: AxiosResponse<IStudentResponse> = await axios.put<IStudentResponse>(`/students/${studentId}`, {name: newName});
         return response;
     },
+    logout : async () => {
+        const response: AxiosResponse<LoginResponse> = await axios.get<LoginResponse>('/auth/logout');
+        return response;
+    }
 }
 
 
