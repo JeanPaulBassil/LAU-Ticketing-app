@@ -7,7 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 type EventItemProps = {
     event: IEvent;
-    onDelete: () => void;
+    onDelete: (event_id: string) => void;
 };
 
 
@@ -22,7 +22,7 @@ const EventItem = ({ event, onDelete }: EventItemProps) => {
         </View>
       </View>
 
-      <TouchableOpacity onPress={onDelete} style={styles.button_container}>
+      <TouchableOpacity onPress={() => onDelete(event._id)} style={styles.button_container}>
         <MaterialIcons name="delete-outline" size={20} color="#CC2400" />
       </TouchableOpacity>
     </View>

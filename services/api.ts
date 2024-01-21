@@ -39,6 +39,10 @@ const api = {
     logout : async () => {
         const response: AxiosResponse<LoginResponse> = await axios.get<LoginResponse>('/auth/logout');
         return response;
+    },
+    deleteEvent: async (eventId: string) => {
+        const response: AxiosResponse<EventsResponse> = await axios.delete<EventsResponse>(`/events/${eventId}`);
+        return response;
     }
 }
 

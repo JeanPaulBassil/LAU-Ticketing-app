@@ -46,6 +46,19 @@ const Settings = () => {
     }
   }, []);
 
+  const deleteEvent = useCallback(async (event_id: string) => {
+    setLoading(true);
+    try {
+      await api.deleteEvent(event_id);
+      setError("");
+    } catch (err: any) {
+      setError(err.response.data.message);
+    } finally {
+      setLoading(false);
+      fetchEvents();
+    }
+  },[])
+
   if ((error || error_events) && !loading && !loading_events) {
     return (
       <SafeAreaView style={common.container}>
@@ -122,7 +135,7 @@ const Settings = () => {
       <EventsList
         loading={loading || loading_events}
         error={error || error_events}
-        onDelete={fetchEvents}
+        onDelete={deleteEvent}
         events={events}
       />
     </SafeAreaView>
