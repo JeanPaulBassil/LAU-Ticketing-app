@@ -1,13 +1,14 @@
 // App.js or App.tsx
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { PaperProvider } from 'react-native-paper';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import RootLayout from './screens/RootLayout';
-import { AuthProvider } from './contexts/auth';
-import { NavigationContainerRef } from '@react-navigation/native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { PaperProvider } from "react-native-paper";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import RootLayout from "./screens/RootLayout";
+import { AuthProvider } from "./contexts/auth";
+import { NavigationContainerRef } from "@react-navigation/native";
+import { ModalProvider } from "./contexts/modal";
 
 export const navigationRef = React.createRef<NavigationContainerRef<any>>();
 
@@ -15,19 +16,19 @@ export function navigate(name: string, params?: any) {
   navigationRef.current?.navigate(name, params);
 }
 
-
-
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <PaperProvider>
-        <StatusBar style='auto'/>
-        <NavigationContainer ref={navigationRef}>
-          <AuthProvider>
-            {/* <View style={{ marginTop: 5 }} /> */}
-            <RootLayout />
-          </AuthProvider>
-        </NavigationContainer>
+        <StatusBar style="auto" />
+        <ModalProvider>
+          <NavigationContainer ref={navigationRef}>
+            <AuthProvider>
+              {/* <View style={{ marginTop: 5 }} /> */}
+              <RootLayout />
+            </AuthProvider>
+          </NavigationContainer>
+        </ModalProvider>
       </PaperProvider>
     </GestureHandlerRootView>
   );
@@ -36,8 +37,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    justifyContent: "center",
   },
 });
-

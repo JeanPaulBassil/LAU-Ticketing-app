@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         zIndex: -1,
         flex: 1,
     },
-    notFoundMessage: {
+notFoundMessage: {
         fontSize: 18,
         color: 'grey'     
     },

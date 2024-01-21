@@ -9,19 +9,21 @@ import CodeScreen from "./authentication/Code";
 import SetPasswordScreen from "./authentication/SetPassword";
 import { IEvent } from "../interfaces/events.interface";
 import SettingsScreen from "./settings/Settings";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import EventScreen from "./events/Event"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import EventScreen from "./events/Event";
 import { View, Platform } from "react-native";
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
+import { useModal } from '../contexts/modal';
+
 
 export type RootStackParamList = {
-  Home: undefined; 
+  Home: undefined;
   Login: undefined;
   Code: {
     name: string;
-  },
-  Event: {event: IEvent};
+  };
+  Event: { event: IEvent };
 };
 
 SplashScreen.preventAutoHideAsync();
@@ -40,132 +42,143 @@ const AuthStack = () => (
     <Stack.Screen name="SetPassword" component={SetPasswordScreen} />
   </Stack.Navigator>
 );
-const AppTabs = () => (
-  <Tab.Navigator
-    screenOptions={({route}) => ({
-      tabBarHideOnKeyboard: true,
-      tabBarStyle: {
-        display: 'flex',
-        position: 'absolute',
-        bottom: 25,
-        left: 25,
-        right: 25,
-        elevation: 5,
-        backgroundColor: 'white',
-        borderRadius: 30,
-        height: 60,
-        shadowColor: '#000', // Shadow color for iOS
-        shadowOffset: { width: 0, height: 2 }, // Shadow offset (x, y)
-        shadowOpacity: 0.15, // Shadow opacity
-        shadowRadius: 2, // Shadow radius
-      },
-      tabBarShowLabel: false,
-      headerShown: false,
-    })}
-
-  >
-    <Tab.Screen 
-      name="Home" 
-      component={HomeScreen} 
-      options={{
-        tabBarIcon: ({focused}) => (
-          <View
-            style={{
-              top: Platform.OS === 'ios' ? 10 : 0,
-              position: 'relative'
-            }}>
-            <Ionicons
-              name={ focused ? "home-outline" : "home-outline"}
-              size={30}
-              color={focused ? '#005C4A' : 'grey'}
-            />
-            <View style={{
-              // bullet 
-              position: 'absolute',
-              bottom: -14,
-              left: 12,
-              width: 6,
-              height: 6,
-              borderRadius: 50,
-              backgroundColor: focused ? '#005C4A': 'transparent',
-            }}/>
-          </View>
-        )
-      }}
-
-      
-    />
-    <Tab.Screen 
-        name="Event" 
-        component={EventScreen} 
-        options={{ 
-          tabBarButton: () => null
+const AppTabs = () => {
+  const { setModalVisible } = useModal();
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarHideOnKeyboard: true,
+        tabBarStyle: {
+          display: "flex",
+          position: "absolute",
+          bottom: 25,
+          left: 25,
+          right: 25,
+          elevation: 5,
+          backgroundColor: "white",
+          borderRadius: 30,
+          height: 60,
+          shadowColor: "#000", // Shadow color for iOS
+          shadowOffset: { width: 0, height: 2 }, // Shadow offset (x, y)
+          shadowOpacity: 0.15, // Shadow opacity
+          shadowRadius: 2, // Shadow radius
+        },
+        tabBarShowLabel: false,
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                top: Platform.OS === "ios" ? 10 : 0,
+                position: "relative",
+              }}
+            >
+              <Ionicons
+                name={focused ? "home-outline" : "home-outline"}
+                size={30}
+                color={focused ? "#005C4A" : "grey"}
+              />
+              <View
+                style={{
+                  // bullet
+                  position: "absolute",
+                  bottom: -14,
+                  left: 12,
+                  width: 6,
+                  height: 6,
+                  borderRadius: 50,
+                  backgroundColor: focused ? "#005C4A" : "transparent",
+                }}
+              />
+            </View>
+          ),
         }}
       />
       <Tab.Screen
-          name="Create"
-          component={() => (<View></View>)}
-          options={{
-            tabBarIcon: ({focused}) => (
+        name="Event"
+        component={EventScreen}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        name="Create"
+        component={() => <View></View>}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                top: -10,
+                width: 85,
+                height: 85,
+                borderRadius: 50,
+                backgroundColor: "#f6f6f6",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+                style={{
+                  backgroundColor: "#005C4A",
+                  borderRadius: 50,
+                  padding: 15,
+                }}
+              >
+                <AntDesign
+                  name="plus"
+                  size={30}
+                  color={focused ? "white" : "white"}
+                />
+              </TouchableOpacity>
+            </View>
+          ),
+          tabBarIconStyle: {},
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                top: Platform.OS === "ios" ? 10 : 0,
+                position: "relative",
+              }}
+            >
+              <Ionicons
+                name={focused ? "settings-outline" : "settings-outline"}
+                size={30}
+                color={focused ? "#005C4A" : "grey"}
+              />
               <View
                 style={{
-                  top: -10,
-                  width: 85,
-                  height: 85,
+                  // bullet
+                  position: "absolute",
+                  bottom: -15,
+                  left: 12,
+                  width: 6,
+                  height: 6,
                   borderRadius: 50,
-                  backgroundColor: '#f6f6f6',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <TouchableOpacity style={{
-                    backgroundColor: '#005C4A',
-                    borderRadius: 50,
-                    padding: 15,
-                  }}>
-                    <AntDesign
-                      name="plus"
-                      size={30}
-                      color={focused ? 'white' : 'white'}
-                    />
-                </TouchableOpacity>
-              </View>
-            ),
-            tabBarIconStyle: {},
-          }}
-        />
-    <Tab.Screen 
-      name="Settings" 
-      component={SettingsScreen} 
-      options={{
-        tabBarIcon: ({focused}) => (
-          <View
-            style={{
-              top: Platform.OS === 'ios' ? 10 : 0,
-              position: 'relative'
-            }}>
-            <Ionicons
-              name={ focused ? "settings-outline" : "settings-outline"}
-              size={30}
-              color={focused ? '#005C4A' : 'grey'}
-            />
-            <View style={{
-              // bullet 
-              position: 'absolute',
-              bottom: -15,
-              left: 12,
-              width: 6,
-              height: 6,
-              borderRadius: 50,
-              backgroundColor: focused ? '#005C4A': 'transparent',
-            }}/>
-          </View>
-        )
-      }}
-    />
-  </Tab.Navigator>
-);
-
+                  backgroundColor: focused ? "#005C4A" : "transparent",
+                }}
+              />
+            </View>
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 const RootLayout = () => {
   const [ready, setReady] = useState<boolean>(false);
@@ -194,15 +207,7 @@ const RootLayout = () => {
     }
   }, [ready, state.loading]);
 
-  return (
-    <>
-      {state.club === null ? (
-        <AuthStack />
-      ) : (
-        <AppTabs />
-      )}
-    </>
-  );
+  return <>{state.club === null ? <AuthStack /> : <AppTabs />}</>;
 };
 
 export default RootLayout;

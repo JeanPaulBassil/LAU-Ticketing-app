@@ -1,26 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image } from 'react-native';
 import Button from '../components/common/Button';
 import styles from '../styles/home/home';
 import common from '../styles/common';
 import useEvents from '../hooks/useEvents';
-import useModal from '../hooks/useModal';
+import useHookModal from '../hooks/useModal';
 import EventModal from '../components/events/EventModal';
 import EventList from '../components/events/EventList';
 import ErrorDisplay from '../components/common/ErrorDisplay';
 import NoEvents from '../components/events/NoEvents';
 import useAuth from '../contexts/auth';
 import { capitalize } from '../utils/string';
+import { useModal } from '../contexts/modal';
 
 const HomeScreen = ({ navigation }: any) => {
     const { events, loading, fetchEvents, addEvent, error, setEvents } = useEvents();
-    const { visible, openModal, closeModal} = useModal();
+    const { visible, openModal, closeModal} = useHookModal();
     const { state } = useAuth();
+    const { isModalVisible, setModalVisible } = useModal();
+
+    console.log('is modal visinble => ', isModalVisible);
     
+    const close = useCallback(() => {
+        setModalVisible(false);
+        closeModal();
+    },[]);
+
     useEffect(() => {
-        fetchEvents();
-        // testing purposes
-        // setEvents([]);  
+        fetchEvents();  
     }, []);
 
     return (
@@ -51,8 +58,8 @@ const HomeScreen = ({ navigation }: any) => {
                 <ActivityIndicator style={styles.loader} size="large" color="#005C4A" />
             </View>}
             <EventModal
-                visible={visible}
-                onClose={closeModal}
+                visible={visible || isModalVisible}
+                onClose={close}
                 onAdd={addEvent}
                 loading={loading}
             />
