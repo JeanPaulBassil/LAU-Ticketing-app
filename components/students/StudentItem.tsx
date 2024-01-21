@@ -1,14 +1,13 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Avatar } from "react-native-paper";
-import { IStudent } from "../../interfaces/students.interface";
+import { Attendee } from "../../interfaces/students.interface";
 import { capitalize } from "../../utils/string";
 import { getTime } from "../../utils/date";
 
 type StudentItemProps = {
-    student: IStudent;
+    student: Attendee;
     onEdit: () => void;
-    open: () => void;
 };
 const getRandomColor = (): string => {
     const colors = ['#FF993C', '#316DE1', '#FE4666', '#A95DFE', '#005C4A', '#07d1f5', '#edf507'];
@@ -16,7 +15,7 @@ const getRandomColor = (): string => {
 }
 
 
-const StudentItem = ({ student, onEdit, open }: StudentItemProps) => {
+const StudentItem = ({ student, onEdit }: StudentItemProps) => {
   return (
     <TouchableOpacity onPress={onEdit} style={styles.student_row}>
       <View style={styles.student_left}>
@@ -28,9 +27,6 @@ const StudentItem = ({ student, onEdit, open }: StudentItemProps) => {
       </View>
 
       <View style={styles.button_container}>
-        {/* <TouchableOpacity style={styles.button} >
-          <FontAwesome5 name="pen" size={20} color="black" />
-        </TouchableOpacity> */}
         <Text style={styles.date}>{getTime(new Date(student.date))}</Text>
       </View>
     </TouchableOpacity>

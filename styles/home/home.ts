@@ -51,6 +51,13 @@ const styles = StyleSheet.create({
         marginTop: -60,
         transform: [{ scale: 1.3 }]
     },
+    info: {
+        flex: 1,
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'center',
+        padding: 16,
+    }
 });
 
 export default styles;

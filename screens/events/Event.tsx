@@ -16,6 +16,7 @@ import StudentList from "../../components/students/StudentList";
 import NoStudents from "../../components/students/NoStudents";
 import useAuth from "../../contexts/auth";
 import { capitalize } from "../../utils/string";
+import Info from "../../components/students/InfoStudent";
 
 const isError = (error: string, studentError: string) => {
   return error || studentError;
@@ -134,7 +135,8 @@ const EventDetailScreen = ({ route }: any) => {
           editModal.openModal();
         }}
       />
-
+      <Info loading={loading} error={error || studentError} students={students} />
+      
       <NoStudents students={students} loading={loading} error={error || studentError} />
 
       {cameraModal.visible && (

@@ -4,6 +4,9 @@ interface IStudent {
     name?: string;
     student_id: number 
 }
+interface Attendee extends IStudent {
+    date: string;
+}
 
 interface IStudentResponse {
     status: number;
@@ -11,4 +14,4 @@ interface IStudentResponse {
     attendees?: IStudent[];
 }
 
-export { IStudent, IStudentResponse }
+export { IStudent, IStudentResponse, Attendee }
