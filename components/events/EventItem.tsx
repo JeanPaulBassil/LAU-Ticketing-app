@@ -48,7 +48,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onPress }) => {
           </View>
           <View style={styles.event_detail}>
             <Ionicons name="person" size={14} color="#005C4A" />
-            <Text style={styles.event_detail_text}>30 attendees</Text>
+            <Text style={styles.event_detail_text}>{isActive(event) ? '30 attendees' : 'Not yet active.'}</Text>
           </View>
         </View>
       </View>
