@@ -53,14 +53,16 @@ const Settings = () => {
     }
   }, []);
 
-  if (error || error_events) {
-    <SafeAreaView style={common.container}>
-      <ErrorDisplay
-        loading={loading || loading_events}
-        error={error_events}
-        handleError={fetchEvents}
-      />
-    </SafeAreaView>;
+  if ((error || error_events) && !loading && !loading_events) {
+    return (
+      <SafeAreaView style={common.container}>
+        <ErrorDisplay
+          loading={loading || loading_events}
+          error={error_events}
+          handleError={fetchEvents}
+        />
+      </SafeAreaView>
+    );
   }
 
   return (
@@ -133,6 +135,7 @@ const Settings = () => {
           <View style={styles.account_underline} />
         </View>
       </View>
+
       {(loading || loading_events) && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator
@@ -144,9 +147,9 @@ const Settings = () => {
       )}
 
       <EventsList
-        loading={loading_events}
-        error={error_events}
-        onDelete={() => {}}
+        loading={loading || loading_events}
+        error={error || error_events}
+        onDelete={fetchEvents}
         events={events}
       />
     </SafeAreaView>
