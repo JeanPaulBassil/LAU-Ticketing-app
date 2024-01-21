@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { IStudent } from "../../interfaces/students.interface";
 import { capitalize } from "../../utils/string";
