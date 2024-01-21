@@ -2,10 +2,8 @@ import React, { useCallback, useState, useEffect } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   ActivityIndicator,
   SafeAreaView,
-  Button,
 } from "react-native";
 import common from "../../styles/common";
 import styles from "../../styles/settings/settings";
@@ -30,13 +28,8 @@ const Settings = () => {
     fetchEvents,
   } = useEvents();
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!isPasswordVisible);
-  };
   useEffect(() => {
     fetchEvents();
-    // setError("Internal server error");
-    // setLoading(true);
   }, []);
 
   const signOut = useCallback(async () => {
@@ -107,26 +100,6 @@ const Settings = () => {
             <Text style={styles.input_text}>{state?.club?.email}</Text>
           </View>
         </View>
-        {/* <View style={styles.account_details}>
-          <Text style={styles.label}>Password</Text>
-          <View style={[styles.input, styles.password_input]}>
-            <Text style={styles.input_text}>
-              {isPasswordVisible
-                ? password // Show the password if isPasswordVisible is true
-                : "*".repeat(
-                    password.length
-                  ) // Show asterisks for hidden password
-              }
-            </Text>
-            <MaterialCommunityIcons
-                  name={isPasswordVisible ? "eye-off" : "eye"}
-                  size={22}
-                  color="#aaa"
-                  style={styles.icon}
-                  onPress={togglePasswordVisibility}
-                />
-          </View>
-        </View> */}
       </View>
 
       <View style={styles.events_container}>
