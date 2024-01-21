@@ -64,6 +64,15 @@ const styles = StyleSheet.create({
     events_container: {
         marginTop: 20,
         padding: 20
+    },
+    loadingContainer: {
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    loader: {
+        transform: [{ scale: 1 }]
     }
 });
 

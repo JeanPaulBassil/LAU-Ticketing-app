@@ -13,18 +13,31 @@ import { MaterialIcons } from "@expo/vector-icons";
 import useAuth from "../../contexts/auth";
 import CustomButton from "../../components/common/Button";
 import api from "../../services/api";
-import { MaterialCommunityIcons } from "@expo/vector-icons"; // Import FontAwesome or any other icon library
+import EventsList from "../../components/settings/EventList";
+import useEvents from "../../hooks/useEvents";
+import ErrorDisplay from "../../components/common/ErrorDisplay";
 
 const Settings = () => {
   const { logout, state } = useAuth();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-  const password = "Toni03018765"; // Replace with your actual password
+
+  const {
+    loading: loading_events,
+    error: error_events,
+    events,
+    fetchEvents,
+  } = useEvents();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!isPasswordVisible);
   };
+  useEffect(() => {
+    fetchEvents();
+    // setError("Internal server error");
+    // setLoading(true);
+  }, []);
 
   const signOut = useCallback(async () => {
     setLoading(true);
@@ -39,6 +52,16 @@ const Settings = () => {
       setLoading(false);
     }
   }, []);
+
+  if (error || error_events) {
+    <SafeAreaView style={common.container}>
+      <ErrorDisplay
+        loading={loading || loading_events}
+        error={error_events}
+        handleError={fetchEvents}
+      />
+    </SafeAreaView>;
+  }
 
   return (
     <SafeAreaView style={common.container}>
@@ -110,6 +133,22 @@ const Settings = () => {
           <View style={styles.account_underline} />
         </View>
       </View>
+      {(loading || loading_events) && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color="#005C4A"
+          />
+        </View>
+      )}
+
+      <EventsList
+        loading={loading_events}
+        error={error_events}
+        onDelete={() => {}}
+        events={events}
+      />
     </SafeAreaView>
   );
 };
