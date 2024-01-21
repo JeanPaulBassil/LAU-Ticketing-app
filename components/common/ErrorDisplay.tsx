@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/home/home";
+import styles from "../../styles/common/error";
 import { HelperText } from "react-native-paper";
 import { Image, View, Text } from "react-native";
 import CustomButton from "../../components/common/Button";
@@ -19,15 +19,15 @@ const ErrorDisplay = ({
   }
 
   return (
-    <View style={styles.errorContainer}>
+    <View style={styles.error_container}>
       <Image
-        source={require("../../assets/events/error.png")}
-        style={styles.errorImage}
+        source={require("../../assets/events/error1.png")}
+        style={styles.error_image}
       />
-      <Text style={styles.errorTitle}>Whoops!</Text>
+      <Text style={styles.error_title}>Whoops!</Text>
       <HelperText
         padding="none"
-        style={styles.errorText}
+        style={styles.error_text}
         type="error"
         visible={!!error}
       >

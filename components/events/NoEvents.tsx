@@ -1,6 +1,6 @@
 import React from "react";
 import { IEvent } from "../../interfaces/events.interface";
-import styles from "../../styles/home/no-events";
+import styles from "../../styles/home/no-data";
 import { View, Text, Image } from "react-native";
 
 interface NoEventsProps { 

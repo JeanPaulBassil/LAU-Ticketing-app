@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/home/no-events";
+import styles from "../../styles/home/no-data";
 import { View, Text, Image } from "react-native";
 import { IStudent } from "../../interfaces/students.interface";
 

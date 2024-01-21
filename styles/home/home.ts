@@ -1,33 +1,10 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#f6f6f6',
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-        padding: 15,
-        marginTop: 15
-    },
     header_left: {
         position: 'relative',
     },
-    header_underline: {
-        position: 'absolute',
-        bottom: -10,
-        left: 0,
-        backgroundColor: '#005C07',
-        width: '70%',
-        height: 2,
-        borderRadius: 50,
-    },
-    headerText: {
+    header_text: {
         fontSize: 20,
         color: '#121420', 
     },
@@ -64,43 +41,8 @@ const styles = StyleSheet.create({
     buttonDisabled: {
         opacity: 0.3,
     },
-    errorTitle: {
-        color: '#3D4852', 
-        fontSize: 26,
-        marginTop: 10,
-        textAlign: 'center',
-        fontWeight: '600'
-    },
-    errorText: {
-        color: '#3D4852', 
-        fontSize: 16,
-        marginHorizontal: 20,
-        marginTop: 10,
-        textAlign: 'center',
-    },
-    error_button_container: {
-        display: 'flex',
-        flexDirection: 'row',
-        padding: 20,
-        marginTop: 25,
-        maxWidth: '80%',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      },
-      error_button: {
-        width: '100%',
-        height: 50,
-        backgroundColor: '#DF2C2C',
-      },
-    image: {
-        width: "90%",
-        height: 300,
-        resizeMode: "contain",
-        backgroundColor: '#f6f6f6',
-    },
     loadingContainer: {
         flex: 1,
-        // backgroundColor: 'red',
         display: 'flex',
         alignContent: 'center',
         justifyContent: 'center'
@@ -109,23 +51,6 @@ const styles = StyleSheet.create({
         marginTop: -60,
         transform: [{ scale: 1.3 }]
     },
-    notFoundMessage: {
-        fontSize: 20,
-        color: 'grey',
-    },
-    errorContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        flex: 1,
-    },
-    errorImage: {
-        width: "90%",
-        height: 300,
-        resizeMode: "contain",
-        marginTop: -150,
-    }
 });
 
 export default styles;

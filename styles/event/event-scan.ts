@@ -1,20 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#f6f6f6',
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-        padding: 15,
-        marginTop: 15
-    },
     header_left: {
         position: 'relative',
     },
@@ -27,10 +13,6 @@ const styles = StyleSheet.create({
         height: 2,
         borderRadius: 50,
     },
-    headerText: {
-        fontSize: 20,
-        color: '#121420', 
-    },
     addButton: {
         width: 120,
         height: 38,
@@ -39,12 +21,6 @@ const styles = StyleSheet.create({
     addButtonText: {
         fontSize: 18,
         color: 'white'
-    },
-    eventsList: {
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-        paddingBottom: 60,
     },
     datePickerContainer: {
         position: 'absolute',
@@ -70,34 +46,6 @@ const styles = StyleSheet.create({
     buttonDisabled: {
         opacity: 0.3,
     },
-    errorTitle: {
-        color: '#3D4852', 
-        fontSize: 26,
-        marginTop: 10,
-        textAlign: 'center',
-        fontWeight: '600'
-    },
-    errorText: {
-        color: '#3D4852', 
-        fontSize: 16,
-        marginHorizontal: 20,
-        marginTop: 10,
-        textAlign: 'center',
-    },
-    error_button_container: {
-        display: 'flex',
-        flexDirection: 'row',
-        padding: 20,
-        marginTop: 25,
-        maxWidth: '80%',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      },
-      error_button: {
-        width: '100%',
-        height: 50,
-        backgroundColor: '#DF2C2C',
-      },
     image: {
         width: "90%",
         height: 300,
@@ -118,19 +66,6 @@ const styles = StyleSheet.create({
     notFoundMessage: {
         fontSize: 20,
         color: 'grey',
-    },
-    errorContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        flex: 1,
-    },
-    errorImage: {
-        width: "90%",
-        height: 300,
-        resizeMode: "contain",
-        marginTop: -150,
     }
 });
 

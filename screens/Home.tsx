@@ -25,9 +25,9 @@ const HomeScreen = ({ navigation }: any) => {
 
     return (
         <SafeAreaView style={common.container}>
-            <View style={common.header}>
+            <View style={[common.header, error ? { display: 'none' }: undefined ]}>
                 <View style={styles.header_left}>
-                    <Text style={common.headerText}>{capitalize(state.club?.name)}</Text>
+                    <Text style={common.header_text}>{capitalize(state.club?.name)}</Text>
                     <View style={common.header_underline} />
                 </View>
                 <Button

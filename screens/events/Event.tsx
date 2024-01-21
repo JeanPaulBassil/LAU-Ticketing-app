@@ -99,7 +99,7 @@ const EventDetailScreen = ({ route }: any) => {
     <SafeAreaView style={common.container}>
       <View style={common.header}>
         <View style={styles.header_left}>
-          <Text style={common.headerText}>{capitalize(event)}</Text>
+          <Text style={common.header_text}>{capitalize(event)}</Text>
           <View style={common.header_underline} />
         </View>
         <Button
