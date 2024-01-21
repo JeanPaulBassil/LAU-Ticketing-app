@@ -97,7 +97,7 @@ const EventDetailScreen = ({ route }: any) => {
   };
   return (
     <SafeAreaView style={common.container}>
-      <View style={common.header}>
+      <View style={[common.header, error || studentError ? { display: 'none' }: undefined ]}>
         <View style={styles.header_left}>
           <Text style={common.header_text}>{capitalize(event)}</Text>
           <View style={common.header_underline} />
@@ -115,7 +115,7 @@ const EventDetailScreen = ({ route }: any) => {
         </Button>
       </View>
 
-      <ErrorDisplay loading={loading} error={error} handleError={handleError} />
+      <ErrorDisplay loading={loading} error={error || studentError} handleError={handleError} />
 
       <StudentList
         loading={loading}
@@ -131,7 +131,7 @@ const EventDetailScreen = ({ route }: any) => {
         }}
       />
 
-      <NoStudents students={students} loading={loading} error={error} />
+      <NoStudents students={students} loading={loading} error={error || studentError} />
 
       {cameraModal.visible && (
         <CameraComponent
