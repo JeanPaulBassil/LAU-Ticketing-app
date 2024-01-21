@@ -135,7 +135,7 @@ const EventDetailScreen = ({ route }: any) => {
           editModal.openModal();
         }}
       />
-      <Info loading={loading} error={error || studentError} students={students} />
+      {/* <Info loading={loading} error={error || studentError} students={students} /> */}
       
       <NoStudents students={students} loading={loading} error={error || studentError} />
 

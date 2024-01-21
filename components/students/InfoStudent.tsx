@@ -30,7 +30,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 15
+        paddingTop: 15,
+        backgroundColor: 'red',
+        flex: 0.1
     },
     info_text: {
         fontSize: 14,
