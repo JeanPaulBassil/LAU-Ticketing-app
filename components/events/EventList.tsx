@@ -20,7 +20,7 @@ const EventList = ({ events, navigation, error, loading }: EventListProps) => {
         return (
         <EventItem 
             event={item}
-            onPress={() => navigation.navigate('Event', { event: item.name })}
+            onPress={() => navigation.navigate('Event', { event: item })}
         />
     )};
 
