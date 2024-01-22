@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { FlatList, View } from 'react-native';
 import EventItem from './EventItem';
 import { IEvent } from '../../interfaces/events.interface';
-import { StyleSheet } from "react-native";
+import { StyleSheet, RefreshControl } from "react-native";
+import useEvents from '../../hooks/useEvents';
 
 interface EventListProps {
     events: IEvent[];
@@ -12,7 +13,18 @@ interface EventListProps {
 }
 
 const EventList = ({ events, navigation, error, loading }: EventListProps) => {
-    if (error || loading || Array.isArray(events) && events.length === 0) {
+    const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+    const { fetchEvents } = useEvents();
+
+    const onRefresh = useCallback(async () => {
+        setIsRefreshing(true);
+        await fetchEvents();
+        setIsRefreshing(false);
+    }, []);
+
+
+
+    if (error || loading && !isRefreshing || Array.isArray(events) && events.length === 0) {
         return null;
     }
 
@@ -31,6 +43,12 @@ const EventList = ({ events, navigation, error, loading }: EventListProps) => {
                 keyExtractor={(event) => event._id}
                 renderItem={renderItem}
                 style={styles.events_list}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={isRefreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
             />
         </View>
     );

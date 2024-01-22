@@ -16,7 +16,7 @@ import StudentList from "../../components/students/StudentList";
 import NoStudents from "../../components/students/NoStudents";
 import useAuth from "../../contexts/auth";
 import { capitalize } from "../../utils/string";
-
+import Info from "../../components/students/InfoStudent";
 
 const isError = (error: string, studentError: string) => {
   return error || studentError;

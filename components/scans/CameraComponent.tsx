@@ -23,7 +23,7 @@ const CameraComponent: React.FC<CameraComponentProps> = ({
     const cameraRef = useRef<Camera>(null);
 
     return (
-        <View style={StyleSheet.absoluteFillObject}>
+        <View style={[StyleSheet.absoluteFillObject, styles.camera_container]}>
             <Camera
                 ref={cameraRef}
                 style={styles.camera}
@@ -42,9 +42,14 @@ const CameraComponent: React.FC<CameraComponentProps> = ({
 };
 
 const styles = StyleSheet.create({
+    camera_container: {
+        zIndex: 100,
+        position: 'relative'
+    },
     camera: {
         flex: 1,
-        zIndex: 1,
+        zIndex: 100,
+        position: 'relative'
     },
     buttonContainer: {
         flexDirection: 'row',
