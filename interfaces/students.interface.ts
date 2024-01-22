@@ -11,11 +11,7 @@ interface Attendee extends IStudent {
 interface IStudentScan {
     _id: number ;
     event: number ;
-    student: {
-        _id: number ;
-        student_id: number ;
-        name: string ;
-    }
+    student: IStudent;
     date: string;
     _v: number;
 }
