@@ -8,6 +8,7 @@ import { getTime } from "../../utils/date";
 type StudentItemProps = {
     student: Attendee;
     onEdit: () => void;
+    date: string ;
 };
 const getRandomColor = (): string => {
     const colors = ['#FF993C', '#316DE1', '#FE4666', '#A95DFE', '#005C4A', '#07d1f5', '#edf507'];
@@ -15,7 +16,7 @@ const getRandomColor = (): string => {
 }
 
 
-const StudentItem = ({ student, onEdit }: StudentItemProps) => {
+const StudentItem = ({ student, onEdit, date }: StudentItemProps) => {
   return (
     <TouchableOpacity onPress={onEdit} style={styles.student_row}>
       <View style={styles.student_left}>
@@ -27,7 +28,7 @@ const StudentItem = ({ student, onEdit }: StudentItemProps) => {
       </View>
 
       <View style={styles.button_container}>
-        <Text style={styles.date}>{getTime(new Date(student.date))}</Text>
+        <Text style={styles.date}>{getTime(new Date(date))}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image } from 'react-native';
+import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image, ScrollView } from 'react-native';
 import Button from '../components/common/Button';
 import styles from '../styles/home/home';
 import common from '../styles/common';
@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }: any) => {
             </View>
 
             <ErrorDisplay loading={loading} error={error} handleError={fetchEvents}/>
-
+            
             <EventList loading={loading} error={error} events={events} navigation={navigation} />
 
             <NoEvents events={events} loading={loading} error={error} />

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
-import { IStudent } from '../interfaces/students.interface';
+import { IStudentScan } from '../interfaces/students.interface';
 import { AxiosResponse } from 'axios';
 
 const useStudents = (eventId: string) => {
-    const [students, setStudents] = useState<IStudent[]>([]);
+    const [students, setStudents] = useState<IStudentScan[]>([]);
     const [studentError, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
