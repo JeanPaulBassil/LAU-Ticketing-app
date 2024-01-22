@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import styles from "../../styles/home/home";
 import common from "../../styles/common";
@@ -17,6 +17,7 @@ import NoStudents from "../../components/students/NoStudents";
 import useAuth from "../../contexts/auth";
 import { capitalize } from "../../utils/string";
 import Info from "../../components/students/InfoStudent";
+import { EventDetailContext } from "../../contexts/EventDetails";
 
 const isError = (error: string, studentError: string) => {
   return error || studentError;
@@ -34,10 +35,9 @@ const EventDetailScreen = ({ route }: any) => {
     editStudent,
     fetchStudents,
   } = useStudents(event._id);
-  const [
-    { error, scanData, currentStudentId, newName, showNameModal },
-    dispatch,
-  ] = useEventDetailReducer();
+  const { eventState, dispatch } = useContext(EventDetailContext);
+  const { error, scanData, currentStudentId, newName, showNameModal } = eventState;
+
   const {
     values: formValues,
     handleChange,
@@ -67,6 +67,7 @@ const EventDetailScreen = ({ route }: any) => {
     try {
       const studentData = { student_id: scannedData };
       const response = await api.addStudent(studentData, event._id);
+      
     } catch (error: any) {
       handleStudentAddError(error);
     } finally {

@@ -9,6 +9,7 @@ import RootLayout from "./screens/RootLayout";
 import { AuthProvider } from "./contexts/auth";
 import { NavigationContainerRef } from "@react-navigation/native";
 import { ModalProvider } from "./contexts/modal";
+import { EventDetailProvider } from "./contexts/EventDetails";
 
 export const navigationRef = React.createRef<NavigationContainerRef<any>>();
 
@@ -24,8 +25,9 @@ export default function App() {
         <ModalProvider>
           <NavigationContainer ref={navigationRef}>
             <AuthProvider>
-              {/* <View style={{ marginTop: 5 }} /> */}
-              <RootLayout />
+              <EventDetailProvider>
+                <RootLayout />
+              </EventDetailProvider>
             </AuthProvider>
           </NavigationContainer>
         </ModalProvider>
