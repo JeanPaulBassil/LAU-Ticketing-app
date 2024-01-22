@@ -136,6 +136,13 @@ const AppTabs = () => {
                   backgroundColor: "#005C4A",
                   borderRadius: 50,
                   padding: 15,
+                  shadowColor: "#32CD32", // Light green color
+                  shadowOffset: { width: 0, height: 5 },
+                  shadowOpacity: 0.4,
+                  shadowRadius: 5,
+
+                  // Elevation for Android (this will add a default shadow)
+                  elevation: 6,
                 }}
               >
                 <AntDesign
