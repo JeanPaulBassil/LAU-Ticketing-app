@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import api from "../../services/api";
 import EventsList from "../../components/settings/EventList";
 import useEvents from "../../hooks/useEvents";
 import ErrorDisplay from "../../components/common/ErrorDisplay";
+import { EventDetailContext } from "../../contexts/EventDetails";
 
 const Settings = () => {
   const { logout, state } = useAuth();
@@ -40,6 +41,8 @@ const Settings = () => {
     } catch (err: any) {
       console.log(err);
       setError(err.response.data.message);
+
+      dispatch({ type: 'SET_ERROR', payload: err.response.data.message });
     } finally {
       setLoading(false);
     }
@@ -52,6 +55,7 @@ const Settings = () => {
       setError("");
     } catch (err: any) {
       setError(err.response.data.message);
+      dispatch({ type: 'SET_ERROR', payload: err.response.data.message });
     } finally {
       setLoading(false);
       fetchEvents();

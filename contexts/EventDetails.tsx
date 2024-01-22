@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import React, { useReducer, createContext, useMemo } from 'react';
 import { State, Action } from '../types/types';
 
 const initialState: State = {
@@ -29,6 +29,16 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-export const useEventDetailReducer = () => {
-    return useReducer(reducer, initialState);
-}
+export const EventDetailContext = createContext<{ eventState: State, dispatch: React.Dispatch<Action> } | null>(null);
+
+export const EventDetailProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [eventState, dispatch] = useReducer(reducer, initialState);
+
+    const contextValue = useMemo(() => ({ eventState, dispatch }), [eventState]);
+
+    return (
+        <EventDetailContext.Provider value={contextValue}>
+            {children}
+        </EventDetailContext.Provider>
+    );
+};
