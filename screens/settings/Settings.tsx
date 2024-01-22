@@ -26,6 +26,7 @@ const Settings = () => {
     error: error_events,
     events,
     fetchEvents,
+    setLoading: setLoadingEvents
   } = useEvents();
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const Settings = () => {
   }, []);
 
   const deleteEvent = useCallback(async (event_id: string) => {
-    setLoading(true);
+    setLoadingEvents(true);
     try {
       await api.deleteEvent(event_id);
       setError("");
@@ -57,7 +58,7 @@ const Settings = () => {
       setError(err.response.data.message);
       dispatch({ type: 'SET_ERROR', payload: err.response.data.message });
     } finally {
-      setLoading(false);
+      setLoadingEvents(false);
       fetchEvents();
     }
   },[])

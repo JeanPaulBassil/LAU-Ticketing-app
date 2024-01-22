@@ -40,7 +40,7 @@ const useEvents = () => {
         }
     };
 
-    return { events, loading, fetchEvents, addEvent, error };
+    return { events, loading, fetchEvents, addEvent, error, setLoading };
 
 }
 
