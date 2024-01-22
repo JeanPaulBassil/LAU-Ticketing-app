@@ -13,6 +13,7 @@ interface IEvent {
     end_date: string;
     clubs: string[];
     __v: number;
+    attendee_count?: number ;
 }
 
 interface createEventData {

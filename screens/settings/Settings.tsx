@@ -19,7 +19,6 @@ const Settings = () => {
   const { logout, state } = useAuth();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [isPasswordVisible, setPasswordVisible] = useState(false);
 
   const {
     loading: loading_events,
@@ -122,7 +121,7 @@ const Settings = () => {
         </View>
       </View>
 
-      {(loading || loading_events) && (
+      {(loading_events) && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator
             style={styles.loader}
@@ -133,7 +132,7 @@ const Settings = () => {
       )}
 
       <EventsList
-        loading={loading || loading_events}
+        loading={loading_events}
         error={error || error_events}
         onDelete={deleteEvent}
         events={events}

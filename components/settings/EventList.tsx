@@ -24,7 +24,7 @@ const EventsList: React.FC<Props> = ({ loading, error, events, onDelete }) => {
     
     return (
         <FlatList
-            data={[...events, ...events, ...events]}
+            data={events}
             keyExtractor={getKey}
             renderItem={({ item }) => (
                 <EventItem
