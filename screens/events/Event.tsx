@@ -88,8 +88,8 @@ const EventDetailScreen = ({ route }: any) => {
   }
 
   const handleEditSubmit = async (newName: string) => {
-    editModal.closeModal();
-    await editStudent(currentStudentId, newName);
+      await editStudent(currentStudentId, newName);
+      editModal.closeModal();
   };
 
   const handleCloseCamera = () => {
@@ -100,6 +100,7 @@ const EventDetailScreen = ({ route }: any) => {
     dispatch({ type: "SET_ERROR", payload: "" });
     fetchStudents();
   };
+
   if (cameraModalVisible){
     return (
       <SafeAreaView style={common.container}>
