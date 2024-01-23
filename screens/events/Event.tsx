@@ -102,6 +102,7 @@ const EventDetailScreen = ({ route }: any) => {
   };
   if (cameraModalVisible){
     return (
+      <SafeAreaView style={common.container}>
         <CameraComponent
           onBarCodeScanned={(data) => handleStudentScan(parseInt(data))}
           cameraType={type}
@@ -110,6 +111,7 @@ const EventDetailScreen = ({ route }: any) => {
           toggleFlashMode={toggleFlashMode}
           onClose={handleCloseCamera}
         />
+      </SafeAreaView>
     )
   }
 
