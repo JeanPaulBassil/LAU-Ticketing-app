@@ -16,7 +16,6 @@ const getKey = (item: IStudent, index: number) => item._id ? item._id.toString()
 
 
 const StudentList: React.FC<Props> = ({ loading, error, students, onEditStudent }) => {
-    console.log(students);
     if (error || loading || Array.isArray(students) && students.length === 0) {
         return null;
     }
