@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "../../styles/home/no-data";
 import { View, Text, Image } from "react-native";
-import { IStudent } from "../../interfaces/students.interface";
+import { IStudentScan } from "../../interfaces/students.interface";
 
 interface NoStudentsProps { 
     loading: boolean;
     error: string;
-    students: IStudent[];
+    students: IStudentScan[];
 }
 
 const NoStudents = ({ students, loading, error }: NoStudentsProps) => {

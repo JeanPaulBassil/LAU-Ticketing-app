@@ -12,7 +12,7 @@ type Props = {
     students: IStudentScan[];
     onEditStudent: (student: IStudent) => void;
 };
-const getKey = (item: IStudent, index: number) => item._id ? item._id.toString() : index.toString();
+const getKey = (item: IStudentScan, index: number) => item._id ? item._id.toString() : index.toString();
 
 
 const StudentList: React.FC<Props> = ({ loading, error, students, onEditStudent }) => {
@@ -24,7 +24,7 @@ const StudentList: React.FC<Props> = ({ loading, error, students, onEditStudent 
         <FlatList
             data={students}
             keyExtractor={getKey}
-            renderItem={({ item }) => (
+            renderItem={({ item }: {item: IStudentScan}) => (
                 <StudentItem
                     student={item.student}
                     onEdit={() => onEditStudent(item.student)}

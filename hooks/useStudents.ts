@@ -24,7 +24,7 @@ const useStudents = (eventId: string) => {
         fetchStudents();
     }, [eventId]);
 
-    const addStudent = async (studentData: { student_id: number; name: string }) => {
+    const addStudent = async (studentData: { student_id: number | null; name: string }) => {
         try {
             await api.addStudent(studentData, eventId);
         } catch (error: any) {
@@ -34,7 +34,8 @@ const useStudents = (eventId: string) => {
         }
     };
 
-    const editStudent = async (studentId: number, newName: string) => {
+    const editStudent = async (studentId: number | null, newName: string) => {
+        if (!studentId) return setError('No student selected');
         try {
             await api.editStudent(studentId, newName);
             fetchStudents();

@@ -8,6 +8,7 @@ const initialState: State = {
     newName: '',
     showNameModal: false,
     events: [],
+    cameraModalVisible: false,
 };
 
 function reducer(state: State, action: Action): State {

@@ -1,11 +1,12 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, Dispatch } from "react";
 import api from "../services/api";
 import { IEvent, createEventData } from "../interfaces/events.interface";
 import { AxiosResponse } from "axios";
 import { EventDetailContext } from "../contexts/EventDetails";
+import { Action, State } from "../types/types";
 
 const useEvents = () => {
-    const { eventState, dispatch } = useContext(EventDetailContext);
+    const { eventState, dispatch } = useContext(EventDetailContext) as { eventState: State; dispatch: Dispatch<Action>; };
     const { events, error } = eventState;  
     const [loading, setLoading] = useState<boolean>(false);
 

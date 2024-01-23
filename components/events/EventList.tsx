@@ -52,6 +52,5 @@ const styles = StyleSheet.create({
     events_list: {
         flex: 1,
         paddingBottom: 60,
-        // backgroundColor: 'red', // Adjust as needed
     }
 });

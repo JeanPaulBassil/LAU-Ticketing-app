@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Dispatch, useContext } from "react";
 import { View, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import styles from "../../styles/home/home";
 import common from "../../styles/common";
@@ -17,6 +17,7 @@ import NoStudents from "../../components/students/NoStudents";
 import useAuth from "../../contexts/auth";
 import { capitalize } from "../../utils/string";
 import { EventDetailContext } from "../../contexts/EventDetails";
+import { Action, State } from "../../types/types";
 
 const isError = (error: string, studentError: string) => {
   return error || studentError;
@@ -34,7 +35,7 @@ const EventDetailScreen = ({ route }: any) => {
     editStudent,
     fetchStudents,
   } = useStudents(event._id);
-  const { eventState, dispatch } = useContext(EventDetailContext);
+  const { eventState, dispatch } = useContext(EventDetailContext) as { eventState: State; dispatch: Dispatch<Action>; };
   const { error, scanData, currentStudentId, newName, showNameModal, cameraModalVisible } = eventState;
 
   const {
