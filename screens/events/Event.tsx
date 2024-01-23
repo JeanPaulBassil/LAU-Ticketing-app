@@ -124,7 +124,7 @@ const EventDetailScreen = ({ route }: any) => {
           onPress={cameraModal.openModal}
           title={loading ? "" : "Scan"}
           disabled={loading}
-          style={[
+          style={[ 
             styles.addButton,
             loading ? styles.buttonDisabled : undefined,
           ]}
