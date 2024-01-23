@@ -10,7 +10,6 @@ const useEvents = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const fetchEvents = async () => {
-        if (events.length > 0) return;
         try {
             setLoading(true);
             const response: AxiosResponse = await api.getEvents();

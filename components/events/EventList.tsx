@@ -18,8 +18,10 @@ const EventList = ({ events, navigation, error, loading }: EventListProps) => {
 
     const onRefresh = useCallback(async () => {
         setIsRefreshing(true);
+        console.log('refreshing')
         await fetchEvents();
         setIsRefreshing(false);
+        console.log('done refreshing')
     }, []);
 
 
