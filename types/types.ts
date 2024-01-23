@@ -7,7 +7,7 @@ export type State = {
     newName: string;
     showNameModal: boolean;
     events: IEvent[];
-    isCameraVisible: boolean;
+    cameraModalVisible: boolean;
 };
 
 export type Action =
@@ -17,5 +17,4 @@ export type Action =
     | { type: 'SET_NEW_NAME'; payload: string }
     | { type: 'TOGGLE_NAME_MODAL' }
     | { type: 'SET_EVENTS'; payload: IEvent[] }
-    | { type: 'OPEN_CAMERA'; payload: boolean }
-    | { type: 'CLOSE_CAMERA'; payload: boolean };
+    | { type: 'SET_CAMERA_MODAL_VISIBLE'; payload: boolean };

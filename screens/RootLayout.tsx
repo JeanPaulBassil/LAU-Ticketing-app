@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./authentication/Login";
 import HomeScreen from "./Home";
@@ -16,6 +16,7 @@ import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useModal } from '../contexts/modal';
 import { useNavigation } from '@react-navigation/native';
+import { EventDetailContext } from "../contexts/EventDetails";
 
 
 export type RootStackParamList = {
@@ -46,27 +47,31 @@ const AuthStack = () => (
 const AppTabs = () => {
   const { setModalVisible } = useModal();
   const navigation = useNavigation();
+  const { eventState } = useContext(EventDetailContext);
+  const { cameraModalVisible } = eventState;
+
+  const tabBarStyle = {
+        display: cameraModalVisible ? 'none' : 'flex',
+        position: 'absolute',
+        bottom: 25,
+        left: 25,
+        right: 25,
+        elevation: 5,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        height: 60,
+        shadowColor: '#000', // Shadow color for iOS
+        shadowOffset: { width: 0, height: 2 }, // Shadow offset (x, y)
+        shadowOpacity: 0.15, // Shadow opacity
+        shadowRadius: 2, // Shadow radius
+      };
 
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         animationEnabled: true,
         tabBarHideOnKeyboard: true,
-        tabBarStyle: {
-          display: "flex",
-          position: "absolute",
-          bottom: 25,
-          left: 25,
-          right: 25,
-          elevation: 5,
-          backgroundColor: "white",
-          borderRadius: 30,
-          height: 60,
-          shadowColor: "#000", // Shadow color for iOS
-          shadowOffset: { width: 0, height: 2 }, // Shadow offset (x, y)
-          shadowOpacity: 0.15, // Shadow opacity
-          shadowRadius: 2, // Shadow radius
-        },
+        tabBarStyle: tabBarStyle,
         tabBarShowLabel: false,
         headerShown: false,
       })}
