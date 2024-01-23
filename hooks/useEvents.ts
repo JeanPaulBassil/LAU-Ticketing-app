@@ -6,15 +6,16 @@ import { EventDetailContext } from "../contexts/EventDetails";
 
 const useEvents = () => {
     const { eventState, dispatch } = useContext(EventDetailContext);
-    const { events, error } = eventState;  // Get error from eventState
+    const { events, error } = eventState;  
     const [loading, setLoading] = useState<boolean>(false);
 
     const fetchEvents = async () => {
+        if (events.length > 0) return;
         try {
             setLoading(true);
             const response: AxiosResponse = await api.getEvents();
             dispatch({ type: 'SET_EVENTS', payload: response.data });
-            dispatch({ type: 'SET_ERROR', payload: '' }); // Clear any existing error
+            dispatch({ type: 'SET_ERROR', payload: '' }); 
         } catch (error: any) {
             dispatch({ type: 'SET_ERROR', payload: error.response?.data?.message || "An error occurred while fetching events." });
         } finally {
@@ -23,7 +24,7 @@ const useEvents = () => {
     };
 
     useEffect(() => {
-        if (events.length === 0) {  // Fetch events only if they are not already fetched
+        if (events.length === 0) {  
             fetchEvents();
         }
     }, []);
