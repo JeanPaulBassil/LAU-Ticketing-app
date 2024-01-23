@@ -68,6 +68,7 @@ const LoginScreen = ({ navigation }: any) => {
       } else if (error.response && error.response.data && error.response.data.message) {
         setError(error.response.data.message);
       } else {
+        console.log(error.message);
         setError("An unexpected error occurred");
       }
     } finally {
