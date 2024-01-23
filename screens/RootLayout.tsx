@@ -130,7 +130,7 @@ const AppTabs = () => {
               <TouchableOpacity
                 onPress={() => {
                   setModalVisible(true);
-                  navigation.navigate("Home");
+                  navigation.navigate("Home" as never);
                 }}
                 style={{
                   backgroundColor: "#005C4A",

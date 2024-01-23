@@ -8,6 +8,7 @@ const initialState: State = {
     newName: '',
     showNameModal: false,
     events: [],
+    isCameraVisible: false,
 };
 
 function reducer(state: State, action: Action): State {
@@ -24,6 +25,10 @@ function reducer(state: State, action: Action): State {
             return { ...state, showNameModal: !state.showNameModal };
         case 'SET_EVENTS':
             return { ...state, events: action.payload };
+        case 'OPEN_CAMERA':
+            return { ...state, isCameraVisible: true };
+        case 'CLOSE_CAMERA':
+            return { ...state, isCameraVisible: false };
         default:
             return state;
     }

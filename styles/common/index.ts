@@ -5,7 +5,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#f6f6f6',
         display: 'flex',
         flexDirection: 'column',
-        flex: 1
+        flex: 1,
+        position: 'relative',
+        zIndex: 100
     },
     header: {
         flexDirection: 'row',

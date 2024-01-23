@@ -16,7 +16,6 @@ import StudentList from "../../components/students/StudentList";
 import NoStudents from "../../components/students/NoStudents";
 import useAuth from "../../contexts/auth";
 import { capitalize } from "../../utils/string";
-import Info from "../../components/students/InfoStudent";
 import { EventDetailContext } from "../../contexts/EventDetails";
 
 const isError = (error: string, studentError: string) => {
@@ -101,6 +100,19 @@ const EventDetailScreen = ({ route }: any) => {
     dispatch({ type: "SET_ERROR", payload: "" });
     fetchStudents();
   };
+  if (cameraModal.visible){
+    return (
+        <CameraComponent
+          onBarCodeScanned={(data) => handleStudentScan(parseInt(data))}
+          cameraType={type}
+          flashMode={flashMode}
+          toggleCameraType={toggleCameraType}
+          toggleFlashMode={toggleFlashMode}
+          onClose={handleCloseCamera}
+        />
+    )
+  }
+
   return (
     <SafeAreaView style={common.container}>
       <View style={[common.header, error || studentError ? { display: 'none' }: undefined ]}>
@@ -139,17 +151,6 @@ const EventDetailScreen = ({ route }: any) => {
       {/* <Info loading={loading} error={error || studentError} students={students} /> */}
       
       <NoStudents students={students} loading={loading} error={error || studentError} />
-
-      {cameraModal.visible && (
-        <CameraComponent
-          onBarCodeScanned={(data) => handleStudentScan(parseInt(data))}
-          cameraType={type}
-          flashMode={flashMode}
-          toggleCameraType={toggleCameraType}
-          toggleFlashMode={toggleFlashMode}
-          onClose={handleCloseCamera}
-        />
-      )}
 
       {loading && (
         <View style={styles.loadingContainer}>

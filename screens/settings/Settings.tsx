@@ -40,9 +40,7 @@ const Settings = () => {
       setError("");
       logout();
     } catch (err: any) {
-      console.log(err);
       setError(err.response.data.message);
-
       dispatch({ type: 'SET_ERROR', payload: err.response.data.message });
     } finally {
       setLoading(false);

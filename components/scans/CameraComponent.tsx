@@ -44,7 +44,8 @@ const CameraComponent: React.FC<CameraComponentProps> = ({
 const styles = StyleSheet.create({
     camera_container: {
         zIndex: 100,
-        position: 'relative'
+        position: 'relative',
+        flex: 1
     },
     camera: {
         flex: 1,
