@@ -35,7 +35,7 @@ const EventDetailScreen = ({ route }: any) => {
     fetchStudents,
   } = useStudents(event._id);
   const { eventState, dispatch } = useContext(EventDetailContext);
-  const { error, scanData, currentStudentId, newName, showNameModal } = eventState;
+  const { error, scanData, currentStudentId, newName, showNameModal, cameraModalVisible } = eventState;
 
   const {
     values: formValues,
@@ -58,7 +58,7 @@ const EventDetailScreen = ({ route }: any) => {
 
   const handleStudentScan = async (scannedData: number): Promise<void> => {
     dispatch({ type: "SET_SCAN_DATA", payload: scannedData });
-    cameraModal.closeModal();
+    dispatch({ type: 'SET_CAMERA_MODAL_VISIBLE', payload: false });
     await addScannedStudent(scannedData);
   };
 
@@ -93,14 +93,14 @@ const EventDetailScreen = ({ route }: any) => {
   };
 
   const handleCloseCamera = () => {
-    cameraModal.closeModal();
+    dispatch({ type: 'SET_CAMERA_MODAL_VISIBLE', payload: false });
   };
 
   const handleError = async () => {
     dispatch({ type: "SET_ERROR", payload: "" });
     fetchStudents();
   };
-  if (cameraModal.visible){
+  if (cameraModalVisible){
     return (
         <CameraComponent
           onBarCodeScanned={(data) => handleStudentScan(parseInt(data))}
@@ -121,7 +121,7 @@ const EventDetailScreen = ({ route }: any) => {
           <View style={common.header_underline} />
         </View>
         <Button
-          onPress={cameraModal.openModal}
+          onPress={() => dispatch({ type: 'SET_CAMERA_MODAL_VISIBLE', payload: true })}
           title={loading ? "" : "Scan"}
           disabled={loading}
           style={[ 
