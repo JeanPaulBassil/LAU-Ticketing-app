@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useContext } from "react";
+import React, { useCallback, useState, useEffect, useContext, Dispatch } from "react";
 import {
   View,
   Text,
@@ -15,11 +15,13 @@ import EventsList from "../../components/settings/EventList";
 import useEvents from "../../hooks/useEvents";
 import ErrorDisplay from "../../components/common/ErrorDisplay";
 import { EventDetailContext } from "../../contexts/EventDetails";
+import { Action } from "../../types/types";
 
 const Settings = () => {
   const { logout, state } = useAuth();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const { dispatch } = useContext(EventDetailContext) as { dispatch: Dispatch<Action> };
 
   const {
     loading: loading_events,

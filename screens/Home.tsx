@@ -14,7 +14,7 @@ import { capitalize } from '../utils/string';
 import { useModal } from '../contexts/modal';
 
 const HomeScreen = ({ navigation }: any) => {
-    const { events, loading, fetchEvents, addEvent, error, setEvents } = useEvents();
+    const { events, loading, fetchEvents, addEvent, error } = useEvents();
     const { visible, openModal, closeModal} = useHookModal();
     const { state } = useAuth();
     const { isModalVisible, setModalVisible } = useModal();

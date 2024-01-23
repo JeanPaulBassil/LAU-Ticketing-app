@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Avatar } from "react-native-paper";
-import { Attendee, IStudentScan } from "../../interfaces/students.interface";
+import { Attendee, IStudent } from "../../interfaces/students.interface";
 import { capitalize } from "../../utils/string";
 import { getTime } from "../../utils/date";
 
 type StudentItemProps = {
-    student: IStudentScan;
+    student: IStudent;
     onEdit: () => void;
     date: string ;
 };

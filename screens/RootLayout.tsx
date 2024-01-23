@@ -17,6 +17,7 @@ import { TouchableOpacity } from "react-native";
 import { useModal } from '../contexts/modal';
 import { useNavigation } from '@react-navigation/native';
 import { EventDetailContext } from "../contexts/EventDetails";
+import { State } from "../types/types";
 
 
 export type RootStackParamList = {
@@ -47,7 +48,8 @@ const AuthStack = () => (
 const AppTabs = () => {
   const { setModalVisible } = useModal();
   const navigation = useNavigation();
-  const { eventState } = useContext(EventDetailContext);
+  const { eventState } = useContext(EventDetailContext) as { eventState: State };
+  // Property 'eventState' does not exist on type '{ eventState: State; dispatch: Dispatch<Action>; } | null'.
   const { cameraModalVisible } = eventState;
 
   const tabBarStyle = {
@@ -68,7 +70,7 @@ const AppTabs = () => {
 
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={() => ({
         animationEnabled: true,
         tabBarHideOnKeyboard: true,
         tabBarStyle: tabBarStyle,
