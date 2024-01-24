@@ -19,6 +19,12 @@ const isActive = (event: IEvent): boolean => {
 
 
 
+// const truncate = (str: string, n: number) => {
+//   return str.length > n ? str.substr(0, n - 1) + "..." : str;
+// };
+
+
+
 const EventItem: React.FC<EventItemProps> = ({ event, onPress }) => {
   if (!event) {
     return null;
