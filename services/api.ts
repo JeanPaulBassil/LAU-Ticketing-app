@@ -45,7 +45,7 @@ const api = {
         return response;
     },
     editEvent: async (eventId: string, newEndDate: string) => {
-        const response: AxiosResponse<EventsResponse> = await axios.put<EventsResponse>(`/events/${eventId}`, {endDate: newEndDate});
+        const response: AxiosResponse<EventsResponse> = await axios.put<EventsResponse>(`/events/${eventId}`, {end_date: newEndDate});
         return response;
     }
 }

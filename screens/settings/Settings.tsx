@@ -79,9 +79,11 @@ const Settings = () => {
     );
   }
 
-  const onEditSubmit = () => {
-
+  const onEditSubmit = (date: string) => {
+    api.editEvent(currentEventId, date);
+    closeModal();
   };
+
   const openEditModal = (event_id: string) => {
     setCurrentEventId(event_id);
     openModal();

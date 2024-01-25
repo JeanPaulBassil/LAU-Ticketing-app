@@ -10,11 +10,16 @@ import {
 } from "react-native";
 import Button from "../common/Button";
 import styles from "../../styles/home/modal";
-import useModal from "../../hooks/useModal";
+import DatePickerButton from "../events/DatePickerButton";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import useDatePicker from "../../hooks/useDatePicker";
+import { formatDate } from "../../utils/date";
 
-export const EditModal = ({visible, onClose, handleCancel, handleSubmit}: {visible: boolean, onClose: () => void, handleCancel: () => void, handleSubmit: () => void}) => {
+export const EditModal = ({visible, onClose, handleCancel, handleSubmit}: {visible: boolean, onClose: () => void, handleCancel: () => void, handleSubmit: (date: string) => void}) => {
+    const { date, isPickerVisible, showPicker, hidePicker, handleConfirm } = useDatePicker();
+    
     return (
-        <Modal
+    <Modal
       animationType="fade"
       transparent={true}
       visible={visible}
@@ -39,6 +44,20 @@ export const EditModal = ({visible, onClose, handleCancel, handleSubmit}: {visib
                 <Text style={styles.modal_text}>Enter Student Name</Text>
                 <View style={styles.modal_text_underline} />
                 
+                <DatePickerButton
+                    date={date}
+                    onPress={showPicker}
+                    formatDate={formatDate}
+                    label="New End Date"
+                />
+                <DateTimePickerModal
+                    isVisible={isPickerVisible}
+                    mode="datetime"
+                    onConfirm={handleConfirm}
+                    onCancel={hidePicker}
+                    textColor="black"
+                />
+
                 <View style={styles.modal_button_container}>
                   <Button
                     title="Cancel"
@@ -49,7 +68,7 @@ export const EditModal = ({visible, onClose, handleCancel, handleSubmit}: {visib
                   <Button
                     title="Submit"
                     style={styles.submit_button}
-                    onPress={handleSubmit}
+                    onPress={() => handleSubmit(date.toISOString())}
                     textStyle={styles.button_text}
                   />
                 </View>
