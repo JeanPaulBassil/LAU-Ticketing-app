@@ -13,6 +13,7 @@ const useStudents = (eventId: string) => {
         try {
             const response: AxiosResponse = await api.getEventAttendees(eventId);
             setStudents(response.data.attendees);
+            console.log(students)
         } catch (error: any) {
             setError(error.response.data.message);
         } finally {
@@ -35,6 +36,7 @@ const useStudents = (eventId: string) => {
     };
 
     const editStudent = async (studentId: number, newName: string) => {
+        console.log(studentId, newName)
         try {
             await api.editStudent(studentId, newName);
             fetchStudents();
