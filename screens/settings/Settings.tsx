@@ -25,7 +25,8 @@ const Settings = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { dispatch } = useContext(EventDetailContext) as { dispatch: Dispatch<Action> };
   const { visible, openModal, closeModal } = useModal();
-  
+  const [currentEventId, setCurrentEventId] = useState<string>("");
+
   const {
     loading: loading_events,
     error: error_events,
@@ -78,14 +79,17 @@ const Settings = () => {
     );
   }
 
+  const onEditSubmit = () => {
+
+  };
+  const openEditModal = (event_id: string) => {
+    setCurrentEventId(event_id);
+    openModal();
+  }
+
   return (
     <SafeAreaView style={common.container}>
-      <EditModal
-      visible={visible}
-      onClose={closeModal}
-      handleCancel={closeModal}
-      handleSubmit={closeModal}
-      />
+      <EditModal visible={visible} onClose={closeModal} handleCancel={closeModal} handleSubmit={onEditSubmit} />
       <View style={common.header}>
         <View>
           <Text style={common.header_text}>Settings</Text>
@@ -150,6 +154,7 @@ const Settings = () => {
         error={error || error_events}
         onDelete={deleteEvent}
         events={events}
+        onEdit={openEditModal}
       />
     </SafeAreaView>
   );
