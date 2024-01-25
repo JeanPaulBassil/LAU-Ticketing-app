@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useContext } from "react";
+import React, { useCallback, useState, useEffect, useContext, Dispatch } from "react";
 import {
   View,
   Text,
@@ -15,12 +15,17 @@ import EventsList from "../../components/settings/EventList";
 import useEvents from "../../hooks/useEvents";
 import ErrorDisplay from "../../components/common/ErrorDisplay";
 import { EventDetailContext } from "../../contexts/EventDetails";
+import { Action } from "../../types/types";
+import useModal from "../../hooks/useModal";
+import { EditModal } from "../../components/settings/EditModal";
 
 const Settings = () => {
   const { logout, state } = useAuth();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
+  const { dispatch } = useContext(EventDetailContext) as { dispatch: Dispatch<Action> };
+  const { visible, openModal, closeModal } = useModal();
+  
   const {
     loading: loading_events,
     error: error_events,
@@ -59,7 +64,7 @@ const Settings = () => {
       setLoadingEvents(false);
       fetchEvents();
     }
-  },[])
+  },[]);
 
   if ((error || error_events) && !loading && !loading_events) {
     return (
@@ -75,6 +80,12 @@ const Settings = () => {
 
   return (
     <SafeAreaView style={common.container}>
+      <EditModal
+      visible={visible}
+      onClose={closeModal}
+      handleCancel={closeModal}
+      handleSubmit={closeModal}
+      />
       <View style={common.header}>
         <View>
           <Text style={common.header_text}>Settings</Text>
