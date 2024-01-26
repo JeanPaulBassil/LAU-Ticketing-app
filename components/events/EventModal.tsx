@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -37,6 +37,7 @@ const EventModal = ({
     showPicker: showStartPicker,
     hidePicker: hideStartPicker,
     handleConfirm: confirmStartPicker,
+    setDate: setStartDate,
   } = useDatePicker();
   const {
     date: endDate,
@@ -44,8 +45,13 @@ const EventModal = ({
     showPicker: showEndPicker,
     hidePicker: hideEndPicker,
     handleConfirm: confirmEndPicker,
+    setDate: setEndDate,
   } = useDatePicker();
 
+  useEffect(() => {
+    setStartDate(new Date());
+    setEndDate(new Date());
+  }, [])
   const handleAddEvent = async () => {
     const eventData = {
       name: eventName,
@@ -108,6 +114,7 @@ const EventModal = ({
                     onConfirm={confirmStartPicker}
                     onCancel={hideStartPicker}
                     textColor="black"
+                    date={startDate}
                   />
 
                   <DatePickerButton
@@ -122,6 +129,7 @@ const EventModal = ({
                     onConfirm={confirmEndPicker}
                     onCancel={hideEndPicker}
                     textColor="black"
+                    date={endDate}
                   />
 
                   <View style={styles.modal_button_container}>

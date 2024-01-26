@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { IEvent } from "../../interfaces/events.interface";
 import { Ionicons } from "@expo/vector-icons";
 import { getTime } from "../../utils/date";
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface EventItemProps {
   event: IEvent;
@@ -60,7 +61,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onPress }) => {
       </View>
 
       <View style={[styles.event_arrow_container, !isActive(event) && styles.event_arrow_container_inactive]}>
-        <Text style={styles.event_arrow}>→</Text>
+        <MaterialIcons name="open-in-new" size={24} color="white" />
       </View>
     </TouchableOpacity>
   );
