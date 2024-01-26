@@ -16,22 +16,16 @@ import useEvents from "../../hooks/useEvents";
 import ErrorDisplay from "../../components/common/ErrorDisplay";
 import { EventDetailContext } from "../../contexts/EventDetails";
 import { Action } from "../../types/types";
-<<<<<<< HEAD
-=======
 import useModal from "../../hooks/useModal";
 import { EditModal } from "../../components/settings/EditModal";
->>>>>>> b662b713d830ed130e7a9d4fb5d46563511a3800
 
 const Settings = () => {
   const { logout, state } = useAuth();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const { dispatch } = useContext(EventDetailContext) as { dispatch: Dispatch<Action> };
-<<<<<<< HEAD
-=======
   const { visible, openModal, closeModal } = useModal();
   const [currentEventId, setCurrentEventId] = useState<string>("");
->>>>>>> b662b713d830ed130e7a9d4fb5d46563511a3800
 
   const {
     loading: loading_events,

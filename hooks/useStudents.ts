@@ -35,13 +35,8 @@ const useStudents = (eventId: string) => {
         }
     };
 
-<<<<<<< HEAD
     const editStudent = async (studentId: number | null, newName: string) => {
         if (!studentId) return setError('No student selected');
-=======
-    const editStudent = async (studentId: number, newName: string) => {
-        console.log(studentId, newName)
->>>>>>> b662b713d830ed130e7a9d4fb5d46563511a3800
         try {
             await api.editStudent(studentId, newName);
             fetchStudents();
