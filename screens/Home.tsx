@@ -38,8 +38,8 @@ const HomeScreen = ({ navigation }: any) => {
                     <View style={common.header_underline} />
                 </View>
                 <Button
-                    onPress={openModal}
-                    title={loading ? "" : "Add Event"}
+                    onPress={() => fetchEvents()}
+                    title={loading ? "" : "Refresh"}
                     disabled={loading}
                     style={[styles.addButton, loading ? styles.buttonDisabled : undefined]}
                 >

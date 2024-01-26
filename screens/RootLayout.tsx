@@ -85,7 +85,7 @@ const AppTabs = () => {
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                top: Platform.OS === "ios" ? 10 : 0,
+                top: Platform.OS === "ios" ? 10 : -5,
                 position: "relative",
               }}
             >
@@ -124,7 +124,7 @@ const AppTabs = () => {
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                top: -10,
+                top: Platform.OS === "ios" ? -10: -20,
                 width: 85,
                 height: 85,
                 borderRadius: 50,
@@ -170,7 +170,7 @@ const AppTabs = () => {
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                top: Platform.OS === "ios" ? 10 : 0,
+                top: Platform.OS === "ios" ? 10 : -5,
                 position: "relative",
               }}
             >
