@@ -3,8 +3,8 @@ import {
   View,
   Text,
   ActivityIndicator,
-  SafeAreaView,
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import common from "../../styles/common";
 import styles from "../../styles/settings/settings";
 import { MaterialIcons } from "@expo/vector-icons";

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
-import { SafeAreaView, View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image, ScrollView } from 'react-native';
+import { View, Text, Modal, FlatList, TextInput, ActivityIndicator, Image, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/common/Button';
 import styles from '../styles/home/home';
 import common from '../styles/common';
