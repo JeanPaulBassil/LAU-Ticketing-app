@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { capitalize } from "../../utils/string";
 import { getTime } from "../../utils/date";
 import { IEvent } from "../../interfaces/events.interface";
-import { MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 type EventItemProps = {
     event: IEvent;
@@ -24,7 +24,7 @@ const EventItem = ({ event, onDelete, onEdit }: EventItemProps) => {
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity onPress={() => onEdit(event._id)} style={styles.button_container}>
-          <AntDesign name="edit" size={20} color="#005C07" />
+          <Entypo name="edit" size={19} color="#005C07" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => onDelete(event._id)} style={styles.button_container}>
           <MaterialIcons name="delete-outline" size={20} color="#CC2400" />
