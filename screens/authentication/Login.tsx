@@ -136,12 +136,13 @@ const LoginScreen = ({ navigation }: any) => {
               <View style={styles.submit_container}>
                 <Button
                   onPress={handlePress}
-                  title={loading ? "" : "Login  →"}
+                  title={loading ? "" : "Login"}
                   disabled={loading}
                   style={[
                     styles.submit_button,
                     loading ? styles.buttonDisabled : undefined,
                   ]}
+                  iconName={'login'}
                 >
                   {loading && <ActivityIndicator size="small" color="#FFF" />}
                 </Button>
