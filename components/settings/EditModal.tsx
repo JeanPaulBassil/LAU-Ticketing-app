@@ -15,7 +15,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useDatePicker from "../../hooks/useDatePicker";
 import { formatDate } from "../../utils/date";
 
-export const EditModal = ({visible, onClose, handleCancel, handleSubmit, loading}: {visible: boolean, onClose: () => void, handleCancel: () => void, handleSubmit: (date: string) => void, loading: boolean}) => {
+export const EditModal = ({visible, onClose, handleCancel, handleSubmit, loading, event_id}: {visible: boolean, onClose: () => void, handleCancel: () => void, handleSubmit: (date: string, event_id: string) => void, loading: boolean, event_id: string}) => {
     const { date, isPickerVisible, showPicker, hidePicker, handleConfirm } = useDatePicker();
     
     return (
@@ -69,7 +69,7 @@ export const EditModal = ({visible, onClose, handleCancel, handleSubmit, loading
                   <Button
                     title="Submit"
                     style={styles.submit_button}
-                    onPress={() => handleSubmit(date.toISOString())}
+                    onPress={() => handleSubmit(date.toISOString(), event_id)}
                     textStyle={styles.button_text}
                     disabled={loading}
                   />

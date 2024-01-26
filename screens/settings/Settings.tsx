@@ -67,21 +67,21 @@ const Settings = () => {
     }
   },[]);
 
-  const onEditSubmit = useCallback(async (date: string) => {
+  const onEditSubmit = useCallback(async (date: string, event_id: string) => {
     setLoadingEvents(true);
     try {
       closeModal();
-      await api.editEvent(currentEventId, date);
+      console.log("onEditSubmit eventID:", event_id);
+      await api.editEvent(event_id, date);
       setError("");
     } catch (err: any) {
-        setError(err.response.data.message);
         dispatch({ type: 'SET_ERROR', payload: err.response.data.message });
     } finally {
       setLoadingEvents(false);
       fetchEvents();
     }
-    
   }, []);
+  
 
   if ((error || error_events) && !loading && !loading_events) {
     return (
@@ -98,14 +98,15 @@ const Settings = () => {
   
 
   const openEditModal = (event_id: string) => {
+    console.log("OpenEditModal: event_id:", event_id || "no event id");
     setCurrentEventId(event_id);
-    console.log("onEditModal eventID:", currentEventId)
+    console.log("OpenEditModal: currentEventId:", currentEventId || "no event id")
     openModal();
   }
 
   return (
     <SafeAreaView style={common.container}>
-      <EditModal visible={visible} onClose={closeModal} handleCancel={closeModal} handleSubmit={onEditSubmit} loading={loading}/>
+      <EditModal visible={visible} onClose={closeModal} handleCancel={closeModal} handleSubmit={onEditSubmit} loading={loading} event_id={currentEventId}/>
       <View style={common.header}>
         <View>
           <Text style={common.header_text}>Settings</Text>
