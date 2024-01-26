@@ -41,7 +41,7 @@ export const EditModal = ({visible, onClose, handleCancel, handleSubmit, loading
           >
             <View style={styles.centered_view}>
               <View style={styles.modal_view}>
-                <Text style={styles.modal_text}>Enter Student Name</Text>
+                <Text style={styles.modal_text}>Update End Date</Text>
                 <View style={styles.modal_text_underline} />
                 
                 <DatePickerButton
