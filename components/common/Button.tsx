@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({ onPress, title, style, textStyle, disab
           {children ? children : (
             <View style={styles.flex}>
               <Text style={[styles.text, textStyle]}>{title}</Text>
-              {iconName && <SimpleLineIcons name={iconName} size={15} color="white" />}
+              {iconName && <SimpleLineIcons name={iconName} size={15} color="white" style={styles.icon}/>}
             </View>
           )}
         </TouchableOpacity>
@@ -43,13 +43,15 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontSize: 17,
-        marginRight: 10
     },
     flex: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         flex: 1
+    },
+    icon: {
+      marginLeft: 10
     }
 })
 

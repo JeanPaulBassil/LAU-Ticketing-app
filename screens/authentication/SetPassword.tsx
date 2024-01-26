@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import {
   Platform,
   Keyboard,
-  SafeAreaView,
   Text,
   View,
   Image,
@@ -10,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   TextInput,
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/common/Button";

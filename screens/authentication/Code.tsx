@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { SafeAreaView, Text, View, Image } from "react-native";
+import { Text, View, Image } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/common/Button";
 import { CommonActions } from "@react-navigation/native";

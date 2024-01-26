@@ -9,10 +9,10 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
-  SafeAreaView,
   TextInput,
   TextInputProps
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { HelperText } from "react-native-paper";
 import Button from "../../components/common/Button";
 import ImageLogo from "../../components/common/ImageLogo";

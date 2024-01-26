@@ -1,5 +1,6 @@
-import React, { Dispatch, useContext } from "react";
-import { View, Text, SafeAreaView, ActivityIndicator } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from "../../styles/home/home";
 import common from "../../styles/common";
 import ErrorDisplay from "../../components/common/ErrorDisplay";
