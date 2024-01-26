@@ -11,7 +11,7 @@ type Props = {
     error: string;
     events: IEvent[];
     onDelete: (event_id: string) => void ;
-    onEdit: (event_id: string) => void;
+    onEdit: (event: IEvent) => void;
 };
 
 const getKey = (item: IEvent, index: number) => item._id ? item._id.toString() : index.toString();

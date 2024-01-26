@@ -18,6 +18,7 @@ import { EventDetailContext } from "../../contexts/EventDetails";
 import { Action } from "../../types/types";
 import useModal from "../../hooks/useModal";
 import { EditModal } from "../../components/settings/EditModal";
+import { IEvent } from "../../interfaces/events.interface";
 
 const Settings = () => {
   const { logout, state } = useAuth();
@@ -25,7 +26,7 @@ const Settings = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { dispatch } = useContext(EventDetailContext) as { dispatch: Dispatch<Action> };
   const { visible, openModal, closeModal } = useModal();
-  const [currentEventId, setCurrentEventId] = useState<string>("");
+  const [currentEvent, setCurrentEvent] = useState<IEvent>();
 
   const {
     loading: loading_events,
@@ -67,12 +68,14 @@ const Settings = () => {
     }
   },[]);
 
-  const onEditSubmit = useCallback(async (date: string, event_id: string) => {
+  const onEditSubmit = useCallback(async (date: string, event: IEvent | undefined) => {
     setLoadingEvents(true);
     try {
       closeModal();
-      console.log("onEditSubmit eventID:", event_id);
-      await api.editEvent(event_id, date);
+      console.log("onEditSubmit eventID:", event?._id);
+      if (event) {
+        await api.editEvent(event._id, date);
+      }
       setError("");
     } catch (err: any) {
         dispatch({ type: 'SET_ERROR', payload: err.response.data.message });
@@ -97,16 +100,14 @@ const Settings = () => {
 
   
 
-  const openEditModal = (event_id: string) => {
-    console.log("OpenEditModal: event_id:", event_id || "no event id");
-    setCurrentEventId(event_id);
-    console.log("OpenEditModal: currentEventId:", currentEventId || "no event id")
+  const openEditModal = (event: IEvent) => {
+    setCurrentEvent(event);
     openModal();
   }
 
   return (
     <SafeAreaView style={common.container}>
-      <EditModal visible={visible} onClose={closeModal} handleCancel={closeModal} handleSubmit={onEditSubmit} loading={loading} event_id={currentEventId}/>
+      <EditModal visible={visible} onClose={closeModal} handleCancel={closeModal} handleSubmit={onEditSubmit} loading={loading} event={currentEvent}/>
       <View style={common.header}>
         <View>
           <Text style={common.header_text}>Settings</Text>

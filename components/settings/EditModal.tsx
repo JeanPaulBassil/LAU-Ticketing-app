@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -14,10 +14,26 @@ import DatePickerButton from "../events/DatePickerButton";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useDatePicker from "../../hooks/useDatePicker";
 import { formatDate } from "../../utils/date";
+import { IEvent } from "../../interfaces/events.interface";
 
-export const EditModal = ({visible, onClose, handleCancel, handleSubmit, loading, event_id}: {visible: boolean, onClose: () => void, handleCancel: () => void, handleSubmit: (date: string, event_id: string) => void, loading: boolean, event_id: string}) => {
-    const { date, isPickerVisible, showPicker, hidePicker, handleConfirm } = useDatePicker();
+interface EditModalProps {
+  visible: boolean;
+  onClose: () => void;
+  handleCancel: () => void;
+  handleSubmit: (date: string, event: IEvent | undefined) => void;
+  loading: boolean;
+  event: IEvent | undefined;
+}
+
+export const EditModal = ({visible, onClose, handleCancel, handleSubmit, loading, event}: EditModalProps)  => {
+    const { date, isPickerVisible, showPicker, hidePicker, handleConfirm, setDate } = useDatePicker();
     
+    useEffect(() => {
+      if (event) {
+          setDate(new Date(event.end_date));
+      }
+  }, [event, setDate]);
+
     return (
     <Modal
       animationType="fade"
@@ -56,6 +72,7 @@ export const EditModal = ({visible, onClose, handleCancel, handleSubmit, loading
                     onConfirm={handleConfirm}
                     onCancel={hidePicker}
                     textColor="black"
+                    date={date}
                 />
 
                 <View style={styles.modal_button_container}>
@@ -69,7 +86,7 @@ export const EditModal = ({visible, onClose, handleCancel, handleSubmit, loading
                   <Button
                     title="Submit"
                     style={styles.submit_button}
-                    onPress={() => handleSubmit(date.toISOString(), event_id)}
+                    onPress={() => handleSubmit(date.toISOString(), event)}
                     textStyle={styles.button_text}
                     disabled={loading}
                   />

@@ -8,7 +8,7 @@ import { MaterialIcons, Entypo } from '@expo/vector-icons';
 type EventItemProps = {
     event: IEvent;
     onDelete: (event_id: string) => void;
-    onEdit: (event_id: string) => void;
+    onEdit: (event: IEvent) => void;
 };
 
 
@@ -23,7 +23,7 @@ const EventItem = ({ event, onDelete, onEdit }: EventItemProps) => {
         </View>
       </View>
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={() => onEdit(event._id)} style={styles.button_container}>
+        <TouchableOpacity onPress={() => onEdit(event)} style={styles.button_container}>
           <Entypo name="edit" size={19} color="#005C07" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => onDelete(event._id)} style={styles.button_container}>

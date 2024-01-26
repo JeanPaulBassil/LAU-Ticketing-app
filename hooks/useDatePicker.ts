@@ -7,11 +7,10 @@ const useDatePicker = (initialDate: Date = new Date()) => {
     const showPicker: () => void = () => setIsPickerVisible(true);
     const hidePicker: () => void = () => setIsPickerVisible(false);
     const handleConfirm: (date: Date) => void = (date) => {
-        setDate(date);
         hidePicker();
     }
 
-    return { date, isPickerVisible, showPicker, hidePicker, handleConfirm };
+    return { date, setDate, isPickerVisible, showPicker, hidePicker, handleConfirm };
 }
 
 export default useDatePicker;
