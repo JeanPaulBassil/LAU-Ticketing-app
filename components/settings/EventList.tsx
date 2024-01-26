@@ -10,11 +10,12 @@ type Props = {
     error: string;
     events: IEvent[];
     onDelete: (event_id: string) => void ;
+    onEdit: (event_id: string) => void;
 };
 
 const getKey = (item: IEvent, index: number) => item._id ? item._id.toString() : index.toString();
 
-const EventsList: React.FC<Props> = ({ loading, error, events, onDelete }) => {
+const EventsList: React.FC<Props> = ({ loading, error, events, onDelete, onEdit }) => {
     if (error || loading) {
         return null;
     }
@@ -30,6 +31,7 @@ const EventsList: React.FC<Props> = ({ loading, error, events, onDelete }) => {
                 <EventItem
                     event={item}
                     onDelete={onDelete}
+                    onEdit={onEdit}
                 />
             )}
             style={styles.events_list}

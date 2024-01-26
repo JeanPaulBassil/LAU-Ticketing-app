@@ -16,12 +16,22 @@ import useEvents from "../../hooks/useEvents";
 import ErrorDisplay from "../../components/common/ErrorDisplay";
 import { EventDetailContext } from "../../contexts/EventDetails";
 import { Action } from "../../types/types";
+<<<<<<< HEAD
+=======
+import useModal from "../../hooks/useModal";
+import { EditModal } from "../../components/settings/EditModal";
+>>>>>>> b662b713d830ed130e7a9d4fb5d46563511a3800
 
 const Settings = () => {
   const { logout, state } = useAuth();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const { dispatch } = useContext(EventDetailContext) as { dispatch: Dispatch<Action> };
+<<<<<<< HEAD
+=======
+  const { visible, openModal, closeModal } = useModal();
+  const [currentEventId, setCurrentEventId] = useState<string>("");
+>>>>>>> b662b713d830ed130e7a9d4fb5d46563511a3800
 
   const {
     loading: loading_events,
@@ -61,7 +71,23 @@ const Settings = () => {
       setLoadingEvents(false);
       fetchEvents();
     }
-  },[])
+  },[]);
+
+  const onEditSubmit = useCallback(async (date: string) => {
+    setLoadingEvents(true);
+    try {
+      closeModal();
+      await api.editEvent(currentEventId, date);
+      setError("");
+    } catch (err: any) {
+        setError(err.response.data.message);
+        dispatch({ type: 'SET_ERROR', payload: err.response.data.message });
+    } finally {
+      setLoadingEvents(false);
+      fetchEvents();
+    }
+    
+  }, []);
 
   if ((error || error_events) && !loading && !loading_events) {
     return (
@@ -75,8 +101,17 @@ const Settings = () => {
     );
   }
 
+  
+
+  const openEditModal = (event_id: string) => {
+    setCurrentEventId(event_id);
+    console.log("onEditModal eventID:", currentEventId)
+    openModal();
+  }
+
   return (
     <SafeAreaView style={common.container}>
+      <EditModal visible={visible} onClose={closeModal} handleCancel={closeModal} handleSubmit={onEditSubmit} loading={loading}/>
       <View style={common.header}>
         <View>
           <Text style={common.header_text}>Settings</Text>
@@ -141,6 +176,7 @@ const Settings = () => {
         error={error || error_events}
         onDelete={deleteEvent}
         events={events}
+        onEdit={openEditModal}
       />
     </SafeAreaView>
   );

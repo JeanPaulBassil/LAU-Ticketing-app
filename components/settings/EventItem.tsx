@@ -3,15 +3,16 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { capitalize } from "../../utils/string";
 import { getTime } from "../../utils/date";
 import { IEvent } from "../../interfaces/events.interface";
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 
 type EventItemProps = {
     event: IEvent;
     onDelete: (event_id: string) => void;
+    onEdit: (event_id: string) => void;
 };
 
 
-const EventItem = ({ event, onDelete }: EventItemProps) => {
+const EventItem = ({ event, onDelete, onEdit }: EventItemProps) => {
   return (
     <View  style={styles.event_row}>
       <View style={styles.event_left}>
@@ -21,10 +22,14 @@ const EventItem = ({ event, onDelete }: EventItemProps) => {
           <Text style={styles.event_time}>{getTime(new Date(event.start_date))} - {getTime(new Date(event.end_date))}</Text>
         </View>
       </View>
-
-      <TouchableOpacity onPress={() => onDelete(event._id)} style={styles.button_container}>
-        <MaterialIcons name="delete-outline" size={20} color="#CC2400" />
-      </TouchableOpacity>
+      <View style={styles.buttons}>
+        <TouchableOpacity onPress={() => onEdit(event._id)} style={styles.button_container}>
+          <AntDesign name="edit" size={20} color="#005C07" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => onDelete(event._id)} style={styles.button_container}>
+          <MaterialIcons name="delete-outline" size={20} color="#CC2400" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -64,6 +69,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
     height: '100%',
+    marginRight: 20,
   },
   button: {
     marginRight: 10,
@@ -73,7 +79,14 @@ const styles = StyleSheet.create({
     color: '#99999e',
     fontWeight: '500',
     fontSize: 11
-  }
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: "100%",
+  },
 });
 
 export default EventItem;
