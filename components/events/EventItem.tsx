@@ -40,7 +40,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onPress }) => {
       <View style={styles.event_left}>
         <Text style={styles.event_name}>{event.name}</Text>
         <View>
-          <View style={[styles.event_detail, { marginTop: 13 }]}>
+          <View style={styles.event_detail}>
             <Fontisto name="date" size={14} color="#005C4A" />
             <Text style={styles.event_detail_text}>
               {new Date(event.start_date).toDateString()}
