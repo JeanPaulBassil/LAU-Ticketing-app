@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
     event_detail: {
         display: 'flex',
         flexDirection: 'row',
-        marginTop: 7
+        marginTop: 7,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
     event_detail_text: {
         color: '#005C4A',

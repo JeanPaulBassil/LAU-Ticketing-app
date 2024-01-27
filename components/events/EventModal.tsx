@@ -49,9 +49,10 @@ const EventModal = ({
   } = useDatePicker();
 
   useEffect(() => {
-    setStartDate(new Date());
-    setEndDate(new Date());
-  }, [])
+    setStartDate(new Date((new Date()).getTime() + 60000));
+    setEndDate(new Date((new Date()).getTime() + 60000 * 60));
+  }, [visible])
+
   const handleAddEvent = async () => {
     const eventData = {
       name: eventName,
