@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import styles from "../../styles/home/event-item";
 import { Fontisto } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -40,7 +40,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onPress }) => {
       <View style={styles.event_left}>
         <Text style={styles.event_name}>{event.name}</Text>
         <View>
-          <View style={styles.event_detail}>
+          <View style={[styles.event_detail, Platform.OS === 'ios' ? { marginTop: 13 }: null]}>
             <Fontisto name="date" size={14} color="#005C4A" />
             <Text style={styles.event_detail_text}>
               {new Date(event.start_date).toDateString()}
