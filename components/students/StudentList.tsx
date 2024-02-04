@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import StudentItem from './StudentItem';
+import NoStudents from './NoStudents';
 import { IStudent, IStudentScan } from '../../interfaces/students.interface';
 import { StyleSheet } from "react-native";
 
@@ -21,10 +22,6 @@ const StudentList: React.FC<Props> = ({ loading, error, students, onEditStudent,
         setIsRefreshing(false);
     }, [fetchStudents]);
 
-    if (error || (Array.isArray(students) && students.length === 0)) {
-        return null;
-    }
-
     return (
         <FlatList
             data={students}
@@ -39,9 +36,12 @@ const StudentList: React.FC<Props> = ({ loading, error, students, onEditStudent,
             style={styles.student_list}
             refreshControl={
                 <RefreshControl
-                    refreshing={isRefreshing}
+                    refreshing={isRefreshing || loading}
                     onRefresh={onRefresh}
                 />
+            }
+            ListEmptyComponent={
+                <NoStudents loading={loading} error={error} />
             }
         />
     );
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         zIndex: -1,
-        marginBottom: 50
+        marginBottom: 50,
     }
 });
 

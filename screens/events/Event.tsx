@@ -156,8 +156,6 @@ const EventDetailScreen = ({ route }: any) => {
       />
       {/* <Info loading={loading} error={error || studentError} students={students} /> */}
       
-      <NoStudents students={students} loading={loading} error={error || studentError} />
-
       {/* {loading && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator

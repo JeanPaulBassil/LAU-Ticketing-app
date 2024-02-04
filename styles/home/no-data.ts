@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         width:'100%',
@@ -18,6 +19,9 @@ notFoundMessage: {
         height: 300,
         resizeMode: "contain",
         marginTop: -100
+    },
+    margin: {
+        marginTop: 200
     }
 });
 
