@@ -1,30 +1,35 @@
-import React from 'react';
-import { FlatList } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { FlatList, RefreshControl } from 'react-native';
 import StudentItem from './StudentItem';
-import { IStudentScan, Attendee, IStudent } from '../../interfaces/students.interface';
+import { IStudent, IStudentScan } from '../../interfaces/students.interface';
 import { StyleSheet } from "react-native";
-
-
 
 type Props = {
     loading: boolean;
     error: string;
     students: IStudentScan[];
     onEditStudent: (student: IStudent) => void;
+    fetchStudents: () => Promise<void>;
 };
-const getKey = (item: IStudentScan, index: number) => item._id ? item._id.toString() : index.toString();
 
+const StudentList: React.FC<Props> = ({ loading, error, students, onEditStudent, fetchStudents }) => {
+    const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
-const StudentList: React.FC<Props> = ({ loading, error, students, onEditStudent }) => {
-    if (error || loading || Array.isArray(students) && students.length === 0) {
+    const onRefresh = useCallback(async () => {
+        setIsRefreshing(true);
+        await fetchStudents();
+        setIsRefreshing(false);
+    }, [fetchStudents]);
+
+    if (error || (Array.isArray(students) && students.length === 0)) {
         return null;
     }
-    
+
     return (
         <FlatList
             data={students}
-            keyExtractor={getKey}
-            renderItem={({ item }: {item: IStudentScan}) => (
+            keyExtractor={(item, index) => item._id ? item._id.toString() : index.toString()}
+            renderItem={({ item }) => (
                 <StudentItem
                     student={item.student}
                     onEdit={() => onEditStudent(item.student)}
@@ -32,14 +37,15 @@ const StudentList: React.FC<Props> = ({ loading, error, students, onEditStudent 
                 />
             )}
             style={styles.student_list}
+            refreshControl={
+                <RefreshControl
+                    refreshing={isRefreshing}
+                    onRefresh={onRefresh}
+                />
+            }
         />
     );
 };
-
-export default StudentList;
-
-
-
 
 const styles = StyleSheet.create({
     student_list: {
@@ -49,3 +55,5 @@ const styles = StyleSheet.create({
         marginBottom: 50
     }
 });
+
+export default StudentList;

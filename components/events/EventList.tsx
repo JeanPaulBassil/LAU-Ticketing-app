@@ -9,9 +9,10 @@ interface EventListProps {
     navigation: any;
     error: string;
     loading: boolean;
+    fetchStudents: () => Promise<void>;
 }
 
-const EventList = ({ events, navigation, error, loading }: EventListProps) => {
+const EventList = ({ events, navigation, error, loading, fetchStudents }: EventListProps) => {
     const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
     const { fetchEvents } = useEvents();
 

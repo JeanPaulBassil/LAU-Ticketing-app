@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from "../../styles/home/home";
@@ -152,12 +152,13 @@ const EventDetailScreen = ({ route }: any) => {
           dispatch({ type: "SET_NEW_NAME", payload: item.name });
           editModal.openModal();
         }}
+        fetchStudents={fetchStudents}
       />
       {/* <Info loading={loading} error={error || studentError} students={students} /> */}
       
       <NoStudents students={students} loading={loading} error={error || studentError} />
 
-      {loading && (
+      {/* {loading && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator
             style={styles.loader}
@@ -165,7 +166,7 @@ const EventDetailScreen = ({ route }: any) => {
             color="#005C4A"
           />
         </View>
-      )}
+      )} */}
 
       <StudentNameModal
         visible={editModal.visible}

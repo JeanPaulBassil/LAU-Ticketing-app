@@ -11,6 +11,7 @@ const useStudents = (eventId: string) => {
     const fetchStudents = async () => {
         setLoading(true);
         try {
+            setStudents([]);
             const response: AxiosResponse = await api.getEventAttendees(eventId);
             setStudents(response.data.attendees);
             console.log(students)
@@ -22,6 +23,7 @@ const useStudents = (eventId: string) => {
     };
 
     useEffect(() => {
+        console.log('fetching students')
         fetchStudents();
     }, [eventId]);
 
