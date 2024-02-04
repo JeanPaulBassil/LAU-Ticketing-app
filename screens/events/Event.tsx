@@ -154,17 +154,6 @@ const EventDetailScreen = ({ route }: any) => {
         }}
         fetchStudents={fetchStudents}
       />
-      {/* <Info loading={loading} error={error || studentError} students={students} /> */}
-      
-      {/* {loading && (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator
-            style={styles.loader}
-            size="large"
-            color="#005C4A"
-          />
-        </View>
-      )} */}
 
       <StudentNameModal
         visible={editModal.visible}
