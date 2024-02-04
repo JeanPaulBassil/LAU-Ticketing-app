@@ -1,18 +1,18 @@
 import React, { useState, useCallback } from 'react';
-import { ScrollView, View, RefreshControl, StyleSheet } from 'react-native';
+import { ScrollView, RefreshControl, StyleSheet, View, Text } from 'react-native';
 import EventItem from './EventItem';
 import { IEvent } from '../../interfaces/events.interface';
 import useEvents from '../../hooks/useEvents';
+import NoEvents from './NoEvents';
 
 interface EventListProps {
     events: IEvent[];
     navigation: any;
     error: string;
     loading: boolean;
-    fetchStudents: () => Promise<void>;
 }
 
-const EventList = ({ events, navigation, error, loading, fetchStudents }: EventListProps) => {
+const EventList = ({ events, navigation, error, loading }: EventListProps) => {
     const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
     const { fetchEvents } = useEvents();
 
@@ -22,9 +22,19 @@ const EventList = ({ events, navigation, error, loading, fetchStudents }: EventL
         setIsRefreshing(false);
     }, []);
 
-    if (error || loading && !isRefreshing || Array.isArray(events) && events.length === 0) {
-        return null;
-    }
+    const content = () => {
+        if (events.length === 0) {
+            return <NoEvents error={error} loading={loading}/>;
+        } else {
+            return events.map((item: IEvent) => (
+                <EventItem
+                    key={item._id}
+                    event={item}
+                    onPress={() => navigation.navigate('Event', { event: item })}
+                />
+            ));
+        }
+    };
 
     return (
         <ScrollView
@@ -36,13 +46,7 @@ const EventList = ({ events, navigation, error, loading, fetchStudents }: EventL
                 />
             }
         >
-            {events.map((item: IEvent) => (
-                <EventItem 
-                    key={item._id}
-                    event={item}
-                    onPress={() => navigation.navigate('Event', { event: item })}
-                />
-            ))}
+            {content()}
         </ScrollView>
     );
 };

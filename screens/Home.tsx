@@ -52,7 +52,7 @@ const HomeScreen = ({ navigation }: any) => {
             
             <EventList loading={loading} error={error} events={events} navigation={navigation} />
 
-            <NoEvents events={events} loading={loading} error={error} />
+            {/* <NoEvents loading={loading} error={error} /> */}
             
             {loading && <View style={styles.loadingContainer}>
                 <ActivityIndicator style={styles.loader} size="large" color="#005C4A" />
